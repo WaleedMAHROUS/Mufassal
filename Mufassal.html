@@ -1,0 +1,1585 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>مفصّل · Mofassal</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500&family=Amiri:wght@400;700&family=Nunito:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0b1520;--surface:#111e2d;--surface2:#172538;--surface3:#1d2f44;
+  --gold:#c9a84c;--gold-light:#e4c97e;--gold-dim:rgba(201,168,76,.13);--gold-border:rgba(201,168,76,.22);
+  --green:#2a6045;--green-light:#4eab7a;--green-dim:rgba(78,171,122,.14);
+  --red:#c94c4c;--red-dim:rgba(201,76,76,.13);
+  --blue:#4a8fc9;--blue-dim:rgba(74,143,201,.13);--blue-border:rgba(74,143,201,.25);
+  --text:#ddd0bb;--text-soft:#9ab0c5;--text-dim:#4d6478;--border:rgba(255,255,255,.07);
+  --r:16px;--rs:10px;
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;background:var(--bg)}
+body{font-family:'Nunito',sans-serif;color:var(--text);max-width:480px;margin:0 auto;min-height:100vh;overflow-x:hidden}
+.hidden{display:none!important}
+
+.geo-top{position:relative;background:var(--surface);overflow:hidden;padding-bottom:40px}
+.geo-top::before{content:'';position:absolute;inset:0;
+  background-image:repeating-linear-gradient(45deg,var(--gold-border) 0,var(--gold-border) 1px,transparent 0,transparent 50%),
+  repeating-linear-gradient(-45deg,var(--gold-border) 0,var(--gold-border) 1px,transparent 0,transparent 50%);
+  background-size:28px 28px;opacity:.35}
+.geo-top::after{content:'';position:absolute;bottom:0;left:0;right:0;height:60px;background:linear-gradient(to bottom,transparent,var(--bg))}
+
+/* ── PROFILES ── */
+#profiles-screen{min-height:100vh;display:flex;flex-direction:column}
+.profiles-header{padding:52px 24px 28px;text-align:center;position:relative;z-index:2}
+.logo-ar{font-family:'Amiri',serif;font-size:52px;color:var(--gold);display:block;line-height:1}
+.logo-en{font-family:'Playfair Display',serif;font-size:14px;letter-spacing:4px;color:var(--text-soft);text-transform:uppercase;margin-top:4px;display:block}
+.profile-list{padding:0 20px;flex:1}
+.profile-card{display:flex;align-items:center;background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:16px 18px;margin-bottom:12px;cursor:pointer;transition:all .2s}
+.profile-card:active{transform:scale(.98)}
+.profile-card:hover{border-color:var(--gold-border)}
+.profile-avatar{width:46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;margin-right:14px;border:2px solid var(--gold-border)}
+.profile-info{flex:1}
+.profile-name{font-size:16px;font-weight:800;color:var(--text)}
+.profile-sub{font-size:12px;color:var(--text-soft);margin-top:3px}
+.profile-arrow{color:var(--text-dim);font-size:20px}
+.btn-add-profile{display:flex;align-items:center;justify-content:center;gap:10px;background:var(--gold-dim);border:1.5px dashed var(--gold-border);border-radius:var(--r);padding:16px;margin:0 20px 32px;cursor:pointer;color:var(--gold-light);font-size:14px;font-weight:700;font-family:'Nunito',sans-serif;transition:all .2s;width:calc(100% - 40px)}
+.btn-add-profile:active{opacity:.7}
+
+/* ── SETUP ── */
+#setup-screen{min-height:100vh;padding-bottom:40px}
+.setup-back{position:absolute;top:16px;left:16px;z-index:10;background:rgba(255,255,255,.08);border:1px solid var(--border);border-radius:99px;padding:7px 16px;font-size:13px;font-weight:700;color:var(--text-soft);cursor:pointer;font-family:'Nunito',sans-serif}
+.setup-header{text-align:center;padding:52px 24px 28px;position:relative;z-index:2}
+.setup-card{margin:0 20px 14px;background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:22px 20px}
+.step-lbl{font-size:11px;text-transform:uppercase;letter-spacing:2px;color:var(--gold);font-weight:700;margin-bottom:12px}
+.setup-q{font-size:15px;font-weight:700;color:var(--text);margin-bottom:14px}
+.setup-hint{font-size:12px;color:var(--text-soft);line-height:1.6;margin-bottom:14px}
+
+.name-input,.date-input,.verse-input,.weeks-input{width:100%;background:var(--surface2);border:1.5px solid var(--border);border-radius:var(--rs);padding:12px 14px;color:var(--text);font-size:15px;font-family:'Nunito',sans-serif;font-weight:600;outline:none}
+.name-input:focus,.date-input:focus,.verse-input:focus,.weeks-input:focus{border-color:var(--gold)}
+.name-input{font-size:16px;font-weight:700}
+.emoji-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.emoji-btn{width:42px;height:42px;border-radius:50%;border:1.5px solid var(--border);background:var(--surface2);font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s}
+.emoji-btn.selected{border-color:var(--gold);background:var(--gold-dim)}
+
+.surah-sw{position:relative}
+.surah-sw select{width:100%;background:var(--surface2);border:1.5px solid var(--border);border-radius:var(--rs);padding:12px 36px 12px 14px;color:var(--text);font-size:14px;font-family:'Nunito',sans-serif;font-weight:600;outline:none;appearance:none;-webkit-appearance:none}
+.surah-sw select:focus{border-color:var(--gold)}
+.surah-sw::after{content:'▾';position:absolute;right:14px;top:50%;transform:translateY(-50%);color:var(--gold);pointer-events:none;font-size:14px}
+.verse-row{display:flex;gap:10px;margin-top:12px;align-items:center}
+.verse-row .verse-input{flex:1}
+.verse-of{font-size:12px;color:var(--text-dim);white-space:nowrap}
+.surah-preview{margin-top:12px;padding:12px;background:var(--gold-dim);border:1px solid var(--gold-border);border-radius:var(--rs);display:flex;justify-content:space-between;align-items:center}
+.sp-en{font-size:13px;font-weight:700;color:var(--gold-light)}
+.sp-info{font-size:11px;color:var(--text-soft);margin-top:2px}
+.sp-ar{font-family:'Amiri',serif;font-size:20px;color:var(--gold-light)}
+.at-start-msg{font-size:12px;color:var(--text-soft);margin-top:10px;padding:10px;background:var(--surface2);border-radius:var(--rs);text-align:center}
+
+.opts3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.opts4{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.opts2{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+.opt-btn{background:var(--surface2);border:1.5px solid var(--border);border-radius:var(--rs);padding:10px 6px;text-align:center;cursor:pointer;transition:all .2s;color:var(--text-soft);font-size:12px;font-weight:600;font-family:'Nunito',sans-serif}
+.opt-btn.selected{background:var(--gold-dim);border-color:var(--gold);color:var(--gold-light)}
+.opt-btn .ov{font-size:16px;font-weight:800;display:block;margin-bottom:2px;color:var(--text)}
+.opt-btn.selected .ov{color:var(--gold-light)}
+.opt-btn.dur-btn .ov{font-size:13px}
+
+/* Duration & weeks custom input */
+.custom-weeks-row{display:flex;gap:10px;margin-top:10px;align-items:center}
+.custom-weeks-row .weeks-input{flex:1;max-width:120px}
+.custom-weeks-label{font-size:12px;color:var(--text-soft)}
+
+.duration-preview{margin-top:12px;padding:12px 14px;background:var(--gold-dim);border:1px solid var(--gold-border);border-radius:var(--rs);font-size:12px;color:var(--gold-light);display:none}
+.duration-preview strong{font-weight:800}
+
+/* Weekly milestone list */
+.week-milestone-toggle{display:flex;align-items:center;justify-content:space-between;margin-top:10px;padding:8px 0;cursor:pointer;font-size:12px;font-weight:700;color:var(--text-soft);border-top:1px solid var(--border)}
+.week-milestone-toggle .wmt-arrow{transition:transform .2s;display:inline-block}
+.week-milestone-toggle.open .wmt-arrow{transform:rotate(180deg)}
+.week-milestone-list{display:none;margin-top:6px;border-radius:var(--rs);overflow:hidden;border:1px solid var(--border)}
+.week-milestone-list.open{display:block}
+.wml-item{display:flex;justify-content:space-between;align-items:center;padding:7px 12px;border-bottom:1px solid var(--border);font-size:12px}
+.wml-item:last-child{border-bottom:none}
+.wml-item:nth-child(even){background:var(--surface2)}
+.wml-week{color:var(--text-dim);font-weight:700;min-width:52px}
+.wml-surah{color:var(--text);font-weight:700;flex:1;text-align:center}
+.wml-verse{color:var(--gold-light);font-weight:800;text-align:right;min-width:60px}
+
+.btn-primary{display:block;width:calc(100% - 40px);margin:20px 20px 0;padding:16px;background:linear-gradient(135deg,var(--gold),#a8782e);border:none;border-radius:var(--r);color:#1a1000;font-size:16px;font-weight:800;font-family:'Nunito',sans-serif;cursor:pointer;letter-spacing:.5px;box-shadow:0 4px 20px rgba(201,168,76,.3);transition:all .2s}
+.btn-primary:active{transform:scale(.98)}
+
+/* ── MAIN APP ── */
+#main-app{min-height:100vh;padding-bottom:72px}
+.topbar{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:10px 16px;background:rgba(11,21,32,.93);backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
+.topbar-logo{font-family:'Amiri',serif;font-size:24px;color:var(--gold)}
+.topbar-center{display:flex;flex-direction:column;align-items:center}
+.topbar-tab{font-size:12px;font-weight:700;color:var(--text-soft);letter-spacing:1px;text-transform:uppercase}
+.topbar-profile{font-size:10px;color:var(--text-dim);margin-top:1px}
+.streak-pill{display:flex;align-items:center;gap:4px;background:var(--gold-dim);border:1px solid var(--gold-border);border-radius:99px;padding:5px 11px;font-size:13px;font-weight:800;color:var(--gold-light)}
+.bottom-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;background:rgba(17,30,45,.97);border-top:1px solid var(--border);backdrop-filter:blur(16px);display:grid;grid-template-columns:repeat(4,1fr);padding:8px 0 max(8px,env(safe-area-inset-bottom));z-index:200}
+.nav-item{display:flex;flex-direction:column;align-items:center;gap:3px;padding:6px 4px;cursor:pointer;transition:all .2s;border:none;background:none}
+.nav-icon{font-size:20px}.nav-label{font-size:10px;font-weight:600;color:var(--text-dim);letter-spacing:.5px;text-transform:uppercase}
+.nav-item.active .nav-label{color:var(--gold)}
+.tab-content{display:none;padding-bottom:12px}
+.tab-content.active{display:block}
+
+/* ── TODAY ── */
+.hero-date{background:var(--surface);padding:20px 20px 18px;border-bottom:1px solid var(--border)}
+.greeting{font-family:'Playfair Display',serif;font-size:20px;color:var(--text);margin-bottom:3px}
+.today-date-str{font-size:13px;color:var(--text-soft)}
+.pb-wrap{margin-top:14px;background:var(--surface2);border-radius:99px;height:6px;position:relative;overflow:hidden}
+.pb-fill{position:absolute;left:0;top:0;bottom:0;background:linear-gradient(90deg,var(--green),var(--green-light));border-radius:99px;transition:width .6s ease}
+.pb-goal-mark{position:absolute;top:-2px;bottom:-2px;width:2px;background:var(--gold);border-radius:1px}
+.prog-label{display:flex;justify-content:space-between;margin-top:7px;font-size:12px;color:var(--text-soft)}
+
+.sec-hdr{padding:18px 20px 10px;font-size:11px;text-transform:uppercase;letter-spacing:2px;color:var(--gold);font-weight:700}
+.sec-hdr.next-hdr{color:var(--blue);padding-top:10px}
+.sec-hdr.advance-hdr{color:var(--blue);padding-top:10px}
+
+/* ── TASK CARD ── */
+.task-card{margin:0 16px 12px;background:var(--surface);border:1.5px solid var(--border);border-radius:var(--r);padding:18px;transition:all .3s}
+.task-card.done{background:var(--green-dim);border-color:rgba(78,171,122,.25)}
+.task-card.next-card{border-style:dashed;border-color:var(--blue-border);background:var(--blue-dim)}
+.task-card.next-card.done{background:var(--green-dim);border-color:rgba(78,171,122,.25);border-style:solid}
+.task-type{font-size:10px;text-transform:uppercase;letter-spacing:2px;font-weight:700;margin-bottom:8px;display:flex;align-items:center;gap:6px}
+.new-type{color:var(--gold)}
+.rev-type{color:var(--green-light)}
+.adv-type{color:var(--blue)}
+
+/* Task header row: English surah + Arabic */
+.task-header-row{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:4px}
+.task-surah-en{font-size:15px;font-weight:800;color:var(--text)}
+.task-surah-ar{font-family:'Amiri',serif;font-size:22px;color:rgba(201,168,76,.55);direction:rtl}
+
+/* Verse range — prominent */
+.task-verse-range{font-size:20px;font-weight:800;color:var(--gold-light);line-height:1.25;margin-bottom:4px}
+.task-verse-range.rev-range{color:var(--green-light)}
+.task-verse-range.adv-range{color:var(--blue)}
+
+/* Subtitle row: page + juz */
+.task-sub{font-size:11px;color:var(--text-soft);margin-bottom:2px}
+
+/* Revision cycle bar */
+.rev-cycle-wrap{margin:8px 0 10px}
+.rev-cycle-label{display:flex;justify-content:space-between;font-size:10px;color:var(--text-dim);margin-bottom:4px}
+.rev-cycle-bar{height:4px;background:var(--surface3);border-radius:99px;overflow:hidden;position:relative}
+.rev-cycle-fill{height:100%;background:linear-gradient(90deg,var(--green),var(--green-light));border-radius:99px;transition:width .5s}
+
+.task-footer{display:flex;align-items:center;gap:10px;margin-top:10px}
+.btn-complete{flex:1;padding:11px;border-radius:var(--rs);border:none;font-family:'Nunito',sans-serif;font-size:14px;font-weight:800;cursor:pointer;transition:all .2s}
+.btn-complete.new-btn{background:linear-gradient(135deg,var(--gold),#a8782e);color:#1a1000}
+.btn-complete.rev-btn{background:linear-gradient(135deg,var(--green-light),var(--green));color:#fff}
+.btn-complete.adv-btn{background:linear-gradient(135deg,var(--blue),#2a5f8a);color:#fff}
+.btn-complete:active{transform:scale(.97)}
+.done-badge{display:flex;align-items:center;gap:6px;font-size:13px;font-weight:700;color:var(--green-light)}
+
+/* Ahead counter pill */
+.ahead-pill{display:inline-flex;align-items:center;gap:5px;background:var(--blue-dim);border:1px solid var(--blue-border);border-radius:99px;padding:4px 10px;font-size:11px;font-weight:700;color:var(--blue);margin:4px 16px 0}
+
+.stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:0 16px;padding:4px 0 16px}
+.stat-box{background:var(--surface);border:1px solid var(--border);border-radius:var(--rs);padding:14px 10px;text-align:center}
+.stat-val{font-size:22px;font-weight:800;color:var(--gold-light)}
+.stat-label{font-size:10px;text-transform:uppercase;letter-spacing:1px;color:var(--text-dim);margin-top:3px;font-weight:600}
+.week-dots{display:flex;gap:6px;padding:0 20px;margin-bottom:8px}
+.week-dot-col{flex:1;text-align:center}
+.wdl{font-size:9px;color:var(--text-dim);font-weight:600;margin-bottom:5px}
+.wd{width:28px;height:28px;border-radius:50%;margin:0 auto;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700}
+.wd-full{background:var(--green-dim);color:var(--green-light);border:1.5px solid rgba(78,171,122,.3)}
+.wd-partial{background:var(--gold-dim);color:var(--gold);border:1.5px solid var(--gold-border)}
+.wd-empty{background:var(--surface2);color:var(--text-dim);border:1.5px solid var(--border)}
+.wd-today{border-color:var(--gold)!important;box-shadow:0 0 0 3px var(--gold-dim)}
+.wd-future{background:transparent;color:var(--text-dim);border:1.5px dashed var(--border)}
+
+.cb{margin:4px 16px 12px;background:linear-gradient(135deg,rgba(201,168,76,.12),rgba(78,171,122,.08));border:1px solid var(--gold-border);border-radius:var(--r);padding:22px;text-align:center}
+.cb-emoji{font-size:36px;display:block;margin-bottom:8px}
+.cb-title{font-family:'Playfair Display',serif;font-size:18px;color:var(--gold-light);margin-bottom:6px}
+.cb-sub{font-size:13px;color:var(--text-soft);line-height:1.6}
+
+/* ── PROGRESS ── */
+.progress-circle-wrap{padding:28px 20px 16px;text-align:center}
+.progress-ring{position:relative;width:180px;height:180px;margin:0 auto}
+.progress-ring svg{transform:rotate(-90deg);width:180px;height:180px}
+.ring-bg{fill:none;stroke:var(--surface3);stroke-width:12}
+.ring-fill{fill:none;stroke:url(#ringGrad);stroke-width:12;stroke-linecap:round;transition:stroke-dashoffset 1s ease}
+.ring-goal{fill:none;stroke:rgba(201,168,76,.3);stroke-width:12;stroke-linecap:round}
+.ring-label{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.ring-pct{font-size:32px;font-weight:800;color:var(--gold-light);font-family:'Playfair Display',serif}
+.ring-sub{font-size:12px;color:var(--text-soft);margin-top:2px}
+.stats-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:0 16px 20px}
+.sbox{background:var(--surface);border:1px solid var(--border);border-radius:var(--rs);padding:16px}
+.sbox .sv{font-size:24px;font-weight:800;color:var(--text)}
+.sbox .sl{font-size:11px;text-transform:uppercase;letter-spacing:1.5px;color:var(--text-dim);font-weight:700;margin-top:4px}
+.sbox .ss{font-size:12px;color:var(--text-soft);margin-top:2px}
+
+/* Plan Goal Card */
+.plan-goal-card{margin:0 16px 20px;background:var(--surface);border:1px solid var(--gold-border);border-radius:var(--r);overflow:hidden}
+.pgc-header{background:linear-gradient(135deg,rgba(201,168,76,.15),rgba(78,171,122,.08));padding:16px 18px 12px;border-bottom:1px solid var(--gold-border)}
+.pgc-title{font-family:'Playfair Display',serif;font-size:16px;color:var(--gold-light);font-style:italic}
+.pgc-dates{display:flex;justify-content:space-between;margin-top:8px;font-size:11px;color:var(--text-soft)}
+.pgc-timeline{padding:12px 18px}
+.tl-bar{position:relative;height:8px;background:var(--surface3);border-radius:99px;margin:10px 0}
+.tl-time{position:absolute;left:0;top:0;bottom:0;background:rgba(74,143,201,.35);border-radius:99px;transition:width .6s}
+.tl-progress{position:absolute;left:0;top:0;bottom:0;background:linear-gradient(90deg,var(--green),var(--green-light));border-radius:99px;transition:width .6s}
+.tl-now{position:absolute;top:-4px;bottom:-4px;width:3px;background:var(--gold);border-radius:1px;transform:translateX(-50%)}
+.tl-labels{display:flex;justify-content:space-between;font-size:10px;color:var(--text-dim)}
+.pgc-target{padding:12px 18px;border-top:1px solid var(--border)}
+.pgc-target-lbl{font-size:10px;text-transform:uppercase;letter-spacing:2px;color:var(--gold);font-weight:700;margin-bottom:6px}
+.pgc-target-verse{font-size:15px;font-weight:800;color:var(--text)}
+.pgc-target-sub{font-size:12px;color:var(--text-soft);margin-top:2px}
+.pgc-stats{display:grid;grid-template-columns:repeat(3,1fr);padding:0 18px 14px;gap:8px}
+.pgc-stat{text-align:center;background:var(--surface2);border-radius:var(--rs);padding:10px 6px}
+.pgc-stat .pv{font-size:16px;font-weight:800;color:var(--gold-light)}
+.pgc-stat .pl{font-size:9px;text-transform:uppercase;letter-spacing:1px;color:var(--text-dim);font-weight:700;margin-top:2px}
+
+/* Weekly milestone section in progress */
+.pgc-weeks{border-top:1px solid var(--border)}
+.pgc-weeks-toggle{display:flex;align-items:center;justify-content:space-between;padding:12px 18px;cursor:pointer;font-size:12px;font-weight:700;color:var(--text-soft)}
+.pgc-weeks-toggle .arr{transition:transform .2s;font-size:10px}
+.pgc-weeks-toggle.open .arr{transform:rotate(180deg)}
+.pgc-weeks-body{display:none;padding:0 18px 14px}
+.pgc-weeks-body.open{display:block}
+.pgc-wml-item{display:flex;align-items:center;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--border);font-size:12px}
+.pgc-wml-item:last-child{border-bottom:none}
+.pgc-wml-item.current-week{background:var(--gold-dim);border-radius:var(--rs);padding:6px 8px;margin:2px -8px}
+.pgc-wml-w{color:var(--text-dim);font-weight:700;min-width:52px;font-size:11px}
+.pgc-wml-s{color:var(--text);font-weight:700;flex:1}
+.pgc-wml-v{color:var(--gold-light);font-weight:800;font-size:13px}
+.pgc-wml-done{color:var(--green-light)}
+.pgc-wml-current{color:var(--gold)}
+
+.sec-title{padding:20px 16px 10px;font-family:'Playfair Display',serif;font-size:18px;font-style:italic;color:var(--text)}
+.divider{height:1px;background:var(--border);margin:4px 16px}
+.juz-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;padding:0 16px 20px}
+.juz-cell{aspect-ratio:1;border-radius:var(--rs);display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:11px;font-weight:800;border:1.5px solid transparent}
+.juz-cell .jn{font-size:13px;font-weight:800}
+.juz-cell .jl{font-size:9px;margin-top:1px;opacity:.75}
+.juz-done{background:var(--green-dim);border-color:rgba(78,171,122,.3)!important;color:var(--green-light)}
+.juz-partial{background:var(--gold-dim);border-color:var(--gold-border)!important;color:var(--gold-light)}
+.juz-empty{background:var(--surface2);border-color:var(--border)!important;color:var(--text-dim)}
+.juz-current{border-color:var(--gold)!important;box-shadow:0 0 0 3px var(--gold-dim)}
+.surah-list{padding:0 16px 20px}
+.surah-item{display:flex;align-items:center;padding:10px 0;border-bottom:1px solid var(--border)}
+.surah-item:last-child{border-bottom:none}
+.snum{width:30px;height:30px;border-radius:50%;background:var(--surface3);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:var(--text-dim);flex-shrink:0;margin-right:12px}
+.snum.ds{background:var(--green-dim);color:var(--green-light)}
+.snum.ps{background:var(--gold-dim);color:var(--gold)}
+.sen{font-size:14px;font-weight:700;color:var(--text);flex:1}
+.spg{font-size:11px;color:var(--text-dim);margin-top:1px}
+
+/* ── CALENDAR ── */
+.cal-nav{display:flex;align-items:center;justify-content:space-between;padding:20px 20px 14px}
+.cal-month-name{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--text)}
+.cal-nb{background:var(--surface2);border:1px solid var(--border);border-radius:var(--rs);width:36px;height:36px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:16px;color:var(--text-soft)}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;padding:0 12px 20px}
+.cal-dow{text-align:center;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--text-dim);padding:4px 0 8px}
+.cal-day{aspect-ratio:1;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700}
+.cdf{color:var(--text-dim)}.cdt{border:1.5px solid var(--gold);color:var(--gold-light)}
+.cdfl{background:var(--green-dim);color:var(--green-light)}.cdpa{background:var(--gold-dim);color:var(--gold-light)}
+.cdmi{background:var(--red-dim);color:var(--red);opacity:.6}
+.cal-legend{display:flex;flex-wrap:wrap;gap:12px;padding:0 20px 20px}
+.leg-i{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--text-soft)}
+.leg-d{width:10px;height:10px;border-radius:3px}
+
+/* ── SETTINGS ── */
+.settings-section{margin:4px 16px 4px;background:var(--surface);border:1px solid var(--border);border-radius:var(--r);overflow:hidden}
+.settings-row{padding:15px 16px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border)}
+.settings-row:last-child{border-bottom:none}
+.srl{font-size:14px;font-weight:600;color:var(--text)}
+.srld{font-size:11px;color:var(--text-dim);margin-top:2px}
+.srv{font-size:13px;color:var(--text-soft);font-weight:600;text-align:right;max-width:55%}
+.ss-lbl{padding:16px 16px 6px;font-size:11px;text-transform:uppercase;letter-spacing:2px;color:var(--gold);font-weight:700}
+.btn-danger{display:block;width:calc(100% - 32px);margin:6px 16px;padding:13px;background:var(--red-dim);border:1px solid rgba(201,76,76,.3);border-radius:var(--rs);color:var(--red);font-family:'Nunito',sans-serif;font-size:14px;font-weight:800;cursor:pointer;transition:all .2s}
+.btn-secondary{display:block;width:calc(100% - 32px);margin:6px 16px;padding:13px;background:var(--blue-dim);border:1px solid var(--blue-border);border-radius:var(--rs);color:var(--blue);font-family:'Nunito',sans-serif;font-size:14px;font-weight:800;cursor:pointer;transition:all .2s;text-align:center}
+.btn-gold{display:block;width:calc(100% - 32px);margin:6px 16px;padding:13px;background:var(--gold-dim);border:1px solid var(--gold-border);border-radius:var(--rs);color:var(--gold-light);font-family:'Nunito',sans-serif;font-size:14px;font-weight:800;cursor:pointer;transition:all .2s;text-align:center}
+.btn-danger:active,.btn-secondary:active,.btn-gold:active{opacity:.7}
+.profiles-settings{padding:0 16px 8px}
+.pr-row{display:flex;align-items:center;background:var(--surface);border:1px solid var(--border);border-radius:var(--rs);padding:12px 14px;margin-bottom:8px}
+.pr-row.active-p{border-color:var(--gold-border);background:var(--gold-dim)}
+.pr-row .pra{font-size:20px;margin-right:12px}
+.pr-row .prn{font-size:14px;font-weight:700;color:var(--text);flex:1}
+.pr-row .prb{font-size:10px;font-weight:700;background:var(--gold);color:#1a1000;border-radius:99px;padding:3px 8px;margin-right:8px}
+.pr-row .prsw{font-size:11px;font-weight:700;color:var(--gold-light);cursor:pointer;background:var(--gold-dim);border:none;font-family:'Nunito',sans-serif;padding:4px 8px;border-radius:99px}
+.sync-box{margin:0 16px 12px;background:var(--surface2);border:1px solid var(--blue-border);border-radius:var(--rs);padding:16px;font-size:13px;color:var(--text-soft);line-height:1.8}
+.sync-box strong{color:var(--blue)}
+.app-info{text-align:center;padding:20px 20px 12px;font-size:12px;color:var(--text-dim);line-height:1.9}
+
+/* ── MODAL / TOAST ── */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.75);backdrop-filter:blur(4px);z-index:1000;display:flex;align-items:center;justify-content:center;padding:20px}
+.modal-overlay.hidden{display:none}
+.modal{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:26px 22px;max-width:360px;width:100%}
+.modal-title{font-family:'Playfair Display',serif;font-size:18px;color:var(--text);margin-bottom:10px}
+.modal-body{font-size:13px;color:var(--text-soft);line-height:1.7;margin-bottom:20px}
+.modal-btns{display:flex;gap:10px}
+.modal-btns .mc{flex:1;padding:12px;border-radius:var(--rs);background:var(--surface2);border:1px solid var(--border);color:var(--text-soft);font-family:'Nunito',sans-serif;font-size:14px;font-weight:700;cursor:pointer}
+.modal-btns .mf{flex:1;padding:12px;border-radius:var(--rs);background:var(--red-dim);border:1px solid rgba(201,76,76,.3);color:var(--red);font-family:'Nunito',sans-serif;font-size:14px;font-weight:700;cursor:pointer}
+.toast{position:fixed;bottom:88px;left:50%;transform:translateX(-50%) translateY(12px);background:var(--surface3);border:1px solid var(--border);border-radius:99px;padding:10px 20px;font-size:13px;font-weight:700;color:var(--text);opacity:0;transition:all .3s;pointer-events:none;z-index:500;white-space:nowrap}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.fi{animation:fadeIn .35s ease forwards}
+</style>
+</head>
+<body>
+
+<!-- ══ PROFILES ══ -->
+<div id="profiles-screen">
+  <div class="geo-top">
+    <div class="profiles-header">
+      <span class="logo-ar">مفصّل</span>
+      <span class="logo-en">Mofassal</span>
+      <div style="font-size:13px;color:var(--text-soft);margin-top:10px">Choose a profile to continue</div>
+    </div>
+  </div>
+  <div style="height:20px"></div>
+  <div class="profile-list" id="profile-list"></div>
+  <button class="btn-add-profile" onclick="startSetup()">＋ Add new profile</button>
+</div>
+
+<!-- ══ SETUP ══ -->
+<div id="setup-screen" class="hidden">
+  <div class="geo-top">
+    <button class="setup-back" onclick="goBack()">← Back</button>
+    <div class="setup-header">
+      <span style="font-family:'Amiri',serif;font-size:40px;color:var(--gold);display:block;line-height:1">مفصّل</span>
+      <p style="font-size:13px;color:var(--text-soft);margin-top:8px">Personal Quran Memorization Plan</p>
+    </div>
+  </div>
+  <div style="height:16px"></div>
+
+  <!-- S1: Name -->
+  <div class="setup-card">
+    <div class="step-lbl">Step 1 · Profile</div>
+    <div class="setup-q">Who is this plan for?</div>
+    <input class="name-input" id="si-name" type="text" placeholder="e.g. Ahmed, Mama, Yusuf…" maxlength="24">
+    <div class="emoji-row" id="emoji-row">
+      <div class="emoji-btn selected" data-e="🌙" onclick="pickEmoji(this)">🌙</div>
+      <div class="emoji-btn" data-e="📖" onclick="pickEmoji(this)">📖</div>
+      <div class="emoji-btn" data-e="⭐" onclick="pickEmoji(this)">⭐</div>
+      <div class="emoji-btn" data-e="🕌" onclick="pickEmoji(this)">🕌</div>
+      <div class="emoji-btn" data-e="🌸" onclick="pickEmoji(this)">🌸</div>
+      <div class="emoji-btn" data-e="🦁" onclick="pickEmoji(this)">🦁</div>
+      <div class="emoji-btn" data-e="🌺" onclick="pickEmoji(this)">🌺</div>
+      <div class="emoji-btn" data-e="🌿" onclick="pickEmoji(this)">🌿</div>
+    </div>
+  </div>
+
+  <!-- S2: Starting point -->
+  <div class="setup-card">
+    <div class="step-lbl">Step 2 · Starting Point</div>
+    <div class="setup-q">What is the last Surah & verse already memorized?</div>
+    <div class="setup-hint">Your new memorization will begin from the <strong style="color:var(--gold-light)">next verse</strong> after this. Revision covers everything up to this point.</div>
+    <div class="surah-sw"><select id="si-surah" onchange="onSurahChange()"><option value="0">— Not started yet (begin from Al-Fatiha)</option></select></div>
+    <div class="verse-row" id="verse-row" style="display:none">
+      <input type="number" class="verse-input" id="si-verse" min="1" value="1" placeholder="Verse #" oninput="onVerseChange()">
+      <div class="verse-of" id="verse-of">of — verses</div>
+    </div>
+    <div id="surah-preview" class="surah-preview" style="display:none">
+      <div><div class="sp-en" id="sp-en"></div><div class="sp-info" id="sp-info"></div></div>
+      <div class="sp-ar" id="sp-ar"></div>
+    </div>
+    <div class="at-start-msg" id="at-start-msg">Starting from the very beginning · سورة الفاتحة</div>
+  </div>
+
+  <!-- S3: Duration -->
+  <div class="setup-card">
+    <div class="step-lbl">Step 3 · Plan Duration</div>
+    <div class="setup-q">How long is this memorization plan?</div>
+    <div class="setup-hint">Set a time goal to visualize what you'll reach by the end — week by week. You can always change this later.</div>
+    <div class="opts4" id="dur-opts" style="margin-bottom:8px">
+      <div class="opt-btn dur-btn selected" data-w="0" onclick="pickDur(this)"><span class="ov">∞</span>No limit</div>
+      <div class="opt-btn dur-btn" data-w="4" onclick="pickDur(this)"><span class="ov">4</span>weeks</div>
+      <div class="opt-btn dur-btn" data-w="8" onclick="pickDur(this)"><span class="ov">8</span>weeks</div>
+      <div class="opt-btn dur-btn" data-w="12" onclick="pickDur(this)"><span class="ov">12</span>weeks</div>
+    </div>
+    <div class="opts4" id="dur-opts2" style="margin-bottom:8px">
+      <div class="opt-btn dur-btn" data-w="16" onclick="pickDur(this)"><span class="ov">16</span>weeks</div>
+      <div class="opt-btn dur-btn" data-w="24" onclick="pickDur(this)"><span class="ov">24</span>weeks</div>
+      <div class="opt-btn dur-btn" data-w="36" onclick="pickDur(this)"><span class="ov">36</span>weeks</div>
+      <div class="opt-btn dur-btn" data-w="52" onclick="pickDur(this)"><span class="ov">52</span>weeks</div>
+    </div>
+    <!-- Custom week input -->
+    <div class="custom-weeks-row">
+      <input type="number" class="weeks-input" id="si-custom-weeks" min="1" max="260" placeholder="Custom…" oninput="pickCustomWeeks(this)">
+      <span class="custom-weeks-label">Enter any number of weeks</span>
+    </div>
+    <div class="duration-preview" id="dur-preview"></div>
+    <!-- Week-by-week milestone list -->
+    <div id="week-milestone-section" style="display:none">
+      <div class="week-milestone-toggle" id="wm-toggle" onclick="toggleWeekMilestones()">
+        <span>📅 Week-by-week targets</span><span class="wmt-arrow">▾</span>
+      </div>
+      <div class="week-milestone-list" id="wm-list"></div>
+    </div>
+  </div>
+
+  <!-- S4: Daily new -->
+  <div class="setup-card">
+    <div class="step-lbl">Step 4 · Memorization Pace</div>
+    <div class="setup-q">How many new pages per day?</div>
+    <div class="opts3" id="new-opts">
+      <div class="opt-btn" data-v="0.25"><span class="ov">¼</span>page/day</div>
+      <div class="opt-btn" data-v="0.5"><span class="ov">½</span>page/day</div>
+      <div class="opt-btn selected" data-v="1"><span class="ov">1</span>page/day</div>
+      <div class="opt-btn" data-v="2"><span class="ov">2</span>pages/day</div>
+      <div class="opt-btn" data-v="3"><span class="ov">3</span>pages/day</div>
+      <div class="opt-btn" data-v="5"><span class="ov">5</span>pages/day</div>
+    </div>
+  </div>
+
+  <!-- S5: Revision -->
+  <div class="setup-card">
+    <div class="step-lbl">Step 5 · Daily Revision (مُرَاجَعَة)</div>
+    <div class="setup-q">How many pages to revise each day?</div>
+    <div class="setup-hint">Revision cycles through all memorized material. After one full cycle completes, it automatically restarts from the beginning — now including all newly memorized pages.</div>
+    <div class="opts2" id="rev-opts">
+      <div class="opt-btn" data-v="2"><span class="ov">2</span>pages/day</div>
+      <div class="opt-btn" data-v="5"><span class="ov">5</span>pages/day</div>
+      <div class="opt-btn selected" data-v="10"><span class="ov">10</span>pages/day</div>
+      <div class="opt-btn" data-v="20"><span class="ov">20</span>pages/day</div>
+    </div>
+  </div>
+
+  <!-- S6: Start date -->
+  <div class="setup-card">
+    <div class="step-lbl">Step 6 · Start Date</div>
+    <div class="setup-q">When does the plan begin?</div>
+    <input type="date" class="date-input" id="si-startdate">
+  </div>
+
+  <button class="btn-primary" onclick="createPlan()">✦ Begin the Journey ✦</button>
+  <div style="height:24px"></div>
+</div>
+
+<!-- ══ MAIN APP ══ -->
+<div id="main-app" class="hidden">
+  <div class="topbar">
+    <span class="topbar-logo">مفصّل</span>
+    <div class="topbar-center">
+      <span class="topbar-tab" id="tab-title">Today</span>
+      <span class="topbar-profile" id="topbar-profile"></span>
+    </div>
+    <div class="streak-pill">🔥 <span id="streak-count">0</span></div>
+  </div>
+
+  <!-- TODAY -->
+  <div id="tab-today" class="tab-content active">
+    <div class="hero-date">
+      <div class="greeting" id="greeting-text">Assalamu Alaikum</div>
+      <div class="today-date-str" id="today-date-str"></div>
+      <div class="pb-wrap">
+        <div class="pb-fill" id="pb-fill" style="width:0%"></div>
+        <div class="pb-goal-mark hidden" id="pb-goal-mark"></div>
+      </div>
+      <div class="prog-label">
+        <span id="prog-pages-lbl">0 pages memorized</span>
+        <span id="prog-pct-lbl">0%</span>
+      </div>
+    </div>
+    <div id="today-tasks"></div>
+    <div id="today-done-banner" class="hidden">
+      <div class="cb">
+        <span class="cb-emoji">🌙</span>
+        <div class="cb-title">MashaAllah! All done today!</div>
+        <div class="cb-sub">Both memorization & revision complete.<br>May Allah keep it firm. Today's tasks are sealed. ↓</div>
+      </div>
+    </div>
+    <div id="advance-tasks"></div>
+    <div class="sec-hdr" style="margin-top:4px">This Week</div>
+    <div class="week-dots" id="week-dots"></div>
+    <div class="sec-hdr">Quick Stats</div>
+    <div class="stat-row" id="quick-stats"></div>
+  </div>
+
+  <!-- PROGRESS -->
+  <div id="tab-progress" class="tab-content">
+    <div class="progress-circle-wrap">
+      <div class="progress-ring">
+        <svg viewBox="0 0 180 180">
+          <defs><linearGradient id="ringGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#c9a84c"/>
+            <stop offset="100%" stop-color="#4eab7a"/>
+          </linearGradient></defs>
+          <circle class="ring-bg" cx="90" cy="90" r="78"/>
+          <circle class="ring-goal hidden" id="ring-goal" cx="90" cy="90" r="78" stroke-dasharray="490" stroke-dashoffset="490"/>
+          <circle class="ring-fill" id="ring-circle" cx="90" cy="90" r="78" stroke-dasharray="490" stroke-dashoffset="490"/>
+        </svg>
+        <div class="ring-label">
+          <div class="ring-pct" id="ring-pct">0%</div>
+          <div class="ring-sub" id="ring-sub">of Quran</div>
+        </div>
+      </div>
+      <div style="margin-top:14px;font-size:13px;color:var(--text-soft)" id="ring-detail"></div>
+    </div>
+    <div class="stats-grid" id="stats-grid"></div>
+    <div id="plan-goal-section"></div>
+    <div class="sec-title">The 30 Juz — جدول الأجزاء</div>
+    <div class="divider" style="margin-bottom:14px"></div>
+    <div class="juz-grid" id="juz-grid"></div>
+    <div class="sec-title">Surah Progress</div>
+    <div class="divider" style="margin-bottom:14px"></div>
+    <div class="surah-list" id="surah-list"></div>
+  </div>
+
+  <!-- CALENDAR -->
+  <div id="tab-calendar" class="tab-content">
+    <div class="cal-nav">
+      <button class="cal-nb" onclick="changeMonth(-1)">‹</button>
+      <div class="cal-month-name" id="cal-month-name"></div>
+      <button class="cal-nb" onclick="changeMonth(1)">›</button>
+    </div>
+    <div class="cal-grid" id="cal-grid"></div>
+    <div class="cal-legend">
+      <div class="leg-i"><div class="leg-d" style="background:var(--green-dim);border:1px solid rgba(78,171,122,.3)"></div>Both done</div>
+      <div class="leg-i"><div class="leg-d" style="background:var(--gold-dim);border:1px solid var(--gold-border)"></div>Partial</div>
+      <div class="leg-i"><div class="leg-d" style="background:var(--red-dim);border:1px solid rgba(201,76,76,.2)"></div>Missed</div>
+      <div class="leg-i"><div class="leg-d" style="border:1.5px solid var(--gold)"></div>Today</div>
+    </div>
+  </div>
+
+  <!-- SETTINGS -->
+  <div id="tab-settings" class="tab-content">
+    <div class="ss-lbl">👤 Profiles</div>
+    <div class="profiles-settings" id="profiles-settings-list"></div>
+    <button class="btn-gold" onclick="goToProfiles()">＋ Add / Switch Profile</button>
+
+    <div class="ss-lbl" style="margin-top:16px">📋 Current Plan</div>
+    <div class="settings-section" id="plan-summary-settings"></div>
+
+    <div class="ss-lbl" style="margin-top:16px">🔄 Adjust Pace</div>
+    <div class="settings-section" style="padding:16px" id="edit-plan-section"></div>
+
+    <div class="ss-lbl" style="margin-top:16px">🔃 Sync Between Devices</div>
+    <div class="sync-box">
+      <strong>💻 Laptop → Phone:</strong><br>
+      1. On laptop: tap <em>Export as TXT</em> (works on iPhone).<br>
+      2. Send via WhatsApp, email, or iCloud.<br>
+      3. On phone: open app → <em>Import data</em> → pick the .txt file.<br><br>
+      <strong>📱 Phone → Laptop:</strong><br>
+      1. On phone: tap <em>Export as TXT</em> or <em>JSON</em>.<br>
+      2. Send to laptop via WhatsApp/email.<br>
+      3. On laptop: <em>Import data</em> → pick the file.<br><br>
+      <strong>All profiles are in one file. ✦</strong>
+    </div>
+    <button class="btn-secondary" onclick="exportData('json')">⬇ Export as JSON (laptop)</button>
+    <button class="btn-secondary" onclick="exportData('txt')">⬇ Export as TXT (iPhone/Android)</button>
+    <label class="btn-secondary" style="cursor:pointer">⬆ Import data (JSON or TXT)
+      <input type="file" accept=".json,.txt,application/json,text/plain" id="import-file-input" style="display:none" onchange="importData(event)">
+    </label>
+
+    <div class="ss-lbl" style="margin-top:16px">⚠ Danger Zone</div>
+    <button class="btn-danger" onclick="confirmDelete()">Delete this profile</button>
+
+    <div class="app-info">
+      <span style="font-family:'Amiri',serif;font-size:18px;color:var(--gold-dim)">﴿ وَرَتِّلِ الْقُرْآنَ تَرْتِيلًا ﴾</span><br>
+      مفصّل · Mofassal · Quran Planner<br>
+      Data saved locally · Export/Import to sync devices.
+    </div>
+  </div>
+
+  <nav class="bottom-nav">
+    <button class="nav-item active" onclick="switchTab('today',this)"><span class="nav-icon">☀️</span><span class="nav-label">Today</span></button>
+    <button class="nav-item" onclick="switchTab('progress',this)"><span class="nav-icon">📖</span><span class="nav-label">Progress</span></button>
+    <button class="nav-item" onclick="switchTab('calendar',this)"><span class="nav-icon">📅</span><span class="nav-label">Calendar</span></button>
+    <button class="nav-item" onclick="switchTab('settings',this)"><span class="nav-icon">⚙️</span><span class="nav-label">Settings</span></button>
+  </nav>
+</div>
+
+<div class="modal-overlay hidden" id="del-modal">
+  <div class="modal">
+    <div class="modal-title" id="del-modal-title">Delete profile?</div>
+    <div class="modal-body" id="del-modal-body">This permanently deletes this profile and all progress.</div>
+    <div class="modal-btns">
+      <button class="mc" onclick="closeModal('del-modal')">Cancel</button>
+      <button class="mf" onclick="doDelete()">Delete</button>
+    </div>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+// ══════════════════════════════════════════════
+// QURAN DATA
+// ══════════════════════════════════════════════
+const SURAHS=[
+  {n:1,ar:"الفاتحة",en:"Al-Fatiha",p:1,v:7},
+  {n:2,ar:"البقرة",en:"Al-Baqarah",p:2,v:286},
+  {n:3,ar:"آل عمران",en:"Ali 'Imran",p:50,v:200},
+  {n:4,ar:"النساء",en:"An-Nisa",p:77,v:176},
+  {n:5,ar:"المائدة",en:"Al-Ma'idah",p:100,v:120},
+  {n:6,ar:"الأنعام",en:"Al-An'am",p:117,v:165},
+  {n:7,ar:"الأعراف",en:"Al-A'raf",p:138,v:206},
+  {n:8,ar:"الأنفال",en:"Al-Anfal",p:162,v:75},
+  {n:9,ar:"التوبة",en:"At-Tawbah",p:171,v:129},
+  {n:10,ar:"يونس",en:"Yunus",p:190,v:109},
+  {n:11,ar:"هود",en:"Hud",p:201,v:123},
+  {n:12,ar:"يوسف",en:"Yusuf",p:211,v:111},
+  {n:13,ar:"الرعد",en:"Ar-Ra'd",p:222,v:43},
+  {n:14,ar:"إبراهيم",en:"Ibrahim",p:227,v:52},
+  {n:15,ar:"الحجر",en:"Al-Hijr",p:232,v:99},
+  {n:16,ar:"النحل",en:"An-Nahl",p:237,v:128},
+  {n:17,ar:"الإسراء",en:"Al-Isra",p:247,v:111},
+  {n:18,ar:"الكهف",en:"Al-Kahf",p:258,v:110},
+  {n:19,ar:"مريم",en:"Maryam",p:270,v:98},
+  {n:20,ar:"طه",en:"Ta-Ha",p:275,v:135},
+  {n:21,ar:"الأنبياء",en:"Al-Anbiya",p:282,v:112},
+  {n:22,ar:"الحج",en:"Al-Hajj",p:289,v:78},
+  {n:23,ar:"المؤمنون",en:"Al-Mu'minun",p:295,v:118},
+  {n:24,ar:"النور",en:"An-Nur",p:300,v:64},
+  {n:25,ar:"الفرقان",en:"Al-Furqan",p:305,v:77},
+  {n:26,ar:"الشعراء",en:"Ash-Shu'ara",p:310,v:227},
+  {n:27,ar:"النمل",en:"An-Naml",p:317,v:93},
+  {n:28,ar:"القصص",en:"Al-Qasas",p:322,v:88},
+  {n:29,ar:"العنكبوت",en:"Al-Ankabut",p:328,v:69},
+  {n:30,ar:"الروم",en:"Ar-Rum",p:332,v:60},
+  {n:31,ar:"لقمان",en:"Luqman",p:336,v:34},
+  {n:32,ar:"السجدة",en:"As-Sajdah",p:338,v:30},
+  {n:33,ar:"الأحزاب",en:"Al-Ahzab",p:340,v:73},
+  {n:34,ar:"سبأ",en:"Saba'",p:346,v:54},
+  {n:35,ar:"فاطر",en:"Fatir",p:350,v:45},
+  {n:36,ar:"يس",en:"Ya-Sin",p:353,v:83},
+  {n:37,ar:"الصافات",en:"As-Saffat",p:357,v:182},
+  {n:38,ar:"ص",en:"Sad",p:362,v:88},
+  {n:39,ar:"الزمر",en:"Az-Zumar",p:365,v:75},
+  {n:40,ar:"غافر",en:"Ghafir",p:370,v:85},
+  {n:41,ar:"فصلت",en:"Fussilat",p:375,v:54},
+  {n:42,ar:"الشورى",en:"Ash-Shura",p:379,v:53},
+  {n:43,ar:"الزخرف",en:"Az-Zukhruf",p:382,v:89},
+  {n:44,ar:"الدخان",en:"Ad-Dukhan",p:386,v:59},
+  {n:45,ar:"الجاثية",en:"Al-Jathiyah",p:388,v:37},
+  {n:46,ar:"الأحقاف",en:"Al-Ahqaf",p:391,v:35},
+  {n:47,ar:"محمد",en:"Muhammad",p:393,v:38},
+  {n:48,ar:"الفتح",en:"Al-Fath",p:395,v:29},
+  {n:49,ar:"الحجرات",en:"Al-Hujurat",p:398,v:18},
+  {n:50,ar:"ق",en:"Qaf",p:400,v:45},
+  {n:51,ar:"الذاريات",en:"Adh-Dhariyat",p:402,v:60},
+  {n:52,ar:"الطور",en:"At-Tur",p:404,v:49},
+  {n:53,ar:"النجم",en:"An-Najm",p:406,v:62},
+  {n:54,ar:"القمر",en:"Al-Qamar",p:408,v:55},
+  {n:55,ar:"الرحمن",en:"Ar-Rahman",p:410,v:78},
+  {n:56,ar:"الواقعة",en:"Al-Waqi'ah",p:412,v:96},
+  {n:57,ar:"الحديد",en:"Al-Hadid",p:414,v:29},
+  {n:58,ar:"المجادلة",en:"Al-Mujadila",p:416,v:22},
+  {n:59,ar:"الحشر",en:"Al-Hashr",p:418,v:24},
+  {n:60,ar:"الممتحنة",en:"Al-Mumtahanah",p:420,v:13},
+  {n:61,ar:"الصف",en:"As-Saf",p:422,v:14},
+  {n:62,ar:"الجمعة",en:"Al-Jumu'ah",p:423,v:11},
+  {n:63,ar:"المنافقون",en:"Al-Munafiqun",p:424,v:11},
+  {n:64,ar:"التغابن",en:"At-Taghabun",p:425,v:18},
+  {n:65,ar:"الطلاق",en:"At-Talaq",p:426,v:12},
+  {n:66,ar:"التحريم",en:"At-Tahrim",p:427,v:12},
+  {n:67,ar:"الملك",en:"Al-Mulk",p:428,v:30},
+  {n:68,ar:"القلم",en:"Al-Qalam",p:430,v:52},
+  {n:69,ar:"الحاقة",en:"Al-Haqqah",p:432,v:52},
+  {n:70,ar:"المعارج",en:"Al-Ma'arij",p:434,v:44},
+  {n:71,ar:"نوح",en:"Nuh",p:435,v:28},
+  {n:72,ar:"الجن",en:"Al-Jinn",p:436,v:28},
+  {n:73,ar:"المزمل",en:"Al-Muzzammil",p:437,v:20},
+  {n:74,ar:"المدثر",en:"Al-Muddaththir",p:438,v:56},
+  {n:75,ar:"القيامة",en:"Al-Qiyamah",p:440,v:40},
+  {n:76,ar:"الإنسان",en:"Al-Insan",p:441,v:31},
+  {n:77,ar:"المرسلات",en:"Al-Mursalat",p:443,v:50},
+  {n:78,ar:"النبأ",en:"An-Naba",p:444,v:40},
+  {n:79,ar:"النازعات",en:"An-Nazi'at",p:445,v:46},
+  {n:80,ar:"عبس",en:"'Abasa",p:446,v:42},
+  {n:81,ar:"التكوير",en:"At-Takwir",p:447,v:29},
+  {n:82,ar:"الانفطار",en:"Al-Infitar",p:448,v:19},
+  {n:83,ar:"المطففين",en:"Al-Mutaffifin",p:449,v:36},
+  {n:84,ar:"الانشقاق",en:"Al-Inshiqaq",p:450,v:25},
+  {n:85,ar:"البروج",en:"Al-Buruj",p:451,v:22},
+  {n:86,ar:"الطارق",en:"At-Tariq",p:452,v:17},
+  {n:87,ar:"الأعلى",en:"Al-A'la",p:453,v:19},
+  {n:88,ar:"الغاشية",en:"Al-Ghashiyah",p:454,v:26},
+  {n:89,ar:"الفجر",en:"Al-Fajr",p:455,v:30},
+  {n:90,ar:"البلد",en:"Al-Balad",p:456,v:20},
+  {n:91,ar:"الشمس",en:"Ash-Shams",p:457,v:15},
+  {n:92,ar:"الليل",en:"Al-Layl",p:458,v:21},
+  {n:93,ar:"الضحى",en:"Ad-Duha",p:459,v:11},
+  {n:94,ar:"الشرح",en:"Ash-Sharh",p:460,v:8},
+  {n:95,ar:"التين",en:"At-Tin",p:460,v:8},
+  {n:96,ar:"العلق",en:"Al-'Alaq",p:461,v:19},
+  {n:97,ar:"القدر",en:"Al-Qadr",p:462,v:5},
+  {n:98,ar:"البينة",en:"Al-Bayyinah",p:462,v:8},
+  {n:99,ar:"الزلزلة",en:"Az-Zalzalah",p:463,v:8},
+  {n:100,ar:"العاديات",en:"Al-'Adiyat",p:464,v:11},
+  {n:101,ar:"القارعة",en:"Al-Qari'ah",p:464,v:11},
+  {n:102,ar:"التكاثر",en:"At-Takathur",p:465,v:8},
+  {n:103,ar:"العصر",en:"Al-'Asr",p:465,v:3},
+  {n:104,ar:"الهمزة",en:"Al-Humazah",p:466,v:9},
+  {n:105,ar:"الفيل",en:"Al-Fil",p:466,v:5},
+  {n:106,ar:"قريش",en:"Quraysh",p:467,v:4},
+  {n:107,ar:"الماعون",en:"Al-Ma'un",p:467,v:7},
+  {n:108,ar:"الكوثر",en:"Al-Kawthar",p:468,v:3},
+  {n:109,ar:"الكافرون",en:"Al-Kafirun",p:468,v:6},
+  {n:110,ar:"النصر",en:"An-Nasr",p:469,v:3},
+  {n:111,ar:"المسد",en:"Al-Masad",p:469,v:5},
+  {n:112,ar:"الإخلاص",en:"Al-Ikhlas",p:470,v:4},
+  {n:113,ar:"الفلق",en:"Al-Falaq",p:470,v:5},
+  {n:114,ar:"الناس",en:"An-Nas",p:471,v:6}
+];
+const JUZ=[
+  {n:1,s:1,e:21},{n:2,s:22,e:41},{n:3,s:42,e:61},{n:4,s:62,e:81},{n:5,s:82,e:101},
+  {n:6,s:102,e:121},{n:7,s:122,e:141},{n:8,s:142,e:161},{n:9,s:162,e:181},{n:10,s:182,e:201},
+  {n:11,s:202,e:221},{n:12,s:222,e:241},{n:13,s:242,e:261},{n:14,s:262,e:281},{n:15,s:282,e:301},
+  {n:16,s:302,e:321},{n:17,s:322,e:341},{n:18,s:342,e:361},{n:19,s:362,e:381},{n:20,s:382,e:401},
+  {n:21,s:402,e:421},{n:22,s:422,e:441},{n:23,s:442,e:461},{n:24,s:462,e:481},{n:25,s:482,e:501},
+  {n:26,s:502,e:521},{n:27,s:522,e:541},{n:28,s:542,e:561},{n:29,s:562,e:581},{n:30,s:582,e:604}
+];
+
+// ══════════════════════════════════════════════
+// STATE
+// ══════════════════════════════════════════════
+let store={profiles:[],activeId:null};
+function saveStore(){localStorage.setItem('mofassal_v3',JSON.stringify(store))}
+function loadStore(){try{const r=localStorage.getItem('mofassal_v3');if(r)store=JSON.parse(r)}catch(e){}}
+function ap(){return store.profiles.find(p=>p.id===store.activeId)||null}
+function uid(){return Date.now().toString(36)+Math.random().toString(36).slice(2)}
+
+// ══════════════════════════════════════════════
+// DATE HELPERS
+// ══════════════════════════════════════════════
+function today(){return new Date().toISOString().slice(0,10)}
+function addDays(s,n){const d=new Date(s+'T00:00:00');d.setDate(d.getDate()+n);return d.toISOString().slice(0,10)}
+function fmtDate(s){return new Date(s+'T00:00:00').toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric',year:'numeric'})}
+function fmtShort(s){return new Date(s+'T00:00:00').toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'})}
+function daysBetween(a,b){return Math.round((new Date(b+'T00:00:00')-new Date(a+'T00:00:00'))/86400000)}
+
+// ══════════════════════════════════════════════
+// QURAN HELPERS
+// ══════════════════════════════════════════════
+function surahEnd(s){const i=SURAHS.findIndex(x=>x.n===s.n);return i<SURAHS.length-1?SURAHS[i+1].p-1:604}
+function pageToJuz(pg){for(let i=JUZ.length-1;i>=0;i--)if(pg>=JUZ[i].s)return JUZ[i];return JUZ[0]}
+function pageToSurah(pg){for(let i=SURAHS.length-1;i>=0;i--)if(pg>=SURAHS[i].p)return SURAHS[i];return SURAHS[0]}
+
+/**
+ * Convert a page position (0–604, fractional ok) → surah:verse at that position.
+ */
+function pageToVerse(pg){
+  if(pg<=0) return {surahN:1,verse:1};
+  if(pg>=604) return {surahN:114,verse:SURAHS[113].v};
+  const s=pageToSurah(Math.ceil(pg));
+  const ep=surahEnd(s);
+  const totalPgs=Math.max(1,ep-s.p+1);
+  const pgsThrough=pg-s.p+1;
+  if(pgsThrough<=0) return {surahN:s.n,verse:1};
+  const verseFrac=(pgsThrough/totalPgs)*s.v;
+  return{surahN:s.n,verse:Math.max(1,Math.min(s.v,Math.round(verseFrac)))};
+}
+
+/**
+ * Convert surah+verse → approximate page position.
+ */
+function svToPage(surahN,verse){
+  if(surahN===0) return 0;
+  const s=SURAHS[surahN-1];
+  const ep=surahEnd(s);
+  const totalPgs=ep-s.p+1;
+  const frac=Math.min(1,verse/s.v);
+  return Math.min(604,s.p+frac*totalPgs-1);
+}
+
+/**
+ * Build a display-ready range object from startPg to endPg.
+ * Returns { surahLine, verseLine, verseCount, pageHint, arabicLine, sv, ev, ss, es, sameS }
+ *
+ * [CHANGE 1 & 2] Now returns explicit "From verse X to verse Y" style labels
+ * for both memorization and revision tasks.
+ */
+function rangeInfo(startPg, endPg){
+  const sv=pageToVerse(Math.max(0,startPg));
+  const ev=pageToVerse(Math.min(604,endPg));
+  const ss=SURAHS[sv.surahN-1];
+  const es=SURAHS[ev.surahN-1];
+  const sameS=sv.surahN===ev.surahN;
+  let surahLine, verseLine, verseCount, arabicLine;
+
+  if(sameS){
+    surahLine=ss.en;
+    arabicLine=ss.ar;
+    if(sv.verse===ev.verse){
+      verseLine=`Verse ${sv.verse}`;
+      verseCount=`1 verse · of ${ss.v} total`;
+    } else {
+      verseLine=`From verse ${sv.verse} to verse ${ev.verse}`;
+      verseCount=`${ev.verse-sv.verse+1} verses`;
+    }
+  } else {
+    surahLine=`${ss.en} → ${es.en}`;
+    arabicLine=`${ss.ar} ·· ${es.ar}`;
+    verseLine=`${ss.en} v.${sv.verse} → ${es.en} v.${ev.verse}`;
+    verseCount='Crossing surahs';
+  }
+
+  const p1=Math.ceil(startPg)||1, p2=Math.ceil(endPg);
+  const pageHint=`Page${p1===p2?` ${p1}`:` ${p1}–${p2}`} · Juz ${pageToJuz(Math.max(1,p1)).n}`;
+
+  return{surahLine, verseLine, verseCount, pageHint, arabicLine, sv, ev, ss, es, sameS};
+}
+
+// ══════════════════════════════════════════════
+// PROGRESS CALCULATIONS
+// ══════════════════════════════════════════════
+function curMem(){
+  const p=ap();if(!p)return 0;
+  return Math.min(604,p.plan.alreadyMemorized+p.progress.newDone*p.plan.dailyNewPages);
+}
+
+// offset=0 → current task; offset=1 → next task (for advance preview)
+function newTaskInfo(offset=0){
+  const p=ap();if(!p)return null;
+  const sDone=p.progress.newDone+offset;
+  const startPg=p.plan.alreadyMemorized+sDone*p.plan.dailyNewPages;
+  if(startPg>=604) return null;
+  const endPg=Math.min(604,startPg+p.plan.dailyNewPages);
+  return{...rangeInfo(startPg,endPg),startPg,endPg};
+}
+
+/**
+ * [CHANGE 5] revTaskInfo computes revision using modulo over curMem().
+ * curMem() always reflects current total memorized pages including new ones.
+ * So after finishing a full cycle, the next cycle automatically includes
+ * all newly memorized pages — no special handling needed.
+ */
+function revTaskInfo(offset=0){
+  const p=ap();if(!p)return null;
+  const total=Math.floor(curMem());
+  if(total<1) return null;
+  const rp=p.plan.dailyRevisionPages;
+  const rDone=p.progress.revDone+offset;
+  // Modulo cycles back to start after covering all memorized pages
+  // curMem() grows as new pages are memorized, so each new cycle includes more
+  const off=(rDone*rp)%total;
+  const startPg=Math.floor(off)+1;
+  const endPg=Math.min(total,startPg+rp-1);
+  const cycleN=Math.floor(rDone*rp/Math.max(1,total))+1;
+  // How far through the current cycle (0–1)
+  const cyclePos=Math.floor(off);
+  const cyclePct=Math.round((cyclePos/total)*100);
+  // Whether this session wraps around (cycle nearly complete or just restarted)
+  const isNewCycle=off===0&&rDone>0;
+  return{...rangeInfo(startPg,endPg),startPg,endPg,total,cycleN,cyclePct,isNewCycle};
+}
+
+function calcStreak(){
+  const p=ap();if(!p)return 0;
+  let streak=0,d=today();
+  const tl=p.log[d]||{};
+  if(!tl.new&&!tl.rev) d=addDays(d,-1);
+  while(d>=p.plan.startDate){const l=p.log[d]||{};if(l.new||l.rev){streak++;d=addDays(d,-1);}else break;}
+  return streak;
+}
+function totalActive(){const p=ap();if(!p)return 0;return Object.keys(p.log).filter(d=>{const l=p.log[d];return l.new||l.rev}).length}
+function estCompletion(){const p=ap();if(!p||p.plan.dailyNewPages<=0)return null;const r=604-curMem();if(r<=0)return null;return addDays(today(),Math.ceil(r/p.plan.dailyNewPages))}
+
+/**
+ * [CHANGE 3] planGoalInfo now returns weekly milestones array for visualization.
+ */
+function planGoalInfo(){
+  const p=ap();
+  if(!p||!p.plan.weeks||p.plan.weeks===0) return null;
+  const totalDays=p.plan.weeks*7;
+  const startDate=p.plan.startDate;
+  const endDate=p.plan.planEndDate;
+  const elapsed=Math.max(0,daysBetween(startDate,today()));
+  const daysLeft=Math.max(0,daysBetween(today(),endDate));
+  const timePct=Math.min(100,(elapsed/totalDays)*100);
+  const targetMem=Math.min(604,p.plan.alreadyMemorized+totalDays*p.plan.dailyNewPages);
+  const targetVerse=pageToVerse(targetMem);
+  const targetSurah=SURAHS[targetVerse.surahN-1];
+  const memGained=Math.max(0,curMem()-p.plan.alreadyMemorized);
+  const memTarget=Math.max(1,targetMem-p.plan.alreadyMemorized);
+  const goalPct=Math.min(100,(memGained/memTarget)*100);
+  const goalPctOfQuran=(targetMem/604)*100;
+  // Weekly milestones
+  const milestones=getWeekMilestones(p.plan.alreadyMemorized,p.plan.dailyNewPages,p.plan.weeks,startDate);
+  const currentWeek=Math.floor(elapsed/7)+1;
+  return{startDate,endDate,totalDays,elapsed,daysLeft,timePct,goalPct,targetMem,targetVerse,targetSurah,goalPctOfQuran,milestones,currentWeek};
+}
+
+/**
+ * Generate week-by-week milestone array.
+ * Automatically selects step size based on plan length to keep list manageable.
+ */
+function getWeekMilestones(alreadyMem, dailyNew, totalWeeks, startDate){
+  const step=totalWeeks<=8?1:totalWeeks<=16?2:totalWeeks<=36?4:8;
+  const milestones=[];
+  for(let w=step; w<=totalWeeks; w+=step){
+    const pg=Math.min(604,alreadyMem+w*7*dailyNew);
+    const v=pageToVerse(pg);
+    const s=SURAHS[v.surahN-1];
+    const date=startDate?addDays(startDate,w*7):null;
+    milestones.push({week:w,page:Math.ceil(pg),surah:s,verse:v.verse,pct:(pg/604*100).toFixed(1),date});
+  }
+  return milestones;
+}
+
+// Days ahead of schedule (how many sessions done beyond today's plan)
+function daysAheadCount(){
+  const p=ap();if(!p)return 0;
+  const t=today();
+  const daysSinceStart=Math.max(0,daysBetween(p.plan.startDate,t));
+  const plannedNewDone=Math.floor(daysSinceStart*1); // 1 session per day
+  // newDone tracks total sessions; if >daysSinceStart+1 (today's), we're ahead
+  return Math.max(0,p.progress.newDone-(daysSinceStart+1));
+}
+
+// ══════════════════════════════════════════════
+// SETUP UI
+// ══════════════════════════════════════════════
+let sData={emoji:'🌙',newPages:1,revPages:10,weeks:0};
+
+function populateSurahSelect(){
+  const sel=document.getElementById('si-surah');
+  sel.innerHTML='<option value="0">— Not started yet (begin from Al-Fatiha)</option>';
+  SURAHS.forEach(s=>{sel.innerHTML+=`<option value="${s.n}">${s.n}. ${s.en} · ${s.ar} (${s.v} verses)</option>`});
+}
+
+function onSurahChange(){
+  const n=parseInt(document.getElementById('si-surah').value);
+  const vRow=document.getElementById('verse-row'),prev=document.getElementById('surah-preview'),msg=document.getElementById('at-start-msg');
+  if(n===0){vRow.style.display='none';prev.style.display='none';msg.style.display='block';updateDurPreview();return}
+  msg.style.display='none';vRow.style.display='flex';
+  const s=SURAHS[n-1];
+  const vi=document.getElementById('si-verse');
+  vi.max=s.v;vi.value=s.v;
+  document.getElementById('verse-of').textContent='of '+s.v+' verses';
+  updatePreview(n,s.v);prev.style.display='flex';
+  updateDurPreview();
+}
+function onVerseChange(){
+  const n=parseInt(document.getElementById('si-surah').value);if(n===0)return;
+  const s=SURAHS[n-1];
+  const v=Math.max(1,Math.min(s.v,parseInt(document.getElementById('si-verse').value)||1));
+  updatePreview(n,v);updateDurPreview();
+}
+function updatePreview(n,v){
+  const s=SURAHS[n-1];
+  const pg=svToPage(n,v);
+  const juz=pageToJuz(Math.max(1,Math.ceil(pg)));
+  document.getElementById('sp-en').textContent=`${s.en}, verse ${v} of ${s.v}`;
+  document.getElementById('sp-info').textContent=`Juz ${juz.n} · ~page ${Math.ceil(pg)} · ${((pg/604)*100).toFixed(1)}% memorized`;
+  document.getElementById('sp-ar').textContent=s.ar;
+}
+
+function pickEmoji(el){document.querySelectorAll('.emoji-btn').forEach(b=>b.classList.remove('selected'));el.classList.add('selected');sData.emoji=el.dataset.e}
+
+function pickDur(el){
+  document.querySelectorAll('.opt-btn.dur-btn').forEach(b=>b.classList.remove('selected'));
+  el.classList.add('selected');
+  sData.weeks=parseInt(el.dataset.w)||0;
+  document.getElementById('si-custom-weeks').value='';
+  updateDurPreview();
+}
+
+function pickCustomWeeks(inp){
+  const w=parseInt(inp.value)||0;
+  document.querySelectorAll('.opt-btn.dur-btn').forEach(b=>b.classList.remove('selected'));
+  sData.weeks=w>0?w:0;
+  updateDurPreview();
+}
+
+/**
+ * [CHANGE 3] updateDurPreview now shows a week-by-week breakdown list.
+ */
+function updateDurPreview(){
+  const prev=document.getElementById('dur-preview');
+  const wmSec=document.getElementById('week-milestone-section');
+  if(!sData.weeks){prev.style.display='none';wmSec.style.display='none';return}
+  const surahN=parseInt(document.getElementById('si-surah').value)||0;
+  const vi=parseInt(document.getElementById('si-verse').value)||0;
+  const alreadyMem=surahN>0?svToPage(surahN,vi):0;
+  const totalDays=sData.weeks*7;
+  const targetPg=Math.min(604,alreadyMem+totalDays*sData.newPages);
+  const tv=pageToVerse(targetPg);
+  const ts=SURAHS[tv.surahN-1];
+  const startDate=document.getElementById('si-startdate').value||today();
+  const endDate=addDays(startDate,totalDays);
+
+  prev.style.display='block';
+  prev.innerHTML=`<strong>${sData.weeks} weeks</strong> · ends ${fmtShort(endDate)}<br>
+    Target: <strong>${ts.en} (${ts.ar}), verse ${tv.verse}</strong><br>
+    That's <strong>${((targetPg/604)*100).toFixed(1)}%</strong> of the Quran`;
+
+  // Build weekly milestones
+  const milestones=getWeekMilestones(alreadyMem,sData.newPages,sData.weeks,startDate);
+  if(milestones.length>0){
+    wmSec.style.display='block';
+    let rows='';
+    milestones.forEach(m=>{
+      rows+=`<div class="wml-item">
+        <span class="wml-week">Week ${m.week}</span>
+        <span class="wml-surah">${m.surah.en}</span>
+        <span class="wml-verse">v.${m.verse}</span>
+      </div>`;
+    });
+    document.getElementById('wm-list').innerHTML=rows;
+  }else{
+    wmSec.style.display='none';
+  }
+}
+
+function toggleWeekMilestones(){
+  const toggle=document.getElementById('wm-toggle');
+  const list=document.getElementById('wm-list');
+  toggle.classList.toggle('open');
+  list.classList.toggle('open');
+}
+
+function attachOpts(id,cb){document.querySelectorAll('#'+id+' .opt-btn').forEach(btn=>{btn.onclick=()=>{document.querySelectorAll('#'+id+' .opt-btn').forEach(b=>b.classList.remove('selected'));btn.classList.add('selected');cb(parseFloat(btn.dataset.v))}})}
+
+function startSetup(){
+  populateSurahSelect();
+  sData={emoji:'🌙',newPages:1,revPages:10,weeks:0};
+  document.getElementById('si-name').value='';
+  document.getElementById('si-surah').value='0';
+  document.getElementById('si-startdate').value=today();
+  document.getElementById('si-custom-weeks').value='';
+  onSurahChange();
+  document.querySelectorAll('#new-opts .opt-btn').forEach(b=>b.classList.toggle('selected',parseFloat(b.dataset.v)===1));
+  document.querySelectorAll('#rev-opts .opt-btn').forEach(b=>b.classList.toggle('selected',parseFloat(b.dataset.v)===10));
+  document.querySelectorAll('.emoji-btn').forEach(b=>b.classList.toggle('selected',b.dataset.e==='🌙'));
+  document.querySelectorAll('.opt-btn.dur-btn').forEach(b=>b.classList.toggle('selected',parseInt(b.dataset.w)===0));
+  attachOpts('new-opts',v=>{sData.newPages=v;updateDurPreview()});
+  attachOpts('rev-opts',v=>{sData.revPages=v});
+  document.getElementById('profiles-screen').classList.add('hidden');
+  document.getElementById('setup-screen').classList.remove('hidden');
+}
+
+function goBack(){
+  document.getElementById('setup-screen').classList.add('hidden');
+  if(store.profiles.length>0)showMainApp();
+  else{document.getElementById('profiles-screen').classList.remove('hidden');renderProfilesScreen()}
+}
+
+function createPlan(){
+  const name=document.getElementById('si-name').value.trim()||'My Plan';
+  const surahN=parseInt(document.getElementById('si-surah').value);
+  const vi=parseInt(document.getElementById('si-verse').value)||0;
+  const verse=surahN>0?Math.max(1,Math.min(SURAHS[surahN-1].v,vi)):0;
+  const alreadyMem=svToPage(surahN,verse);
+  const startDate=document.getElementById('si-startdate').value||today();
+  const weeks=sData.weeks||0;
+  const planEndDate=weeks>0?addDays(startDate,weeks*7):null;
+  const profile={
+    id:uid(),name,emoji:sData.emoji,
+    plan:{alreadyMemorized:alreadyMem,startSurahN:surahN,startVerse:verse,
+      dailyNewPages:sData.newPages,dailyRevisionPages:sData.revPages,
+      startDate,weeks,planEndDate},
+    progress:{newDone:0,revDone:0},log:{}
+  };
+  store.profiles.push(profile);store.activeId=profile.id;saveStore();
+  document.getElementById('setup-screen').classList.add('hidden');showMainApp();
+}
+
+// ══════════════════════════════════════════════
+// PROFILES SCREEN
+// ══════════════════════════════════════════════
+function renderProfilesScreen(){
+  const list=document.getElementById('profile-list');
+  if(store.profiles.length===0){list.innerHTML='<div style="text-align:center;color:var(--text-dim);padding:40px 20px;font-size:14px">No profiles yet.<br>Create one below.</div>';return}
+  list.innerHTML=store.profiles.map(p=>{
+    const mem=Math.floor(Math.min(604,p.plan.alreadyMemorized+p.progress.newDone*p.plan.dailyNewPages));
+    const pct=((mem/604)*100).toFixed(1);
+    const tv=pageToVerse(mem);const ts=SURAHS[tv.surahN-1];
+    const sl=mem>0?`At ${ts.en} v.${tv.verse}`:'Not yet started';
+    return`<div class="profile-card fi" onclick="selectProfile('${p.id}')">
+      <div class="profile-avatar">${p.emoji}</div>
+      <div class="profile-info"><div class="profile-name">${p.name}</div><div class="profile-sub">${pct}% · ${sl}</div></div>
+      <div class="profile-arrow">›</div></div>`;
+  }).join('');
+}
+function selectProfile(id){store.activeId=id;saveStore();showMainApp()}
+function goToProfiles(){document.getElementById('main-app').classList.add('hidden');document.getElementById('profiles-screen').classList.remove('hidden');renderProfilesScreen()}
+
+// ══════════════════════════════════════════════
+// MAIN APP SHELL
+// ══════════════════════════════════════════════
+let calYear,calMonth;
+const TAB_NAMES={today:'Today',progress:'Progress',calendar:'Calendar',settings:'Settings'};
+
+function showMainApp(){
+  document.getElementById('profiles-screen').classList.add('hidden');
+  document.getElementById('setup-screen').classList.add('hidden');
+  document.getElementById('main-app').classList.remove('hidden');
+  const p=ap();
+  document.getElementById('topbar-profile').textContent=p?`${p.emoji} ${p.name}`:'';
+  document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));
+  document.getElementById('tab-today').classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  document.querySelector('.nav-item').classList.add('active');
+  document.getElementById('tab-title').textContent='Today';
+  renderToday();
+}
+
+function switchTab(tab,el){
+  document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));
+  document.getElementById('tab-'+tab).classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('tab-title').textContent=TAB_NAMES[tab];
+  if(tab==='progress')renderProgress();
+  if(tab==='calendar')renderCalendar();
+  if(tab==='settings')renderSettings();
+}
+
+// ══════════════════════════════════════════════
+// TODAY TAB
+// ══════════════════════════════════════════════
+
+/**
+ * [CHANGE 1 & 2] buildTaskCard now displays:
+ *  - Surah name (English) + Arabic name on same row
+ *  - Explicit "From verse X to verse Y" as the big highlighted text
+ *  - Page number + Juz as subtitle
+ *  - For revision: cycle progress bar showing how far through current cycle
+ */
+function buildTaskCard(info, type, isDone, isNext){
+  const isNew=type==='new';
+  const typeLabel=isNext
+    ? (isNew?'📅 Next Memorization · حِفْظ':'📅 Next Revision · مُرَاجَعَة')
+    : (isNew?'✦ Today · New Memorization · حِفْظ':'↻ Today · Revision · مُرَاجَعَة');
+  const typeCls=isNext?'adv-type':(isNew?'new-type':'rev-type');
+  const rangeCls=isNext?'adv-range':(isNew?'':'rev-range');
+  const cardCls='task-card fi'+(isDone?' done':'')+(isNext?' next-card':'');
+
+  // Cycle info for revision
+  let revCycleHTML='';
+  if(!isNew && info.cycleN!==undefined){
+    const pct=info.cyclePct||0;
+    const cycleNote=info.isNewCycle
+      ? `🔄 New cycle — now covering all <strong>${info.total} memorized pages</strong>`
+      : `Cycle ${info.cycleN} · ${pct}% through · ${info.total} pages total`;
+    revCycleHTML=`<div class="rev-cycle-wrap">
+      <div class="rev-cycle-label">
+        <span style="color:var(--text-dim)">${cycleNote}</span>
+        <span style="color:var(--green-light)">${pct}%</span>
+      </div>
+      <div class="rev-cycle-bar"><div class="rev-cycle-fill" style="width:${pct}%"></div></div>
+    </div>`;
+  }
+
+  let footer='';
+  if(isDone){
+    footer='<div class="done-badge">✓ '+(isNew?'Memorized — BaarakAllahu feek!':'Reviewed — MashaAllah!')+'</div>';
+  }else{
+    const btnCls=isNext?'adv-btn':(isNew?'new-btn':'rev-btn');
+    const btnTxt=isNext?'📅 Complete this session':'✓ Mark as Done';
+    const fnCall=`completeTask('${type}',${isNext})`;
+    footer=`<button class="btn-complete ${btnCls}" onclick="${fnCall}">${btnTxt}</button>`;
+  }
+
+  return`<div class="${cardCls}">
+    <div class="task-type ${typeCls}">${typeLabel}</div>
+    <div class="task-header-row">
+      <div class="task-surah-en">${info.surahLine}</div>
+      <div class="task-surah-ar">${info.arabicLine}</div>
+    </div>
+    <div class="task-verse-range ${rangeCls}">${info.verseLine}</div>
+    <div class="task-sub">${info.pageHint} · ${info.verseCount}</div>
+    ${revCycleHTML}
+    <div class="task-footer">${footer}</div>
+  </div>`;
+}
+
+function renderToday(){
+  const p=ap();if(!p)return;
+  const t=today(),log=p.log[t]||{};
+  const hr=new Date().getHours();
+  const greet=hr<5?'May Allah bless your night 🌙':hr<12?'Sabah Al-Khayr ☀️':hr<17?'Assalamu Alaikum ✦':'Masa Al-Khayr 🌙';
+  document.getElementById('greeting-text').textContent=greet;
+  document.getElementById('today-date-str').textContent=fmtDate(t);
+
+  const mem=curMem(),pct=Math.min(100,(mem/604)*100);
+  document.getElementById('pb-fill').style.width=pct.toFixed(1)+'%';
+  document.getElementById('prog-pages-lbl').textContent=Math.floor(mem)+' / 604 pages';
+  document.getElementById('prog-pct-lbl').textContent=pct.toFixed(1)+'%';
+  document.getElementById('streak-count').textContent=calcStreak();
+
+  // Goal marker on progress bar
+  const gi=planGoalInfo();
+  const gMark=document.getElementById('pb-goal-mark');
+  if(gi){gMark.classList.remove('hidden');gMark.style.left=((gi.targetMem/604)*100).toFixed(1)+'%';}
+  else gMark.classList.add('hidden');
+
+  const ni=newTaskInfo(0),ri=revTaskInfo(0);
+  const newApp=ni!==null,revApp=ri!==null;
+  const nd=!newApp||!!log.new;
+  const rd=!revApp||!!log.rev;
+  const allDone=nd&&rd;
+
+  // Today's tasks
+  let todayHTML='';
+  if(!allDone){
+    todayHTML+='<div class="sec-hdr">Today\'s Tasks</div>';
+    if(newApp) todayHTML+=buildTaskCard(ni,'new',nd,false);
+    if(revApp)  todayHTML+=buildTaskCard(ri,'rev',rd,false);
+    if(!newApp) todayHTML+=`<div class="task-card done fi"><div class="task-type new-type">✦ New Memorization</div><div class="task-surah-en">Entire Quran memorized! 🎉</div></div>`;
+    if(!revApp&&Math.floor(mem)<1) todayHTML+=`<div class="task-card fi" style="opacity:.5"><div class="task-type rev-type">↻ Revision</div><div class="task-surah-en" style="color:var(--text-dim)">Awaiting first memorization</div><div class="task-sub">Revision begins after first pages are memorized.</div></div>`;
+  }
+  document.getElementById('today-tasks').innerHTML=todayHTML;
+  document.getElementById('today-done-banner').classList.toggle('hidden',!allDone);
+
+  // ── [CHANGE 4] NEXT SESSION — unlocked when today's tasks are complete ──
+  // Users can keep completing these to go ahead of schedule
+  let advHTML='';
+  if(allDone){
+    const nextNI=newTaskInfo(0);
+    const nextRI=revTaskInfo(0);
+    if(nextNI||nextRI){
+      const aheadDays=daysAheadCount();
+      const aheadLabel=aheadDays>0
+        ? `<span class="ahead-pill">⚡ ${aheadDays} day${aheadDays!==1?'s':''} ahead of schedule</span>`
+        : '';
+      advHTML+=`<div class="sec-hdr next-hdr">📅 Next Session — Unlocked</div>`;
+      if(aheadLabel) advHTML+=aheadLabel;
+      if(nextNI) advHTML+=buildTaskCard(nextNI,'new',false,true);
+      if(nextRI)  advHTML+=buildTaskCard(nextRI,'rev',false,true);
+    }
+  }
+  document.getElementById('advance-tasks').innerHTML=advHTML;
+
+  renderWeekDots();
+
+  const streak=calcStreak();
+  const juzDone=JUZ.filter(j=>Math.floor(mem)>=j.e).length;
+  document.getElementById('quick-stats').innerHTML=`
+    <div class="stat-box"><div class="stat-val">${streak}</div><div class="stat-label">Streak</div></div>
+    <div class="stat-box"><div class="stat-val">${Math.floor(mem)}</div><div class="stat-label">Pages</div></div>
+    <div class="stat-box"><div class="stat-val">${juzDone}</div><div class="stat-label">Juz Done</div></div>`;
+}
+
+function renderWeekDots(){
+  const t=today(),p=ap();
+  const dow=['S','M','T','W','T','F','S'];let h='';
+  for(let i=6;i>=0;i--){
+    const d=addDays(t,-i);const log=p?(p.log[d]||{}):{};
+    const di=new Date(d+'T00:00:00').getDay();
+    const isT=d===t,isF=d>t;
+    let cls='wd ',em='';
+    if(isF){cls+='wd-future';}
+    else if(log.new&&log.rev){cls+='wd-full';em='✓';}
+    else if(log.new||log.rev){cls+='wd-partial';em='·';}
+    else cls+='wd-empty';
+    if(isT)cls+=' wd-today';
+    h+=`<div class="week-dot-col"><div class="wdl">${dow[di]}</div><div class="${cls}">${em}</div></div>`;
+  }
+  document.getElementById('week-dots').innerHTML=h;
+}
+
+function completeTask(type,advance=false){
+  const p=ap();const t=today();
+  if(!advance){
+    if(!p.log[t])p.log[t]={};
+    p.log[t][type]=true;
+  }
+  if(type==='new'){p.progress.newDone++;showToast(advance?'📅 Next session memorized!':'✦ Memorization logged!');}
+  else{p.progress.revDone++;showToast(advance?'📅 Next revision done!':'↻ Revision logged!');}
+  saveStore();renderToday();
+}
+
+// ══════════════════════════════════════════════
+// PROGRESS TAB
+// ══════════════════════════════════════════════
+function renderProgress(){
+  const p=ap();if(!p)return;
+  const mem=Math.min(604,curMem()),pct=mem/604;
+  const circ=2*Math.PI*78,offset=circ*(1-pct);
+  document.getElementById('ring-circle').setAttribute('stroke-dasharray',circ.toFixed(1));
+  document.getElementById('ring-circle').setAttribute('stroke-dashoffset',offset.toFixed(1));
+  document.getElementById('ring-pct').textContent=(pct*100).toFixed(1)+'%';
+  document.getElementById('ring-sub').textContent=Math.floor(mem)+' of 604 pages';
+
+  const gi=planGoalInfo();
+  const ringGoal=document.getElementById('ring-goal');
+  if(gi){
+    const goalOffset=circ*(1-gi.targetMem/604);
+    ringGoal.setAttribute('stroke-dasharray',circ.toFixed(1));
+    ringGoal.setAttribute('stroke-dashoffset',goalOffset.toFixed(1));
+    ringGoal.classList.remove('hidden');
+  }else ringGoal.classList.add('hidden');
+
+  const tv=pageToVerse(Math.max(1,Math.floor(mem)));
+  const ts=SURAHS[tv.surahN-1];
+  document.getElementById('ring-detail').textContent=mem>0?`${ts.en} · ${ts.ar} · v.${tv.verse} · Juz ${pageToJuz(Math.floor(mem)).n}`:'Not yet started';
+
+  const str=calcStreak(),act=totalActive(),jd=JUZ.filter(j=>Math.floor(mem)>=j.e).length;
+  const est=estCompletion(),dl=est?daysBetween(today(),est):null;
+  document.getElementById('stats-grid').innerHTML=`
+    <div class="sbox"><div class="sv">🔥 ${str}</div><div class="sl">Day Streak</div><div class="ss">${act} total active days</div></div>
+    <div class="sbox"><div class="sv">${jd} / 30</div><div class="sl">Juz Done</div><div class="ss">${Math.floor(mem)} pages</div></div>
+    <div class="sbox"><div class="sv">${p.plan.dailyNewPages}p</div><div class="sl">Daily New</div><div class="ss">pages/day</div></div>
+    <div class="sbox"><div class="sv">${dl?dl+'d':'—'}</div><div class="sl">Days to Finish</div><div class="ss">${est?fmtShort(est):'—'}</div></div>`;
+
+  // ── [CHANGE 3] PLAN GOAL CARD with weekly milestones ──
+  const pgEl=document.getElementById('plan-goal-section');
+  if(gi){
+    const gv=gi.targetVerse,gs=gi.targetSurah;
+
+    // Build weekly milestone rows
+    let mRows='';
+    gi.milestones.forEach(m=>{
+      const isCurrent=m.week===gi.currentWeek;
+      const isPast=m.week<gi.currentWeek;
+      const pgMem=Math.min(604,p.plan.alreadyMemorized+m.week*7*p.plan.dailyNewPages);
+      const actualReached=Math.floor(mem)>=pgMem;
+      let rowCls='pgc-wml-item';
+      if(isCurrent)rowCls+=' current-week';
+      let statusIcon=isPast?(actualReached?'✓':'⚠'):(isCurrent?'▶':'·');
+      let wkLabel=`Week ${m.week}`;
+      if(m.date) wkLabel+=`<br><span style="font-size:9px;color:var(--text-dim)">${fmtShort(m.date)}</span>`;
+      mRows+=`<div class="${rowCls}">
+        <div class="pgc-wml-w">${statusIcon} ${wkLabel}</div>
+        <div class="pgc-wml-s">${m.surah.en}</div>
+        <div class="pgc-wml-v" style="color:${isPast&&actualReached?'var(--green-light)':isCurrent?'var(--gold)':'var(--text-dim)'}">v.${m.verse}</div>
+      </div>`;
+    });
+
+    pgEl.innerHTML=`
+    <div style="padding:20px 16px 10px;font-family:'Playfair Display',serif;font-size:18px;font-style:italic;color:var(--text)">Plan Goal</div>
+    <div style="height:1px;background:var(--border);margin:4px 16px 14px"></div>
+    <div class="plan-goal-card">
+      <div class="pgc-header">
+        <div class="pgc-title">${p.plan.weeks}-week plan · ${gi.daysLeft} days remaining</div>
+        <div class="pgc-dates"><span>Start: ${fmtShort(gi.startDate)}</span><span>End: ${fmtShort(gi.endDate)}</span></div>
+      </div>
+      <div class="pgc-timeline">
+        <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--text-dim);margin-bottom:4px">
+          <span>Time elapsed: ${gi.timePct.toFixed(0)}%</span>
+          <span>Goal reached: ${gi.goalPct.toFixed(0)}%</span>
+        </div>
+        <div class="tl-bar">
+          <div class="tl-time" style="width:${gi.timePct.toFixed(1)}%"></div>
+          <div class="tl-progress" style="width:${gi.goalPct.toFixed(1)}%"></div>
+          <div class="tl-now" style="left:${gi.timePct.toFixed(1)}%"></div>
+        </div>
+        <div class="tl-labels"><span>${fmtShort(gi.startDate)}</span><span>${fmtShort(gi.endDate)}</span></div>
+      </div>
+      <div class="pgc-target">
+        <div class="pgc-target-lbl">Target by end of plan</div>
+        <div class="pgc-target-verse">${gs.en} (${gs.ar}), verse ${gv.verse}</div>
+        <div class="pgc-target-sub">${gi.goalPctOfQuran.toFixed(1)}% of the Quran · Juz ${pageToJuz(Math.max(1,Math.ceil(gi.targetMem))).n}</div>
+      </div>
+      <div class="pgc-stats">
+        <div class="pgc-stat"><div class="pv">${gi.daysLeft}</div><div class="pl">Days left</div></div>
+        <div class="pgc-stat"><div class="pv">${gi.timePct.toFixed(0)}%</div><div class="pl">Time used</div></div>
+        <div class="pgc-stat"><div class="pv">${gi.goalPct.toFixed(0)}%</div><div class="pl">Goal done</div></div>
+      </div>
+      <div class="pgc-weeks">
+        <div class="pgc-weeks-toggle" id="pgc-weeks-toggle" onclick="togglePgcWeeks()">
+          <span>📅 Week-by-week targets (${gi.milestones.length} milestones)</span>
+          <span class="arr">▾</span>
+        </div>
+        <div class="pgc-weeks-body" id="pgc-weeks-body">
+          ${mRows}
+        </div>
+      </div>
+    </div>`;
+  }else{
+    pgEl.innerHTML='';
+  }
+
+  // Juz grid
+  let jh='';
+  JUZ.forEach(j=>{
+    let cls,lb;
+    if(mem>=j.e){cls='juz-done';lb='✓';}
+    else if(mem>=j.s){const pp=((mem-j.s)/(j.e-j.s+1)*100).toFixed(0);cls='juz-partial';lb=pp+'%';}
+    else{cls='juz-empty';lb='';}
+    if(mem>=j.s&&mem<j.e)cls+=' juz-current';
+    jh+=`<div class="juz-cell ${cls}"><div class="jn">${j.n}</div><div class="jl">${lb||'Juz'}</div></div>`;
+  });
+  document.getElementById('juz-grid').innerHTML=jh;
+
+  // Surah list
+  let sh='';
+  SURAHS.forEach(s=>{
+    const ep=surahEnd(s);let cls,st;
+    if(mem>=ep){cls='ds';st='✓';}
+    else if(mem>=s.p){const ps=Math.round(((mem-s.p)/(ep-s.p+1))*100);cls='ps';st=ps+'%';}
+    else{cls='';st=s.n;}
+    sh+=`<div class="surah-item">
+      <div class="snum ${cls}">${cls==='ds'?'✓':(cls==='ps'?st:s.n)}</div>
+      <div style="flex:1"><div class="sen">${s.en}</div><div class="spg">p.${s.p}${ep!==s.p?'–'+ep:''} · ${s.v} verses</div></div>
+      <div style="font-family:'Amiri',serif;font-size:17px;color:var(--text-soft)">${s.ar}</div>
+    </div>`;
+  });
+  document.getElementById('surah-list').innerHTML=sh;
+}
+
+function togglePgcWeeks(){
+  const toggle=document.getElementById('pgc-weeks-toggle');
+  const body=document.getElementById('pgc-weeks-body');
+  if(!toggle||!body)return;
+  toggle.classList.toggle('open');
+  body.classList.toggle('open');
+}
+
+// ══════════════════════════════════════════════
+// CALENDAR TAB
+// ══════════════════════════════════════════════
+function renderCalendar(){
+  const now=new Date();
+  if(calYear===undefined){calYear=now.getFullYear();calMonth=now.getMonth()}
+  const months=['January','February','March','April','May','June','July','August','September','October','November','December'];
+  document.getElementById('cal-month-name').textContent=months[calMonth]+' '+calYear;
+  const fd=new Date(calYear,calMonth,1).getDay();
+  const dim=new Date(calYear,calMonth+1,0).getDate();
+  const t=today(),p=ap();
+  let h='';
+  ['S','M','T','W','T','F','S'].forEach(d=>{h+=`<div class="cal-dow">${d}</div>`});
+  for(let i=0;i<fd;i++)h+=`<div class="cal-day"></div>`;
+  for(let d=1;d<=dim;d++){
+    const ds=`${calYear}-${String(calMonth+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+    const log=p?(p.log[ds]||{}):{};
+    const isT=ds===t,isF=ds>t;
+    const isP=ds<t&&p&&ds>=(p.plan.startDate||t);
+    let cls='cal-day';
+    if(isT)cls+=' cdt';
+    else if(isF)cls+=' cdf';
+    else if(log.new&&log.rev)cls+=' cdfl';
+    else if(log.new||log.rev)cls+=' cdpa';
+    else if(isP)cls+=' cdmi';
+    h+=`<div class="${cls}">${d}</div>`;
+  }
+  document.getElementById('cal-grid').innerHTML=h;
+}
+function changeMonth(d){calMonth+=d;if(calMonth>11){calMonth=0;calYear++}if(calMonth<0){calMonth=11;calYear--}renderCalendar()}
+
+// ══════════════════════════════════════════════
+// SETTINGS TAB
+// ══════════════════════════════════════════════
+function renderSettings(){
+  const p=ap();if(!p)return;
+  document.getElementById('profiles-settings-list').innerHTML=store.profiles.map(pr=>`
+    <div class="pr-row ${pr.id===store.activeId?'active-p':''}">
+      <span class="pra">${pr.emoji}</span>
+      <span class="prn">${pr.name}</span>
+      ${pr.id===store.activeId?'<span class="prb">Active</span>':`<button class="prsw" onclick="selectProfile('${pr.id}')">Switch</button>`}
+    </div>`).join('');
+
+  const sl=p.plan.startSurahN>0?`${SURAHS[p.plan.startSurahN-1].en}, verse ${p.plan.startVerse}`:'From the beginning';
+  const tv=pageToVerse(Math.floor(curMem()));const ts=SURAHS[tv.surahN-1];
+  const durStr=p.plan.weeks?`${p.plan.weeks} weeks (ends ${fmtShort(p.plan.planEndDate)})`:'No time limit';
+  document.getElementById('plan-summary-settings').innerHTML=`
+    <div class="settings-row"><div><div class="srl">Profile</div></div><div class="srv">${p.emoji} ${p.name}</div></div>
+    <div class="settings-row"><div><div class="srl">Memorized up to</div></div><div class="srv">${sl}</div></div>
+    <div class="settings-row"><div><div class="srl">Currently at</div></div><div class="srv">${ts.en} v.${tv.verse}</div></div>
+    <div class="settings-row"><div><div class="srl">Plan duration</div></div><div class="srv">${durStr}</div></div>
+    <div class="settings-row"><div><div class="srl">Active days</div></div><div class="srv">${totalActive()}</div></div>`;
+
+  document.getElementById('edit-plan-section').innerHTML=`
+    <div style="margin-bottom:16px">
+      <div style="font-size:11px;text-transform:uppercase;letter-spacing:2px;color:var(--gold);font-weight:700;margin-bottom:10px">Daily New Pages</div>
+      <div class="opts3" id="en-opts">
+        ${[0.25,0.5,1,2,3,5].map(v=>`<div class="opt-btn${p.plan.dailyNewPages===v?' selected':''}" data-v="${v}" onclick="editPace('dailyNewPages',${v},this,'en-opts')"><span class="ov">${v===0.25?'¼':v===0.5?'½':v}</span>${v===0.25?'¼pg':v===0.5?'½pg':v+'pg'}</div>`).join('')}
+      </div>
+    </div>
+    <div style="margin-bottom:16px">
+      <div style="font-size:11px;text-transform:uppercase;letter-spacing:2px;color:var(--gold);font-weight:700;margin-bottom:10px">Daily Revision Pages</div>
+      <div class="opts2" id="er-opts">
+        ${[2,5,10,20].map(v=>`<div class="opt-btn${p.plan.dailyRevisionPages===v?' selected':''}" data-v="${v}" onclick="editPace('dailyRevisionPages',${v},this,'er-opts')"><span class="ov">${v}</span>${v} pages</div>`).join('')}
+      </div>
+    </div>
+    <div>
+      <div style="font-size:11px;text-transform:uppercase;letter-spacing:2px;color:var(--gold);font-weight:700;margin-bottom:10px">Plan Duration (weeks)</div>
+      <div class="custom-weeks-row">
+        <input type="number" class="weeks-input" id="settings-weeks" min="0" max="260"
+          value="${p.plan.weeks||''}" placeholder="0 = no limit"
+          oninput="editWeeks(this)">
+        <span class="custom-weeks-label">0 or blank = no time limit</span>
+      </div>
+      <div id="settings-weeks-preview" style="margin-top:8px;font-size:12px;color:var(--text-soft)"></div>
+    </div>`;
+  updateSettingsWeeksPreview();
+}
+
+function editPace(key,val,el,gid){
+  document.querySelectorAll('#'+gid+' .opt-btn').forEach(b=>b.classList.remove('selected'));
+  el.classList.add('selected');ap().plan[key]=val;saveStore();showToast('Plan updated ✓');renderToday();
+}
+
+function editWeeks(inp){
+  const p=ap();if(!p)return;
+  const w=parseInt(inp.value)||0;
+  p.plan.weeks=w;
+  p.plan.planEndDate=w>0?addDays(p.plan.startDate,w*7):null;
+  saveStore();showToast('Duration updated ✓');
+  updateSettingsWeeksPreview();
+}
+
+function updateSettingsWeeksPreview(){
+  const p=ap();if(!p)return;
+  const el=document.getElementById('settings-weeks-preview');
+  if(!el)return;
+  if(!p.plan.weeks||p.plan.weeks===0){el.textContent='No time limit set.';return}
+  const targetPg=Math.min(604,p.plan.alreadyMemorized+p.plan.weeks*7*p.plan.dailyNewPages);
+  const tv=pageToVerse(targetPg);
+  const ts=SURAHS[tv.surahN-1];
+  el.innerHTML=`Target in ${p.plan.weeks} weeks: <strong style="color:var(--gold-light)">${ts.en}, verse ${tv.verse}</strong> · ends ${fmtShort(p.plan.planEndDate)}`;
+}
+
+// ══════════════════════════════════════════════
+// DELETE PROFILE
+// ══════════════════════════════════════════════
+function confirmDelete(){
+  const p=ap();
+  document.getElementById('del-modal-title').textContent=`Delete ${p.emoji} ${p.name}?`;
+  document.getElementById('del-modal-body').textContent=`This permanently deletes ${p.name}'s plan and all progress. Cannot be undone.`;
+  document.getElementById('del-modal').classList.remove('hidden');
+}
+function doDelete(){
+  store.profiles=store.profiles.filter(p=>p.id!==store.activeId);
+  store.activeId=store.profiles.length>0?store.profiles[0].id:null;
+  saveStore();closeModal('del-modal');
+  document.getElementById('main-app').classList.add('hidden');
+  document.getElementById('profiles-screen').classList.remove('hidden');
+  renderProfilesScreen();
+}
+function closeModal(id){document.getElementById(id).classList.add('hidden')}
+
+// ══════════════════════════════════════════════
+// EXPORT / IMPORT
+// ══════════════════════════════════════════════
+function exportData(fmt){
+  fmt=fmt||'json';
+  const content=JSON.stringify(store,null,2);
+  const mime=fmt==='txt'?'text/plain':'application/json';
+  const ext=fmt==='txt'?'.txt':'.json';
+  const blob=new Blob([content],{type:mime});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  a.href=url;a.download='mofassal_'+today().replace(/-/g,'')+ext;a.click();
+  URL.revokeObjectURL(url);
+  showToast('Exported as '+ext+' \u2713');
+}
+function importData(e){
+  const file=e.target.files[0];if(!file)return;
+  const reader=new FileReader();
+  reader.onload=ev=>{
+    try{
+      const imp=JSON.parse(ev.target.result);
+      if(!imp.profiles||!Array.isArray(imp.profiles)){showToast('⚠ Invalid file');return}
+      let added=0;
+      imp.profiles.forEach(ip=>{if(!store.profiles.find(p=>p.id===ip.id)){store.profiles.push(ip);added++}});
+      if(added===0)showToast('All profiles already exist.');
+      else{if(!store.activeId&&store.profiles.length>0)store.activeId=store.profiles[0].id;saveStore();showToast(`✓ Imported ${added} profile${added!==1?'s':''}!`);renderSettings()}
+    }catch{showToast('⚠ Could not read file')}
+  };
+  reader.readAsText(file);e.target.value='';
+}
+
+// ══════════════════════════════════════════════
+// TOAST
+// ══════════════════════════════════════════════
+let tt;
+function showToast(msg){
+  const el=document.getElementById('toast');el.textContent=msg;el.classList.add('show');
+  clearTimeout(tt);tt=setTimeout(()=>el.classList.remove('show'),2800);
+}
+
+// ══════════════════════════════════════════════
+// INIT
+// ══════════════════════════════════════════════
+loadStore();
+if(store.profiles.length===0)startSetup();
+else if(store.activeId)showMainApp();
+else{renderProfilesScreen();document.getElementById('profiles-screen').classList.remove('hidden')}
+</script>
+</body>
+</html>
