@@ -14,6 +14,8 @@
   --blue:#4a8fc9;--blue-dim:rgba(74,143,201,.13);--blue-border:rgba(74,143,201,.25);
   --text:#ddd0bb;--text-soft:#9ab0c5;--text-dim:#4d6478;--border:rgba(255,255,255,.07);
   --r:16px;--rs:10px;
+  --sabqi:#c97a3a;--sabqi-light:#e4a96e;--sabqi-dim:rgba(201,122,58,.12);--sabqi-border:rgba(201,122,58,.28);
+  --purple:#8e6bc4;--purple-dim:rgba(142,107,196,.13);--purple-border:rgba(142,107,196,.28);
 }
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{height:100%;background:var(--bg)}
@@ -53,8 +55,8 @@ body{font-family:'Nunito',sans-serif;color:var(--text);max-width:480px;margin:0 
 .setup-q{font-size:15px;font-weight:700;color:var(--text);margin-bottom:14px}
 .setup-hint{font-size:12px;color:var(--text-soft);line-height:1.6;margin-bottom:14px}
 
-.name-input,.date-input,.verse-input,.weeks-input{width:100%;background:var(--surface2);border:1.5px solid var(--border);border-radius:var(--rs);padding:12px 14px;color:var(--text);font-size:15px;font-family:'Nunito',sans-serif;font-weight:600;outline:none}
-.name-input:focus,.date-input:focus,.verse-input:focus,.weeks-input:focus{border-color:var(--gold)}
+.name-input,.date-input,.verse-input{width:100%;background:var(--surface2);border:1.5px solid var(--border);border-radius:var(--rs);padding:12px 14px;color:var(--text);font-size:15px;font-family:'Nunito',sans-serif;font-weight:600;outline:none}
+.name-input:focus,.date-input:focus,.verse-input:focus{border-color:var(--gold)}
 .name-input{font-size:16px;font-weight:700}
 .emoji-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
 .emoji-btn{width:42px;height:42px;border-radius:50%;border:1.5px solid var(--border);background:var(--surface2);font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s}
@@ -82,26 +84,8 @@ body{font-family:'Nunito',sans-serif;color:var(--text);max-width:480px;margin:0 
 .opt-btn.selected .ov{color:var(--gold-light)}
 .opt-btn.dur-btn .ov{font-size:13px}
 
-/* Duration & weeks custom input */
-.custom-weeks-row{display:flex;gap:10px;margin-top:10px;align-items:center}
-.custom-weeks-row .weeks-input{flex:1;max-width:120px}
-.custom-weeks-label{font-size:12px;color:var(--text-soft)}
-
-.duration-preview{margin-top:12px;padding:12px 14px;background:var(--gold-dim);border:1px solid var(--gold-border);border-radius:var(--rs);font-size:12px;color:var(--gold-light);display:none}
+.duration-preview{margin-top:12px;padding:10px 14px;background:var(--gold-dim);border:1px solid var(--gold-border);border-radius:var(--rs);font-size:12px;color:var(--gold-light);display:none}
 .duration-preview strong{font-weight:800}
-
-/* Weekly milestone list */
-.week-milestone-toggle{display:flex;align-items:center;justify-content:space-between;margin-top:10px;padding:8px 0;cursor:pointer;font-size:12px;font-weight:700;color:var(--text-soft);border-top:1px solid var(--border)}
-.week-milestone-toggle .wmt-arrow{transition:transform .2s;display:inline-block}
-.week-milestone-toggle.open .wmt-arrow{transform:rotate(180deg)}
-.week-milestone-list{display:none;margin-top:6px;border-radius:var(--rs);overflow:hidden;border:1px solid var(--border)}
-.week-milestone-list.open{display:block}
-.wml-item{display:flex;justify-content:space-between;align-items:center;padding:7px 12px;border-bottom:1px solid var(--border);font-size:12px}
-.wml-item:last-child{border-bottom:none}
-.wml-item:nth-child(even){background:var(--surface2)}
-.wml-week{color:var(--text-dim);font-weight:700;min-width:52px}
-.wml-surah{color:var(--text);font-weight:700;flex:1;text-align:center}
-.wml-verse{color:var(--gold-light);font-weight:800;text-align:right;min-width:60px}
 
 .btn-primary{display:block;width:calc(100% - 40px);margin:20px 20px 0;padding:16px;background:linear-gradient(135deg,var(--gold),#a8782e);border:none;border-radius:var(--r);color:#1a1000;font-size:16px;font-weight:800;font-family:'Nunito',sans-serif;cursor:pointer;letter-spacing:.5px;box-shadow:0 4px 20px rgba(201,168,76,.3);transition:all .2s}
 .btn-primary:active{transform:scale(.98)}
@@ -131,38 +115,25 @@ body{font-family:'Nunito',sans-serif;color:var(--text);max-width:480px;margin:0 
 .prog-label{display:flex;justify-content:space-between;margin-top:7px;font-size:12px;color:var(--text-soft)}
 
 .sec-hdr{padding:18px 20px 10px;font-size:11px;text-transform:uppercase;letter-spacing:2px;color:var(--gold);font-weight:700}
-.sec-hdr.next-hdr{color:var(--blue);padding-top:10px}
 .sec-hdr.advance-hdr{color:var(--blue);padding-top:10px}
 
-/* ── TASK CARD ── */
+/* Task card */
 .task-card{margin:0 16px 12px;background:var(--surface);border:1.5px solid var(--border);border-radius:var(--r);padding:18px;transition:all .3s}
 .task-card.done{background:var(--green-dim);border-color:rgba(78,171,122,.25)}
-.task-card.next-card{border-style:dashed;border-color:var(--blue-border);background:var(--blue-dim)}
-.task-card.next-card.done{background:var(--green-dim);border-color:rgba(78,171,122,.25);border-style:solid}
-.task-type{font-size:10px;text-transform:uppercase;letter-spacing:2px;font-weight:700;margin-bottom:8px;display:flex;align-items:center;gap:6px}
+.task-card.advance-card{border-style:dashed;border-color:var(--blue-border);background:var(--blue-dim)}
+.task-card.advance-card.done{background:var(--green-dim);border-color:rgba(78,171,122,.25);border-style:solid}
+.task-type{font-size:10px;text-transform:uppercase;letter-spacing:2px;font-weight:700;margin-bottom:10px;display:flex;align-items:center;gap:6px}
 .new-type{color:var(--gold)}
 .rev-type{color:var(--green-light)}
 .adv-type{color:var(--blue)}
 
-/* Task header row: English surah + Arabic */
-.task-header-row{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:4px}
-.task-surah-en{font-size:15px;font-weight:800;color:var(--text)}
-.task-surah-ar{font-family:'Amiri',serif;font-size:22px;color:rgba(201,168,76,.55);direction:rtl}
-
-/* Verse range — prominent */
-.task-verse-range{font-size:20px;font-weight:800;color:var(--gold-light);line-height:1.25;margin-bottom:4px}
+/* Verse display — the star of the show */
+.task-verse-main{font-size:17px;font-weight:800;color:var(--text);margin-bottom:3px;line-height:1.3}
+.task-verse-range{font-size:22px;font-weight:800;color:var(--gold-light);margin-bottom:6px;line-height:1.2}
 .task-verse-range.rev-range{color:var(--green-light)}
 .task-verse-range.adv-range{color:var(--blue)}
-
-/* Subtitle row: page + juz */
-.task-sub{font-size:11px;color:var(--text-soft);margin-bottom:2px}
-
-/* Revision cycle bar */
-.rev-cycle-wrap{margin:8px 0 10px}
-.rev-cycle-label{display:flex;justify-content:space-between;font-size:10px;color:var(--text-dim);margin-bottom:4px}
-.rev-cycle-bar{height:4px;background:var(--surface3);border-radius:99px;overflow:hidden;position:relative}
-.rev-cycle-fill{height:100%;background:linear-gradient(90deg,var(--green),var(--green-light));border-radius:99px;transition:width .5s}
-
+.task-sub{font-size:12px;color:var(--text-soft);margin-bottom:2px}
+.task-arabic{font-family:'Amiri',serif;font-size:22px;color:rgba(201,168,76,.5);direction:rtl;text-align:right;margin:8px 0 12px;line-height:1.4}
 .task-footer{display:flex;align-items:center;gap:10px;margin-top:10px}
 .btn-complete{flex:1;padding:11px;border-radius:var(--rs);border:none;font-family:'Nunito',sans-serif;font-size:14px;font-weight:800;cursor:pointer;transition:all .2s}
 .btn-complete.new-btn{background:linear-gradient(135deg,var(--gold),#a8782e);color:#1a1000}
@@ -170,9 +141,6 @@ body{font-family:'Nunito',sans-serif;color:var(--text);max-width:480px;margin:0 
 .btn-complete.adv-btn{background:linear-gradient(135deg,var(--blue),#2a5f8a);color:#fff}
 .btn-complete:active{transform:scale(.97)}
 .done-badge{display:flex;align-items:center;gap:6px;font-size:13px;font-weight:700;color:var(--green-light)}
-
-/* Ahead counter pill */
-.ahead-pill{display:inline-flex;align-items:center;gap:5px;background:var(--blue-dim);border:1px solid var(--blue-border);border-radius:99px;padding:4px 10px;font-size:11px;font-weight:700;color:var(--blue);margin:4px 16px 0}
 
 .stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:0 16px;padding:4px 0 16px}
 .stat-box{background:var(--surface);border:1px solid var(--border);border-radius:var(--rs);padding:14px 10px;text-align:center}
@@ -229,22 +197,6 @@ body{font-family:'Nunito',sans-serif;color:var(--text);max-width:480px;margin:0 
 .pgc-stat .pv{font-size:16px;font-weight:800;color:var(--gold-light)}
 .pgc-stat .pl{font-size:9px;text-transform:uppercase;letter-spacing:1px;color:var(--text-dim);font-weight:700;margin-top:2px}
 
-/* Weekly milestone section in progress */
-.pgc-weeks{border-top:1px solid var(--border)}
-.pgc-weeks-toggle{display:flex;align-items:center;justify-content:space-between;padding:12px 18px;cursor:pointer;font-size:12px;font-weight:700;color:var(--text-soft)}
-.pgc-weeks-toggle .arr{transition:transform .2s;font-size:10px}
-.pgc-weeks-toggle.open .arr{transform:rotate(180deg)}
-.pgc-weeks-body{display:none;padding:0 18px 14px}
-.pgc-weeks-body.open{display:block}
-.pgc-wml-item{display:flex;align-items:center;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--border);font-size:12px}
-.pgc-wml-item:last-child{border-bottom:none}
-.pgc-wml-item.current-week{background:var(--gold-dim);border-radius:var(--rs);padding:6px 8px;margin:2px -8px}
-.pgc-wml-w{color:var(--text-dim);font-weight:700;min-width:52px;font-size:11px}
-.pgc-wml-s{color:var(--text);font-weight:700;flex:1}
-.pgc-wml-v{color:var(--gold-light);font-weight:800;font-size:13px}
-.pgc-wml-done{color:var(--green-light)}
-.pgc-wml-current{color:var(--gold)}
-
 .sec-title{padding:20px 16px 10px;font-family:'Playfair Display',serif;font-size:18px;font-style:italic;color:var(--text)}
 .divider{height:1px;background:var(--border);margin:4px 16px}
 .juz-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;padding:0 16px 20px}
@@ -256,8 +208,6 @@ body{font-family:'Nunito',sans-serif;color:var(--text);max-width:480px;margin:0 
 .juz-empty{background:var(--surface2);border-color:var(--border)!important;color:var(--text-dim)}
 .juz-current{border-color:var(--gold)!important;box-shadow:0 0 0 3px var(--gold-dim)}
 .surah-list{padding:0 16px 20px}
-.surah-item{display:flex;align-items:center;padding:10px 0;border-bottom:1px solid var(--border)}
-.surah-item:last-child{border-bottom:none}
 .snum{width:30px;height:30px;border-radius:50%;background:var(--surface3);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:var(--text-dim);flex-shrink:0;margin-right:12px}
 .snum.ds{background:var(--green-dim);color:var(--green-light)}
 .snum.ps{background:var(--gold-dim);color:var(--gold)}
@@ -274,6 +224,17 @@ body{font-family:'Nunito',sans-serif;color:var(--text);max-width:480px;margin:0 
 .cdf{color:var(--text-dim)}.cdt{border:1.5px solid var(--gold);color:var(--gold-light)}
 .cdfl{background:var(--green-dim);color:var(--green-light)}.cdpa{background:var(--gold-dim);color:var(--gold-light)}
 .cdmi{background:var(--red-dim);color:var(--red);opacity:.6}
+.cdoff{color:var(--text-dim);opacity:.35;font-style:italic}
+.day-btn{background:var(--surface2);border:1.5px solid var(--border);border-radius:var(--rs);padding:9px 4px;text-align:center;cursor:pointer;transition:all .2s;font-family:'Nunito',sans-serif;flex:1}
+.day-btn .db-name{font-size:12px;font-weight:800;color:var(--text-dim);display:block}
+.day-btn .db-ar{font-family:'Amiri',serif;font-size:13px;color:var(--text-dim);display:block;margin-top:1px}
+.day-btn.on{background:var(--green-dim);border-color:rgba(78,171,122,.35)}
+.day-btn.on .db-name,.day-btn.on .db-ar{color:var(--green-light)}
+.day-btn.off-day-today{background:rgba(100,100,120,.12);border:1px solid var(--border);border-radius:var(--r);padding:20px;margin:0 16px 12px;text-align:center}
+.rest-card{margin:0 16px 16px;background:var(--surface2);border:1px solid var(--border);border-radius:var(--r);padding:24px 20px;text-align:center}
+.rest-emoji{font-size:32px;display:block;margin-bottom:8px}
+.rest-title{font-family:'Playfair Display',serif;font-size:17px;color:var(--text-soft);margin-bottom:6px}
+.rest-sub{font-size:13px;color:var(--text-dim);line-height:1.6}
 .cal-legend{display:flex;flex-wrap:wrap;gap:12px;padding:0 20px 20px}
 .leg-i{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--text-soft)}
 .leg-d{width:10px;height:10px;border-radius:3px}
@@ -314,6 +275,121 @@ body{font-family:'Nunito',sans-serif;color:var(--text);max-width:480px;margin:0 
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 @keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
 .fi{animation:fadeIn .35s ease forwards}
+@keyframes popIn{from{transform:scale(.4);opacity:0}to{transform:scale(1);opacity:1}}
+
+/* ── SABQI task card type ── */
+.sabqi-type{color:var(--sabqi-light)}
+.task-verse-range.sabqi-range{color:var(--sabqi-light)}
+.task-card.sabqi-card{border-color:var(--sabqi-border);background:rgba(201,122,58,.04)}
+.task-card.sabqi-card.done{background:var(--green-dim);border-color:rgba(78,171,122,.25)}
+.btn-complete.sabqi-btn{background:linear-gradient(135deg,var(--sabqi-light),var(--sabqi));color:#fff}
+.sec-hdr.sabqi-hdr{color:var(--sabqi-light)}
+
+/* ── Cycle progress bar ── */
+.cycle-bar-wrap{margin:4px 0 10px}
+.cycle-bar-bg{height:3px;background:rgba(255,255,255,.07);border-radius:99px;overflow:hidden;margin-bottom:4px}
+.cycle-bar-fill{height:100%;border-radius:99px;transition:width .6s ease}
+.cycle-bar-lbl{font-size:10px;color:var(--text-dim);letter-spacing:.3px}
+
+/* ── Self-test panel ── */
+.test-panel{display:none;background:var(--blue-dim);border:1px solid var(--blue-border);border-radius:var(--rs);padding:12px 14px;margin:8px 0}
+.task-card.test-on .test-panel{display:block}
+.task-card.test-on .task-verse-range,.task-card.test-on .task-arabic{filter:blur(7px);user-select:none}
+.test-prompt{font-size:13px;font-weight:700;color:var(--text);margin-bottom:10px;line-height:1.5}
+.test-reveal{font-size:11px;color:var(--blue);cursor:pointer;text-decoration:underline;margin-bottom:8px;display:block}
+.test-action-row{display:flex;gap:8px}
+.btn-got-it{flex:1;padding:9px;border-radius:var(--rs);background:var(--green-dim);border:1px solid rgba(78,171,122,.3);color:var(--green-light);font-family:'Nunito',sans-serif;font-size:13px;font-weight:800;cursor:pointer}
+.btn-stumbled{flex:1;padding:9px;border-radius:var(--rs);background:var(--red-dim);border:1px solid rgba(201,76,76,.25);color:var(--red);font-family:'Nunito',sans-serif;font-size:13px;font-weight:800;cursor:pointer}
+
+/* ── Verse flag panel ── */
+.flag-panel{display:none;background:var(--red-dim);border:1px solid rgba(201,76,76,.2);border-radius:var(--rs);padding:10px 12px;margin:6px 0}
+.task-card.flag-on .flag-panel{display:block}
+.flag-row{display:flex;align-items:center;gap:8px}
+.flag-lbl{font-size:12px;color:var(--text-soft);white-space:nowrap}
+.flag-num{width:70px;background:var(--surface2);border:1px solid var(--border);border-radius:var(--rs);padding:7px 10px;color:var(--text);font-family:'Nunito',sans-serif;font-size:13px;font-weight:700;outline:none}
+.flag-num:focus{border-color:var(--red)}
+.btn-flag-ok{padding:7px 14px;border-radius:var(--rs);background:var(--red-dim);border:1px solid rgba(201,76,76,.3);color:var(--red);font-family:'Nunito',sans-serif;font-size:12px;font-weight:800;cursor:pointer}
+
+/* ── Extra task actions ── */
+.task-extra-btns{display:flex;gap:8px;margin-bottom:8px;width:100%}
+.btn-mini{flex:1;padding:8px 6px;border-radius:var(--rs);border:1px solid var(--border);background:var(--surface2);color:var(--text-soft);font-family:'Nunito',sans-serif;font-size:11px;font-weight:700;cursor:pointer;text-align:center;transition:all .2s}
+.btn-mini.blue{border-color:var(--blue-border);color:var(--blue)}
+.btn-mini.red{border-color:rgba(201,76,76,.25);color:var(--red)}
+
+/* ── Tajweed hint ── */
+.tajweed-hint{background:rgba(142,107,196,.07);border:1px solid var(--purple-border);border-radius:var(--rs);margin:8px 0;overflow:hidden}
+.tj-hdr{display:flex;align-items:center;justify-content:space-between;padding:8px 12px;cursor:pointer;font-size:11px;font-weight:700;color:var(--purple);text-transform:uppercase;letter-spacing:1px}
+.tj-arrow{transition:transform .2s}
+.tajweed-hint.open .tj-arrow{transform:rotate(180deg)}
+.tj-body{display:none;padding:0 12px 10px;font-size:12px;color:var(--text-soft);line-height:1.7}
+.tajweed-hint.open .tj-body{display:block}
+
+/* ── Session timer ── */
+.session-timer{display:inline-flex;align-items:center;gap:5px;margin-top:8px;background:var(--surface2);border:1px solid var(--border);border-radius:99px;padding:4px 12px;font-size:11px;font-weight:700;color:var(--text-dim);transition:all .3s}
+.session-timer.running{color:var(--gold-light);border-color:var(--gold-border);background:var(--gold-dim)}
+
+/* ── Surah strength & notes ── */
+.surah-item{display:flex;flex-direction:column;padding:10px 0;border-bottom:1px solid var(--border)}
+.surah-item:last-child{border-bottom:none}
+.surah-main-row{display:flex;align-items:center}
+.strength-badge{font-size:10px;font-weight:700;border-radius:99px;padding:3px 9px;cursor:pointer;transition:all .2s;border:1px solid transparent;white-space:nowrap;flex-shrink:0;margin-left:6px}
+.str-none{background:var(--surface2);color:var(--text-dim);border-color:var(--border)}
+.str-weak{background:var(--red-dim);color:var(--red);border-color:rgba(201,76,76,.3)}
+.str-medium{background:var(--gold-dim);color:var(--gold);border-color:var(--gold-border)}
+.str-strong{background:var(--green-dim);color:var(--green-light);border-color:rgba(78,171,122,.3)}
+.btn-note-toggle{background:none;border:none;color:var(--text-dim);font-size:14px;cursor:pointer;padding:2px 6px;transition:color .2s;flex-shrink:0}
+.btn-note-toggle.has-note{color:var(--gold)}
+.note-area{display:none;margin-top:8px}
+.note-area.open{display:block}
+.note-textarea{width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:var(--rs);padding:9px 11px;color:var(--text);font-family:'Nunito',sans-serif;font-size:12px;resize:none;outline:none;line-height:1.6;min-height:60px}
+.note-textarea:focus{border-color:var(--gold)}
+
+/* ── Hard verses ── */
+.hv-item{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--border)}
+.hv-item:last-child{border-bottom:none}
+.hv-dot{width:7px;height:7px;border-radius:50%;background:var(--red);flex-shrink:0}
+.hv-ref{font-size:13px;font-weight:700;color:var(--text);flex:1}
+.hv-cnt{font-size:11px;font-weight:800;color:var(--red);background:var(--red-dim);border-radius:99px;padding:2px 8px}
+.hv-rm{background:none;border:none;color:var(--text-dim);cursor:pointer;font-size:14px;padding:2px 5px}
+
+/* ── Ramadan card ── */
+.ramadan-card{margin:4px 16px 12px;background:linear-gradient(135deg,rgba(142,107,196,.1),rgba(201,168,76,.08));border:1.5px solid var(--purple-border);border-radius:var(--r);padding:18px}
+.ramadan-badge{font-size:10px;text-transform:uppercase;letter-spacing:2px;color:var(--purple);font-weight:700;margin-bottom:8px}
+.ramadan-night{font-family:'Playfair Display',serif;font-size:17px;color:var(--text);margin-bottom:6px}
+.ramadan-pg{font-size:20px;font-weight:800;color:var(--gold-light)}
+.ramadan-sub{font-size:11px;color:var(--text-dim);margin-top:4px}
+
+/* ── Parent approval ── */
+.parent-wrap{margin:4px 16px 12px;border:1.5px dashed var(--purple-border);border-radius:var(--r);padding:18px;text-align:center}
+.parent-wrap .pw-title{font-size:14px;font-weight:800;color:var(--text);margin-bottom:4px}
+.parent-wrap .pw-sub{font-size:12px;color:var(--text-soft);margin-bottom:14px}
+.btn-parent-approve{padding:10px 24px;border-radius:var(--rs);background:var(--purple-dim);border:1px solid var(--purple-border);color:var(--purple);font-family:'Nunito',sans-serif;font-size:13px;font-weight:800;cursor:pointer}
+.parent-done{display:flex;align-items:center;justify-content:center;gap:8px;font-size:13px;font-weight:700;color:var(--purple);padding:14px}
+
+/* ── Milestone modal ── */
+.ms-overlay{position:fixed;inset:0;background:rgba(0,0,0,.8);backdrop-filter:blur(6px);z-index:2000;display:flex;align-items:center;justify-content:center;padding:20px}
+.ms-overlay.hidden{display:none}
+.ms-card{background:var(--surface);border:1px solid var(--gold-border);border-radius:var(--r);max-width:380px;width:100%;overflow:hidden}
+.ms-body{padding:30px 24px 20px;text-align:center}
+.ms-emoji{font-size:56px;display:block;margin-bottom:8px;animation:popIn .4s ease}
+.ms-arabic{font-family:'Amiri',serif;font-size:28px;color:var(--gold-light);display:block;margin-bottom:6px}
+.ms-title{font-family:'Playfair Display',serif;font-size:22px;color:var(--text);margin-bottom:8px}
+.ms-sub{font-size:13px;color:var(--text-soft);line-height:1.7;margin-bottom:16px}
+.ms-ijazah{background:var(--surface2);border:1px solid var(--border);border-radius:var(--rs);padding:14px;text-align:left}
+.ms-ij-lbl{font-size:11px;color:var(--text-dim);margin-bottom:8px}
+.ms-ij-done{font-size:12px;color:var(--green-light);font-weight:700}
+.btn-ms-verify{width:100%;padding:10px;background:var(--green-dim);border:1px solid rgba(78,171,122,.3);border-radius:var(--rs);color:var(--green-light);font-family:'Nunito',sans-serif;font-size:13px;font-weight:800;cursor:pointer;margin-top:8px}
+.btn-ms-close{display:block;width:100%;padding:14px;background:linear-gradient(135deg,var(--gold),#a8782e);border:none;border-top:1px solid var(--gold-border);color:#1a1000;font-family:'Nunito',sans-serif;font-size:15px;font-weight:800;cursor:pointer;letter-spacing:.5px}
+
+/* ── Toggle switch ── */
+.tog-row{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;border-bottom:1px solid var(--border)}
+.tog-row:last-child{border-bottom:none}
+.tog-info .srl{font-size:14px;font-weight:600;color:var(--text)}
+.tog-info .srld{font-size:11px;color:var(--text-dim);margin-top:2px}
+.toggle{width:44px;height:24px;background:var(--surface3);border-radius:99px;cursor:pointer;position:relative;transition:background .25s;border:1px solid var(--border);flex-shrink:0}
+.toggle.on{background:var(--green)}
+.toggle-knob{width:18px;height:18px;background:#fff;border-radius:50%;position:absolute;top:2px;left:2px;transition:left .25s;box-shadow:0 1px 3px rgba(0,0,0,.3)}
+.toggle.on .toggle-knob{left:22px}
 </style>
 </head>
 <body>
@@ -381,37 +457,25 @@ body{font-family:'Nunito',sans-serif;color:var(--text);max-width:480px;margin:0 
   <div class="setup-card">
     <div class="step-lbl">Step 3 · Plan Duration</div>
     <div class="setup-q">How long is this memorization plan?</div>
-    <div class="setup-hint">Set a time goal to visualize what you'll reach by the end — week by week. You can always change this later.</div>
-    <div class="opts4" id="dur-opts" style="margin-bottom:8px">
+    <div class="setup-hint">Set a time goal to visualize what you'll reach by the end. You can always change this later.</div>
+    <div class="opts4" id="dur-opts" style="margin-bottom:10px">
       <div class="opt-btn dur-btn selected" data-w="0" onclick="pickDur(this)"><span class="ov">∞</span>No limit</div>
       <div class="opt-btn dur-btn" data-w="4" onclick="pickDur(this)"><span class="ov">4</span>weeks</div>
       <div class="opt-btn dur-btn" data-w="8" onclick="pickDur(this)"><span class="ov">8</span>weeks</div>
       <div class="opt-btn dur-btn" data-w="12" onclick="pickDur(this)"><span class="ov">12</span>weeks</div>
     </div>
-    <div class="opts4" id="dur-opts2" style="margin-bottom:8px">
+    <div class="opts4" id="dur-opts2">
       <div class="opt-btn dur-btn" data-w="16" onclick="pickDur(this)"><span class="ov">16</span>weeks</div>
       <div class="opt-btn dur-btn" data-w="24" onclick="pickDur(this)"><span class="ov">24</span>weeks</div>
       <div class="opt-btn dur-btn" data-w="36" onclick="pickDur(this)"><span class="ov">36</span>weeks</div>
       <div class="opt-btn dur-btn" data-w="52" onclick="pickDur(this)"><span class="ov">52</span>weeks</div>
     </div>
-    <!-- Custom week input -->
-    <div class="custom-weeks-row">
-      <input type="number" class="weeks-input" id="si-custom-weeks" min="1" max="260" placeholder="Custom…" oninput="pickCustomWeeks(this)">
-      <span class="custom-weeks-label">Enter any number of weeks</span>
-    </div>
     <div class="duration-preview" id="dur-preview"></div>
-    <!-- Week-by-week milestone list -->
-    <div id="week-milestone-section" style="display:none">
-      <div class="week-milestone-toggle" id="wm-toggle" onclick="toggleWeekMilestones()">
-        <span>📅 Week-by-week targets</span><span class="wmt-arrow">▾</span>
-      </div>
-      <div class="week-milestone-list" id="wm-list"></div>
-    </div>
   </div>
 
   <!-- S4: Daily new -->
   <div class="setup-card">
-    <div class="step-lbl">Step 4 · Memorization Pace</div>
+    <div class="step-lbl">Step 4 · Sabaq (سَبَق) · New Memorization Pace</div>
     <div class="setup-q">How many new pages per day?</div>
     <div class="opts3" id="new-opts">
       <div class="opt-btn" data-v="0.25"><span class="ov">¼</span>page/day</div>
@@ -423,11 +487,26 @@ body{font-family:'Nunito',sans-serif;color:var(--text);max-width:480px;margin:0 
     </div>
   </div>
 
-  <!-- S5: Revision -->
+  <!-- S5: Sabqi -->
+  <div class="setup-card" style="border-color:var(--sabqi-border)">
+    <div class="step-lbl" style="color:var(--sabqi-light)">Step 5 · Sabqi (سَبْقِي) · Recent Review</div>
+    <div class="setup-q">How many recent pages to review each day?</div>
+    <div class="setup-hint">Sabqi covers the <strong style="color:var(--sabqi-light)">last ~40 pages</strong> you memorized and cycles through them daily. This is the tier most students skip — and the main reason newly memorized pages fade. Every serious hifz institution considers it non-negotiable.</div>
+    <div class="opts3" id="sabqi-opts">
+      <div class="opt-btn" data-v="0"><span class="ov">Off</span>skip</div>
+      <div class="opt-btn" data-v="1"><span class="ov">1</span>page/day</div>
+      <div class="opt-btn" data-v="2"><span class="ov">2</span>pages/day</div>
+      <div class="opt-btn selected" data-v="3"><span class="ov">3</span>pages/day</div>
+      <div class="opt-btn" data-v="5"><span class="ov">5</span>pages/day</div>
+      <div class="opt-btn" data-v="8"><span class="ov">8</span>pages/day</div>
+    </div>
+  </div>
+
+  <!-- S6: Revision (Manzil) -->
   <div class="setup-card">
-    <div class="step-lbl">Step 5 · Daily Revision (مُرَاجَعَة)</div>
-    <div class="setup-q">How many pages to revise each day?</div>
-    <div class="setup-hint">Revision cycles through all memorized material. After one full cycle completes, it automatically restarts from the beginning — now including all newly memorized pages.</div>
+    <div class="step-lbl">Step 6 · Manzil (مَنْزِل) · Full Cycle Revision</div>
+    <div class="setup-q">How many pages from the full cycle to revise each day?</div>
+    <div class="setup-hint">Manzil cycles through all memorized material. After one full cycle it restarts — now including newly memorized pages.</div>
     <div class="opts2" id="rev-opts">
       <div class="opt-btn" data-v="2"><span class="ov">2</span>pages/day</div>
       <div class="opt-btn" data-v="5"><span class="ov">5</span>pages/day</div>
@@ -436,9 +515,17 @@ body{font-family:'Nunito',sans-serif;color:var(--text);max-width:480px;margin:0 
     </div>
   </div>
 
-  <!-- S6: Start date -->
+  <!-- S7: Active days -->
   <div class="setup-card">
-    <div class="step-lbl">Step 6 · Start Date</div>
+    <div class="step-lbl">Step 7 · Active Days</div>
+    <div class="setup-q">Which days will you memorize and revise?</div>
+    <div class="setup-hint">Tap to toggle. Off-days are treated as rest — they won't count as missed, and no tasks will appear on those days.</div>
+    <div style="display:flex;gap:6px" id="day-picker"></div>
+  </div>
+
+  <!-- S8: Start date -->
+  <div class="setup-card">
+    <div class="step-lbl">Step 8 · Start Date</div>
     <div class="setup-q">When does the plan begin?</div>
     <input type="date" class="date-input" id="si-startdate">
   </div>
@@ -463,6 +550,7 @@ body{font-family:'Nunito',sans-serif;color:var(--text);max-width:480px;margin:0 
     <div class="hero-date">
       <div class="greeting" id="greeting-text">Assalamu Alaikum</div>
       <div class="today-date-str" id="today-date-str"></div>
+      <div class="session-timer hidden" id="session-timer">⏱ 0:00</div>
       <div class="pb-wrap">
         <div class="pb-fill" id="pb-fill" style="width:0%"></div>
         <div class="pb-goal-mark hidden" id="pb-goal-mark"></div>
@@ -472,14 +560,16 @@ body{font-family:'Nunito',sans-serif;color:var(--text);max-width:480px;margin:0 
         <span id="prog-pct-lbl">0%</span>
       </div>
     </div>
+    <div id="ramadan-today"></div>
     <div id="today-tasks"></div>
     <div id="today-done-banner" class="hidden">
       <div class="cb">
         <span class="cb-emoji">🌙</span>
         <div class="cb-title">MashaAllah! All done today!</div>
-        <div class="cb-sub">Both memorization & revision complete.<br>May Allah keep it firm. Today's tasks are sealed. ↓</div>
+        <div class="cb-sub">Sabaq · Sabqi · Manzil — all complete.<br>May Allah keep it firm. Want to keep going? ↓</div>
       </div>
     </div>
+    <div id="parent-approval-area"></div>
     <div id="advance-tasks"></div>
     <div class="sec-hdr" style="margin-top:4px">This Week</div>
     <div class="week-dots" id="week-dots"></div>
@@ -513,8 +603,10 @@ body{font-family:'Nunito',sans-serif;color:var(--text);max-width:480px;margin:0 
     <div class="divider" style="margin-bottom:14px"></div>
     <div class="juz-grid" id="juz-grid"></div>
     <div class="sec-title">Surah Progress</div>
+    <div style="padding:0 16px 8px;font-size:11px;color:var(--text-dim)">Tap the badge to rate: unrated → Weak → Mid → Strong. Tap 📝 to add notes.</div>
     <div class="divider" style="margin-bottom:14px"></div>
     <div class="surah-list" id="surah-list"></div>
+    <div id="hard-verses-section"></div>
   </div>
 
   <!-- CALENDAR -->
@@ -529,6 +621,7 @@ body{font-family:'Nunito',sans-serif;color:var(--text);max-width:480px;margin:0 
       <div class="leg-i"><div class="leg-d" style="background:var(--green-dim);border:1px solid rgba(78,171,122,.3)"></div>Both done</div>
       <div class="leg-i"><div class="leg-d" style="background:var(--gold-dim);border:1px solid var(--gold-border)"></div>Partial</div>
       <div class="leg-i"><div class="leg-d" style="background:var(--red-dim);border:1px solid rgba(201,76,76,.2)"></div>Missed</div>
+      <div class="leg-i"><div class="leg-d" style="opacity:.35;background:var(--surface3);border:1px solid var(--border)"></div>Rest day</div>
       <div class="leg-i"><div class="leg-d" style="border:1.5px solid var(--gold)"></div>Today</div>
     </div>
   </div>
@@ -547,21 +640,25 @@ body{font-family:'Nunito',sans-serif;color:var(--text);max-width:480px;margin:0 
 
     <div class="ss-lbl" style="margin-top:16px">🔃 Sync Between Devices</div>
     <div class="sync-box">
-      <strong>💻 Laptop → Phone:</strong><br>
-      1. On laptop: tap <em>Export as TXT</em> (works on iPhone).<br>
-      2. Send via WhatsApp, email, or iCloud.<br>
-      3. On phone: open app → <em>Import data</em> → pick the .txt file.<br><br>
-      <strong>📱 Phone → Laptop:</strong><br>
-      1. On phone: tap <em>Export as TXT</em> or <em>JSON</em>.<br>
-      2. Send to laptop via WhatsApp/email.<br>
-      3. On laptop: <em>Import data</em> → pick the file.<br><br>
-      <strong>All profiles are in one file. ✦</strong>
+      <strong>To sync laptop ↔ phone:</strong><br>
+      1. Tap <em>Export my data</em> → file downloads.<br>
+      2. Send via WhatsApp, email, or AirDrop.<br>
+      3. On other device: open app → <em>Import data</em> → pick file.<br>
+      <strong>All family profiles are in one file. ✦</strong>
     </div>
-    <button class="btn-secondary" onclick="exportData('json')">⬇ Export as JSON (laptop)</button>
-    <button class="btn-secondary" onclick="exportData('txt')">⬇ Export as TXT (iPhone/Android)</button>
-    <label class="btn-secondary" style="cursor:pointer">⬆ Import data (JSON or TXT)
-      <input type="file" accept=".json,.txt,application/json,text/plain" id="import-file-input" style="display:none" onchange="importData(event)">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:6px 16px">
+      <button class="btn-secondary" style="margin:0;width:100%" onclick="exportJSON()">⬇ Export .JSON</button>
+      <button class="btn-secondary" style="margin:0;width:100%" onclick="exportTXT()">⬇ Export .TXT</button>
+    </div>
+    <label class="btn-secondary" style="cursor:pointer">⬆ Import data (.json or .txt)
+      <input type="file" accept=".json,.txt" id="import-file-input" style="display:none" onchange="importData(event)">
     </label>
+
+    <div class="ss-lbl" style="margin-top:16px">☪ Ramadan Mode</div>
+    <div class="settings-section" id="ramadan-settings-section"></div>
+
+    <div class="ss-lbl" style="margin-top:16px">👨‍👩‍👧 Family & Parent View</div>
+    <div class="settings-section" id="family-settings-section"></div>
 
     <div class="ss-lbl" style="margin-top:16px">⚠ Danger Zone</div>
     <button class="btn-danger" onclick="confirmDelete()">Delete this profile</button>
@@ -591,6 +688,32 @@ body{font-family:'Nunito',sans-serif;color:var(--text);max-width:480px;margin:0 
     </div>
   </div>
 </div>
+<!-- Parent approval modal -->
+<div class="modal-overlay hidden" id="parent-modal">
+  <div class="modal">
+    <div class="modal-title">👨‍👩‍👧 Parent / Guardian Approval</div>
+    <div class="modal-body">Confirm you have listened to today's recitation and approved it. This will be logged with today's date.</div>
+    <div class="modal-btns">
+      <button class="mc" onclick="closeModal('parent-modal')">Not yet</button>
+      <button class="mc" style="background:var(--green-dim);border-color:rgba(78,171,122,.3);color:var(--green-light)" onclick="doParentApprove()">✓ Approved</button>
+    </div>
+  </div>
+</div>
+
+<!-- Milestone modal -->
+<div class="ms-overlay hidden" id="ms-overlay">
+  <div class="ms-card">
+    <div class="ms-body" id="ms-body">
+      <span class="ms-emoji" id="ms-emoji">🌟</span>
+      <span class="ms-arabic" id="ms-arabic"></span>
+      <div class="ms-title" id="ms-title"></div>
+      <div class="ms-sub" id="ms-sub"></div>
+      <div class="ms-ijazah" id="ms-ijazah"></div>
+    </div>
+    <button class="btn-ms-close" onclick="closeMilestone()">✦ Alhamdulillah — Continue ✦</button>
+  </div>
+</div>
+
 <div class="toast" id="toast"></div>
 
 <script>
@@ -726,16 +849,45 @@ const JUZ=[
 // STATE
 // ══════════════════════════════════════════════
 let store={profiles:[],activeId:null};
-function saveStore(){localStorage.setItem('mofassal_v3',JSON.stringify(store))}
-function loadStore(){try{const r=localStorage.getItem('mofassal_v3');if(r)store=JSON.parse(r)}catch(e){}}
+function saveStore(){localStorage.setItem('mofassal_v4',JSON.stringify(store))}
+function loadStore(){
+  try{
+    // Try v4, fall back to v3 (migration)
+    let r=localStorage.getItem('mofassal_v4')||localStorage.getItem('mofassal_v3');
+    if(r)store=JSON.parse(r);
+  }catch(e){}
+  store.profiles.forEach(normalizeProfile);
+}
+function normalizeProfile(p){
+  if(!p)return p;
+  if(p.progress.sabqiDone===undefined)p.progress.sabqiDone=0;
+  if(p.plan.dailySabqiPages===undefined)p.plan.dailySabqiPages=3;
+  if(!p.surahStrength)p.surahStrength={};
+  if(!p.surahNotes)p.surahNotes={};
+  if(!p.hardVerses)p.hardVerses=[];
+  if(!p.milestonesSeen)p.milestonesSeen=[];
+  if(!p.sessionTimes)p.sessionTimes=[];
+  if(!p.ijazahLog)p.ijazahLog={};
+  if(p.plan.ramadanMode===undefined)p.plan.ramadanMode=false;
+  if(p.plan.ramadanStart===undefined)p.plan.ramadanStart=null;
+  if(p.plan.isChildProfile===undefined)p.plan.isChildProfile=false;
+  return p;
+}
 function ap(){return store.profiles.find(p=>p.id===store.activeId)||null}
 function uid(){return Date.now().toString(36)+Math.random().toString(36).slice(2)}
 
 // ══════════════════════════════════════════════
 // DATE HELPERS
 // ══════════════════════════════════════════════
-function today(){return new Date().toISOString().slice(0,10)}
-function addDays(s,n){const d=new Date(s+'T00:00:00');d.setDate(d.getDate()+n);return d.toISOString().slice(0,10)}
+function today(){
+  const d=new Date();
+  return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+}
+function addDays(s,n){
+  const d=new Date(s+'T00:00:00');
+  d.setDate(d.getDate()+n);
+  return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+}
 function fmtDate(s){return new Date(s+'T00:00:00').toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric',year:'numeric'})}
 function fmtShort(s){return new Date(s+'T00:00:00').toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'})}
 function daysBetween(a,b){return Math.round((new Date(b+'T00:00:00')-new Date(a+'T00:00:00'))/86400000)}
@@ -748,7 +900,10 @@ function pageToJuz(pg){for(let i=JUZ.length-1;i>=0;i--)if(pg>=JUZ[i].s)return JU
 function pageToSurah(pg){for(let i=SURAHS.length-1;i>=0;i--)if(pg>=SURAHS[i].p)return SURAHS[i];return SURAHS[0]}
 
 /**
- * Convert a page position (0–604, fractional ok) → surah:verse at that position.
+ * Convert a page position (0–604, fractional ok) to the surah:verse at that position.
+ * Position 0 = start of Quran (Al-Fatiha v.1).
+ * Position 1.0 = end of page 1 (Al-Fatiha v.7, since Al-Fatiha is one full page).
+ * Uses linear interpolation within each surah based on page count.
  */
 function pageToVerse(pg){
   if(pg<=0) return {surahN:1,verse:1};
@@ -756,7 +911,7 @@ function pageToVerse(pg){
   const s=pageToSurah(Math.ceil(pg));
   const ep=surahEnd(s);
   const totalPgs=Math.max(1,ep-s.p+1);
-  const pgsThrough=pg-s.p+1;
+  const pgsThrough=pg-s.p+1; // 1 = end of first page of surah
   if(pgsThrough<=0) return {surahN:s.n,verse:1};
   const verseFrac=(pgsThrough/totalPgs)*s.v;
   return{surahN:s.n,verse:Math.max(1,Math.min(s.v,Math.round(verseFrac)))};
@@ -771,45 +926,32 @@ function svToPage(surahN,verse){
   const ep=surahEnd(s);
   const totalPgs=ep-s.p+1;
   const frac=Math.min(1,verse/s.v);
-  return Math.min(604,s.p+frac*totalPgs-1);
+  return Math.min(604,s.p+frac*totalPgs-1); // -1 because position is at end of that page
 }
 
 /**
  * Build a display-ready range object from startPg to endPg.
- * Returns { surahLine, verseLine, verseCount, pageHint, arabicLine, sv, ev, ss, es, sameS }
- *
- * [CHANGE 1 & 2] Now returns explicit "From verse X to verse Y" style labels
- * for both memorization and revision tasks.
+ * Returns { mainLine, verseLine, pageHint, arabic }
  */
-function rangeInfo(startPg, endPg){
+function rangeInfo(startPg,endPg){
   const sv=pageToVerse(Math.max(0,startPg));
   const ev=pageToVerse(Math.min(604,endPg));
   const ss=SURAHS[sv.surahN-1];
   const es=SURAHS[ev.surahN-1];
   const sameS=sv.surahN===ev.surahN;
-  let surahLine, verseLine, verseCount, arabicLine;
-
+  let mainLine,verseLine,arabic;
   if(sameS){
-    surahLine=ss.en;
-    arabicLine=ss.ar;
-    if(sv.verse===ev.verse){
-      verseLine=`Verse ${sv.verse}`;
-      verseCount=`1 verse · of ${ss.v} total`;
-    } else {
-      verseLine=`From verse ${sv.verse} to verse ${ev.verse}`;
-      verseCount=`${ev.verse-sv.verse+1} verses`;
-    }
-  } else {
-    surahLine=`${ss.en} → ${es.en}`;
-    arabicLine=`${ss.ar} ·· ${es.ar}`;
-    verseLine=`${ss.en} v.${sv.verse} → ${es.en} v.${ev.verse}`;
-    verseCount='Crossing surahs';
+    mainLine=ss.en;
+    verseLine=sv.verse===ev.verse?`verse ${sv.verse}`:`verses ${sv.verse}–${ev.verse}`;
+    arabic=ss.ar;
+  }else{
+    mainLine=`${ss.en}  →  ${es.en}`;
+    verseLine=`v.${sv.verse} → v.${ev.verse}`;
+    arabic=`${ss.ar} ← ${es.ar}`;
   }
-
-  const p1=Math.ceil(startPg)||1, p2=Math.ceil(endPg);
+  const p1=Math.ceil(startPg)||1,p2=Math.ceil(endPg);
   const pageHint=`Page${p1===p2?` ${p1}`:` ${p1}–${p2}`} · Juz ${pageToJuz(Math.max(1,p1)).n}`;
-
-  return{surahLine, verseLine, verseCount, pageHint, arabicLine, sv, ev, ss, es, sameS};
+  return{mainLine,verseLine,pageHint,arabic,sv,ev,ss,es,sameS};
 }
 
 // ══════════════════════════════════════════════
@@ -830,99 +972,115 @@ function newTaskInfo(offset=0){
   return{...rangeInfo(startPg,endPg),startPg,endPg};
 }
 
-/**
- * [CHANGE 5] revTaskInfo computes revision using modulo over curMem().
- * curMem() always reflects current total memorized pages including new ones.
- * So after finishing a full cycle, the next cycle automatically includes
- * all newly memorized pages — no special handling needed.
- */
 function revTaskInfo(offset=0){
   const p=ap();if(!p)return null;
   const total=Math.floor(curMem());
   if(total<1) return null;
   const rp=p.plan.dailyRevisionPages;
   const rDone=p.progress.revDone+offset;
-  // Modulo cycles back to start after covering all memorized pages
-  // curMem() grows as new pages are memorized, so each new cycle includes more
   const off=(rDone*rp)%total;
   const startPg=Math.floor(off)+1;
   const endPg=Math.min(total,startPg+rp-1);
   const cycleN=Math.floor(rDone*rp/Math.max(1,total))+1;
-  // How far through the current cycle (0–1)
-  const cyclePos=Math.floor(off);
-  const cyclePct=Math.round((cyclePos/total)*100);
-  // Whether this session wraps around (cycle nearly complete or just restarted)
-  const isNewCycle=off===0&&rDone>0;
-  return{...rangeInfo(startPg,endPg),startPg,endPg,total,cycleN,cyclePct,isNewCycle};
+  const cyclePct=(off/Math.max(1,total))*100;
+  return{...rangeInfo(startPg,endPg),startPg,endPg,total,cycleN,cyclePct};
+}
+
+function sabqiTaskInfo(offset=0){
+  const p=ap();if(!p)return null;
+  const sp=p.plan.dailySabqiPages||0;
+  if(sp<=0)return null;
+  const total=Math.floor(curMem());
+  if(total<1)return null;
+  const window=Math.min(40,total);
+  const windowStart=total-window+1;
+  const sDone=(p.progress.sabqiDone||0)+offset;
+  const rawOff=(sDone*sp)%window;
+  const startPg=windowStart+Math.floor(rawOff);
+  const endPg=Math.min(total,startPg+sp-1);
+  const cycleN=Math.floor(sDone*sp/Math.max(1,window))+1;
+  const cyclePct=(rawOff/Math.max(1,window))*100;
+  return{...rangeInfo(startPg,endPg),startPg,endPg,total,window,cycleN,cyclePct};
+}
+
+// Returns true if dateStr is an active day for current profile
+function isActiveDay(dateStr,profile){
+  const p=profile||ap();if(!p)return true;
+  const ad=p.plan.activeDays||[0,1,2,3,4,5,6];
+  return ad.includes(new Date(dateStr+'T00:00:00').getDay());
 }
 
 function calcStreak(){
   const p=ap();if(!p)return 0;
   let streak=0,d=today();
   const tl=p.log[d]||{};
-  if(!tl.new&&!tl.rev) d=addDays(d,-1);
-  while(d>=p.plan.startDate){const l=p.log[d]||{};if(l.new||l.rev){streak++;d=addDays(d,-1);}else break;}
+  if((!tl.new&&!tl.rev)||!isActiveDay(d,p)) d=addDays(d,-1);
+  while(d>=p.plan.startDate){
+    if(!isActiveDay(d,p)){d=addDays(d,-1);continue;} // skip rest days silently
+    const l=p.log[d]||{};
+    if(l.new||l.rev){streak++;d=addDays(d,-1);}
+    else break;
+  }
   return streak;
 }
-function totalActive(){const p=ap();if(!p)return 0;return Object.keys(p.log).filter(d=>{const l=p.log[d];return l.new||l.rev}).length}
-function estCompletion(){const p=ap();if(!p||p.plan.dailyNewPages<=0)return null;const r=604-curMem();if(r<=0)return null;return addDays(today(),Math.ceil(r/p.plan.dailyNewPages))}
+function totalActive(){const p=ap();if(!p)return 0;return Object.keys(p.log).filter(d=>{const l=p.log[d];return l.new||l.rev||l.sabqi}).length}
+function activeDaysPerWeek(){const p=ap();if(!p)return 7;return(p.plan.activeDays||[0,1,2,3,4,5,6]).length}
+function estCompletion(){
+  const p=ap();if(!p||p.plan.dailyNewPages<=0)return null;
+  const r=604-curMem();if(r<=0)return null;
+  // account for active days per week
+  const adpw=activeDaysPerWeek();
+  const activeDaysNeeded=Math.ceil(r/p.plan.dailyNewPages);
+  const calDaysNeeded=Math.ceil(activeDaysNeeded*(7/adpw));
+  return addDays(today(),calDaysNeeded);
+}
 
-/**
- * [CHANGE 3] planGoalInfo now returns weekly milestones array for visualization.
- */
 function planGoalInfo(){
   const p=ap();
   if(!p||!p.plan.weeks||p.plan.weeks===0) return null;
   const totalDays=p.plan.weeks*7;
+  const adpw=activeDaysPerWeek();
+  const activeWeekDays=p.plan.weeks*adpw; // actual memorization sessions
   const startDate=p.plan.startDate;
   const endDate=p.plan.planEndDate;
   const elapsed=Math.max(0,daysBetween(startDate,today()));
   const daysLeft=Math.max(0,daysBetween(today(),endDate));
   const timePct=Math.min(100,(elapsed/totalDays)*100);
-  const targetMem=Math.min(604,p.plan.alreadyMemorized+totalDays*p.plan.dailyNewPages);
+  const targetMem=Math.min(604,p.plan.alreadyMemorized+activeWeekDays*p.plan.dailyNewPages);
   const targetVerse=pageToVerse(targetMem);
   const targetSurah=SURAHS[targetVerse.surahN-1];
   const memGained=Math.max(0,curMem()-p.plan.alreadyMemorized);
   const memTarget=Math.max(1,targetMem-p.plan.alreadyMemorized);
   const goalPct=Math.min(100,(memGained/memTarget)*100);
   const goalPctOfQuran=(targetMem/604)*100;
-  // Weekly milestones
-  const milestones=getWeekMilestones(p.plan.alreadyMemorized,p.plan.dailyNewPages,p.plan.weeks,startDate);
-  const currentWeek=Math.floor(elapsed/7)+1;
-  return{startDate,endDate,totalDays,elapsed,daysLeft,timePct,goalPct,targetMem,targetVerse,targetSurah,goalPctOfQuran,milestones,currentWeek};
-}
-
-/**
- * Generate week-by-week milestone array.
- * Automatically selects step size based on plan length to keep list manageable.
- */
-function getWeekMilestones(alreadyMem, dailyNew, totalWeeks, startDate){
-  const step=totalWeeks<=8?1:totalWeeks<=16?2:totalWeeks<=36?4:8;
-  const milestones=[];
-  for(let w=step; w<=totalWeeks; w+=step){
-    const pg=Math.min(604,alreadyMem+w*7*dailyNew);
-    const v=pageToVerse(pg);
-    const s=SURAHS[v.surahN-1];
-    const date=startDate?addDays(startDate,w*7):null;
-    milestones.push({week:w,page:Math.ceil(pg),surah:s,verse:v.verse,pct:(pg/604*100).toFixed(1),date});
-  }
-  return milestones;
-}
-
-// Days ahead of schedule (how many sessions done beyond today's plan)
-function daysAheadCount(){
-  const p=ap();if(!p)return 0;
-  const t=today();
-  const daysSinceStart=Math.max(0,daysBetween(p.plan.startDate,t));
-  const plannedNewDone=Math.floor(daysSinceStart*1); // 1 session per day
-  // newDone tracks total sessions; if >daysSinceStart+1 (today's), we're ahead
-  return Math.max(0,p.progress.newDone-(daysSinceStart+1));
+  return{startDate,endDate,totalDays,elapsed,daysLeft,timePct,goalPct,targetMem,targetVerse,targetSurah,goalPctOfQuran};
 }
 
 // ══════════════════════════════════════════════
 // SETUP UI
 // ══════════════════════════════════════════════
-let sData={emoji:'🌙',newPages:1,revPages:10,weeks:0};
+let sData={emoji:'🌙',newPages:1,sabqiPages:3,revPages:10,weeks:0,activeDays:[0,1,2,3,4,5,6]};
+
+function buildDayPicker(activeArr){
+  const days=[{n:'Sun',ar:'أحد'},{n:'Mon',ar:'إثن'},{n:'Tue',ar:'ثلا'},{n:'Wed',ar:'أرب'},{n:'Thu',ar:'خمس'},{n:'Fri',ar:'جمع'},{n:'Sat',ar:'سبت'}];
+  document.getElementById('day-picker').innerHTML=days.map((d,i)=>`
+    <div class="day-btn${activeArr.includes(i)?' on':''}" data-di="${i}" onclick="toggleDay(this)">
+      <span class="db-name">${d.n}</span>
+      <span class="db-ar">${d.ar}</span>
+    </div>`).join('');
+}
+function toggleDay(el){
+  const i=parseInt(el.dataset.di);
+  const idx=sData.activeDays.indexOf(i);
+  if(idx>=0){
+    if(sData.activeDays.length<=1){showToast('⚠ Keep at least one active day');return}
+    sData.activeDays.splice(idx,1);el.classList.remove('on');
+    el.querySelectorAll('span').forEach(s=>s.style.color='');
+  }else{
+    sData.activeDays.push(i);el.classList.add('on');
+  }
+  updateDurPreview();
+}
 
 function populateSurahSelect(){
   const sel=document.getElementById('si-surah');
@@ -958,84 +1116,50 @@ function updatePreview(n,v){
 }
 
 function pickEmoji(el){document.querySelectorAll('.emoji-btn').forEach(b=>b.classList.remove('selected'));el.classList.add('selected');sData.emoji=el.dataset.e}
-
 function pickDur(el){
   document.querySelectorAll('.opt-btn.dur-btn').forEach(b=>b.classList.remove('selected'));
-  el.classList.add('selected');
-  sData.weeks=parseInt(el.dataset.w)||0;
-  document.getElementById('si-custom-weeks').value='';
+  el.classList.add('selected');sData.weeks=parseInt(el.dataset.w)||0;
   updateDurPreview();
 }
 
-function pickCustomWeeks(inp){
-  const w=parseInt(inp.value)||0;
-  document.querySelectorAll('.opt-btn.dur-btn').forEach(b=>b.classList.remove('selected'));
-  sData.weeks=w>0?w:0;
-  updateDurPreview();
-}
-
-/**
- * [CHANGE 3] updateDurPreview now shows a week-by-week breakdown list.
- */
 function updateDurPreview(){
   const prev=document.getElementById('dur-preview');
-  const wmSec=document.getElementById('week-milestone-section');
-  if(!sData.weeks){prev.style.display='none';wmSec.style.display='none';return}
+  if(!sData.weeks){prev.style.display='none';return}
+  // Calculate target based on current setup state
   const surahN=parseInt(document.getElementById('si-surah').value)||0;
   const vi=parseInt(document.getElementById('si-verse').value)||0;
   const alreadyMem=surahN>0?svToPage(surahN,vi):0;
   const totalDays=sData.weeks*7;
-  const targetPg=Math.min(604,alreadyMem+totalDays*sData.newPages);
+  const adpw=sData.activeDays.length;
+  const activeSessions=sData.weeks*adpw;
+  const targetPg=Math.min(604,alreadyMem+activeSessions*sData.newPages);
   const tv=pageToVerse(targetPg);
   const ts=SURAHS[tv.surahN-1];
   const startDate=document.getElementById('si-startdate').value||today();
   const endDate=addDays(startDate,totalDays);
-
   prev.style.display='block';
   prev.innerHTML=`<strong>${sData.weeks} weeks</strong> · ends ${fmtShort(endDate)}<br>
-    Target: <strong>${ts.en} (${ts.ar}), verse ${tv.verse}</strong><br>
+    Target by end: <strong>${ts.en} (${ts.ar}), verse ${tv.verse}</strong><br>
     That's <strong>${((targetPg/604)*100).toFixed(1)}%</strong> of the Quran`;
-
-  // Build weekly milestones
-  const milestones=getWeekMilestones(alreadyMem,sData.newPages,sData.weeks,startDate);
-  if(milestones.length>0){
-    wmSec.style.display='block';
-    let rows='';
-    milestones.forEach(m=>{
-      rows+=`<div class="wml-item">
-        <span class="wml-week">Week ${m.week}</span>
-        <span class="wml-surah">${m.surah.en}</span>
-        <span class="wml-verse">v.${m.verse}</span>
-      </div>`;
-    });
-    document.getElementById('wm-list').innerHTML=rows;
-  }else{
-    wmSec.style.display='none';
-  }
-}
-
-function toggleWeekMilestones(){
-  const toggle=document.getElementById('wm-toggle');
-  const list=document.getElementById('wm-list');
-  toggle.classList.toggle('open');
-  list.classList.toggle('open');
 }
 
 function attachOpts(id,cb){document.querySelectorAll('#'+id+' .opt-btn').forEach(btn=>{btn.onclick=()=>{document.querySelectorAll('#'+id+' .opt-btn').forEach(b=>b.classList.remove('selected'));btn.classList.add('selected');cb(parseFloat(btn.dataset.v))}})}
 
 function startSetup(){
   populateSurahSelect();
-  sData={emoji:'🌙',newPages:1,revPages:10,weeks:0};
+  sData={emoji:'🌙',newPages:1,sabqiPages:3,revPages:10,weeks:0,activeDays:[0,1,2,3,4,5,6]};
   document.getElementById('si-name').value='';
   document.getElementById('si-surah').value='0';
   document.getElementById('si-startdate').value=today();
-  document.getElementById('si-custom-weeks').value='';
   onSurahChange();
   document.querySelectorAll('#new-opts .opt-btn').forEach(b=>b.classList.toggle('selected',parseFloat(b.dataset.v)===1));
+  document.querySelectorAll('#sabqi-opts .opt-btn').forEach(b=>b.classList.toggle('selected',parseFloat(b.dataset.v)===3));
   document.querySelectorAll('#rev-opts .opt-btn').forEach(b=>b.classList.toggle('selected',parseFloat(b.dataset.v)===10));
   document.querySelectorAll('.emoji-btn').forEach(b=>b.classList.toggle('selected',b.dataset.e==='🌙'));
   document.querySelectorAll('.opt-btn.dur-btn').forEach(b=>b.classList.toggle('selected',parseInt(b.dataset.w)===0));
+  buildDayPicker(sData.activeDays);
   attachOpts('new-opts',v=>{sData.newPages=v;updateDurPreview()});
+  attachOpts('sabqi-opts',v=>{sData.sabqiPages=v});
   attachOpts('rev-opts',v=>{sData.revPages=v});
   document.getElementById('profiles-screen').classList.add('hidden');
   document.getElementById('setup-screen').classList.remove('hidden');
@@ -1059,9 +1183,11 @@ function createPlan(){
   const profile={
     id:uid(),name,emoji:sData.emoji,
     plan:{alreadyMemorized:alreadyMem,startSurahN:surahN,startVerse:verse,
-      dailyNewPages:sData.newPages,dailyRevisionPages:sData.revPages,
-      startDate,weeks,planEndDate},
-    progress:{newDone:0,revDone:0},log:{}
+      dailyNewPages:sData.newPages,dailySabqiPages:sData.sabqiPages,dailyRevisionPages:sData.revPages,
+      startDate,weeks,planEndDate,activeDays:sData.activeDays.slice().sort(),
+      ramadanMode:false,ramadanStart:null,isChildProfile:false},
+    progress:{newDone:0,sabqiDone:0,revDone:0},
+    log:{},surahStrength:{},surahNotes:{},hardVerses:[],milestonesSeen:[],sessionTimes:[],ijazahLog:{}
   };
   store.profiles.push(profile);store.activeId=profile.id;saveStore();
   document.getElementById('setup-screen').classList.add('hidden');showMainApp();
@@ -1121,58 +1247,238 @@ function switchTab(tab,el){
 // ══════════════════════════════════════════════
 // TODAY TAB
 // ══════════════════════════════════════════════
+// ── TAJWEED HINTS ──
+const TAJWEED_HINTS=[
+  {from:1,to:50,rule:'Idghaam (إدغام) — نْ/تنوين before ن م و ي ر ل: sounds merge. No ghunna for ر and ل.'},
+  {from:51,to:120,rule:'Ikhfa (إخفاء) — نْ/تنوين before 15 letters: hold a nasal tone for 2 counts, between Izhar and Idghaam.'},
+  {from:121,to:200,rule:'Iqlab (إقلاب) — نْ/تنوين before ب converts to a hidden مْ with ghunna. e.g. مِن بَعد → mim-ba\'d.'},
+  {from:201,to:300,rule:'Ghunna (غنة) — Mushaddad ن or م: sustain the nasal vibration for exactly 2 counts.'},
+  {from:301,to:400,rule:'Madd Lazim (مد لازم) — A madd letter followed by sukoon or tashdeed requires a 6-count stretch.'},
+  {from:401,to:500,rule:'Qalqala (قلقلة) — Letters ق ط ب ج د with sukoon or at waqf: add a slight controlled bounce/echo.'},
+  {from:501,to:604,rule:'Short Surahs — Every letter must be crisp. Qalqala at word endings is very prominent. Avoid rushing.'}
+];
+function getTajweedHint(pg){return TAJWEED_HINTS.find(h=>pg>=h.from&&pg<=h.to)||null;}
 
-/**
- * [CHANGE 1 & 2] buildTaskCard now displays:
- *  - Surah name (English) + Arabic name on same row
- *  - Explicit "From verse X to verse Y" as the big highlighted text
- *  - Page number + Juz as subtitle
- *  - For revision: cycle progress bar showing how far through current cycle
- */
-function buildTaskCard(info, type, isDone, isNext){
-  const isNew=type==='new';
-  const typeLabel=isNext
-    ? (isNew?'📅 Next Memorization · حِفْظ':'📅 Next Revision · مُرَاجَعَة')
-    : (isNew?'✦ Today · New Memorization · حِفْظ':'↻ Today · Revision · مُرَاجَعَة');
-  const typeCls=isNext?'adv-type':(isNew?'new-type':'rev-type');
-  const rangeCls=isNext?'adv-range':(isNew?'':'rev-range');
-  const cardCls='task-card fi'+(isDone?' done':'')+(isNext?' next-card':'');
+// ── SESSION TIMER ──
+let _sessionStart=null,_sessionTick=null;
+function startSessionTimer(){
+  if(_sessionStart)return;
+  _sessionStart=Date.now();
+  _sessionTick=setInterval(_updateTimerUI,1000);
+  _updateTimerUI();
+}
+function _updateTimerUI(){
+  const el=document.getElementById('session-timer');if(!el)return;
+  if(!_sessionStart){el.classList.add('hidden');el.classList.remove('running');return;}
+  const s=Math.round((Date.now()-_sessionStart)/1000);
+  el.textContent='⏱ '+Math.floor(s/60)+':'+String(s%60).padStart(2,'0');
+  el.classList.remove('hidden');el.classList.add('running');
+}
+function stopAndSaveSession(){
+  clearInterval(_sessionTick);_sessionTick=null;
+  const elapsed=_sessionStart?Math.round((Date.now()-_sessionStart)/1000):0;
+  _sessionStart=null;
+  const el=document.getElementById('session-timer');
+  if(el){el.classList.add('hidden');el.classList.remove('running');}
+  if(elapsed<10)return;
+  const p=ap();if(!p)return;
+  p.sessionTimes.push({date:today(),seconds:elapsed});
+  if(p.sessionTimes.length>200)p.sessionTimes=p.sessionTimes.slice(-200);
+  saveStore();
+}
 
-  // Cycle info for revision
-  let revCycleHTML='';
-  if(!isNew && info.cycleN!==undefined){
-    const pct=info.cyclePct||0;
-    const cycleNote=info.isNewCycle
-      ? `🔄 New cycle — now covering all <strong>${info.total} memorized pages</strong>`
-      : `Cycle ${info.cycleN} · ${pct}% through · ${info.total} pages total`;
-    revCycleHTML=`<div class="rev-cycle-wrap">
-      <div class="rev-cycle-label">
-        <span style="color:var(--text-dim)">${cycleNote}</span>
-        <span style="color:var(--green-light)">${pct}%</span>
-      </div>
-      <div class="rev-cycle-bar"><div class="rev-cycle-fill" style="width:${pct}%"></div></div>
+// ── MILESTONES ──
+const JUZ_AR=['الأول','الثاني','الثالث','الرابع','الخامس','السادس','السابع','الثامن','التاسع','العاشر','الحادي عشر','الثاني عشر','الثالث عشر','الرابع عشر','الخامس عشر','السادس عشر','السابع عشر','الثامن عشر','التاسع عشر','العشرون','الحادي والعشرون','الثاني والعشرون','الثالث والعشرون','الرابع والعشرون','الخامس والعشرون','السادس والعشرون','السابع والعشرون','الثامن والعشرون','التاسع والعشرون','الثلاثون'];
+function checkMilestones(prev,now){
+  const p=ap();if(!p)return;
+  const found=[];
+  // Hizb: 60 hizbain, each = 604/60 pages
+  for(let h=1;h<=60;h++){const hp=(h/60)*604;if(prev<hp&&now>=hp)found.push({key:'hizb_'+h,type:'hizb',h});}
+  // Juz
+  JUZ.forEach(j=>{if(prev<j.e&&now>=j.e)found.push({key:'juz_'+j.n,type:'juz',n:j.n});});
+  const fresh=found.filter(m=>!p.milestonesSeen.includes(m.key));
+  if(!fresh.length)return;
+  fresh.forEach(m=>p.milestonesSeen.push(m.key));
+  saveStore();
+  // Priority: 5-juz > juz > hizb
+  const show=fresh.find(m=>m.type==='juz'&&m.n%5===0)||fresh.find(m=>m.type==='juz')||fresh[fresh.length-1];
+  showMilestone(show);
+}
+function showMilestone(m){
+  let emoji,title,arabic,sub;
+  if(m.type==='juz'){
+    const is5=m.n%5===0,isLast=m.n===30;
+    emoji=isLast?'🏆':is5?'⭐':'🌟';
+    title=isLast?'Khatmah — MashaAllah!':`Juz ${m.n} Complete${is5?' — Major Milestone':''}!`;
+    arabic=`الجزء ${JUZ_AR[m.n-1]}`;
+    sub=isLast?'You have completed all 30 Juz of the Noble Quran. May Allah accept it, preserve it, and grant you the station of Al-Huffaz.':
+      is5?`${m.n} of 30 Juz memorized — a major checkpoint. You are on a beautiful path.`:
+      `Juz ${m.n} done. ${30-m.n} to go. Keep going — every page is a light.`;
+  }else{
+    emoji='✨';title=`Hizb ${m.h} Complete!`;arabic=`الحزب ${m.h}`;
+    const jN=Math.ceil(m.h/2);
+    sub=`${m.h%2===0?'Full Juz '+jN+' coming up!':'Halfway through Juz '+jN+'.'} Consistent revision is the key.`;
+  }
+  document.getElementById('ms-emoji').textContent=emoji;
+  document.getElementById('ms-title').textContent=title;
+  document.getElementById('ms-arabic').textContent=arabic;
+  document.getElementById('ms-sub').textContent=sub;
+  const key=m.key;const ijaz=(ap()?.ijazahLog||{})[key];
+  document.getElementById('ms-ijazah').innerHTML=ijaz
+    ?`<div class="ms-ij-done">✓ Teacher-verified · ${fmtShort(ijaz.date)}${ijaz.teacher?' · '+ijaz.teacher:''}</div>`
+    :`<div class="ms-ij-lbl">Has a sheikh or teacher verified this portion?</div>
+      <input class="name-input" id="ms-teacher" placeholder="Teacher name (optional)" style="font-size:13px;margin-bottom:8px">
+      <button class="btn-ms-verify" onclick="logIjazah('${key}')">✓ Log Teacher Verification</button>`;
+  document.getElementById('ms-overlay').classList.remove('hidden');
+}
+function logIjazah(key){
+  const p=ap();if(!p)return;
+  const teacher=(document.getElementById('ms-teacher')?.value||'').trim();
+  p.ijazahLog[key]={date:today(),teacher};saveStore();
+  showToast('✓ Teacher verification logged!');closeMilestone();
+}
+function closeMilestone(){document.getElementById('ms-overlay').classList.add('hidden');}
+
+// ── VERSE FLAGGING ──
+function toggleTestMode(card){card.classList.toggle('test-on');card.classList.remove('flag-on');}
+function toggleFlagMode(card){card.classList.toggle('flag-on');card.classList.remove('test-on');}
+function doFlag(card,surahN){
+  const v=parseInt(card.querySelector('.flag-num').value);
+  if(!v||v<1){showToast('⚠ Enter a valid verse number');return;}
+  const p=ap();if(!p)return;
+  const ex=p.hardVerses.find(x=>x.surahN===surahN&&x.verse===v);
+  if(ex){ex.count++;ex.last=today();}
+  else p.hardVerses.push({surahN,verse:v,count:1,last:today()});
+  p.hardVerses.sort((a,b)=>b.count-a.count);
+  saveStore();showToast('⚑ Verse flagged as hard');
+  card.classList.remove('flag-on');card.querySelector('.flag-num').value='';
+}
+function removeHardVerse(surahN,verse){
+  const p=ap();if(!p)return;
+  p.hardVerses=p.hardVerses.filter(x=>!(x.surahN===surahN&&x.verse===verse));
+  saveStore();renderProgress();
+}
+
+// ── STRENGTH RATING ──
+function cycleStrength(sn){
+  const p=ap();if(!p)return;
+  const cur=p.surahStrength[sn]||'none';
+  const next=cur==='none'?'weak':cur==='weak'?'medium':cur==='medium'?'strong':'none';
+  if(next==='none')delete p.surahStrength[sn];else p.surahStrength[sn]=next;
+  saveStore();renderSurahList();
+}
+
+// ── SURAH NOTES ──
+function toggleNote(sn){const a=document.getElementById('na-'+sn);if(a)a.classList.toggle('open');}
+function saveNote(sn,val){
+  const p=ap();if(!p)return;
+  if(val.trim())p.surahNotes[sn]=val.trim();else delete p.surahNotes[sn];
+  const btn=document.querySelector('[data-nb="'+sn+'"]');
+  if(btn)btn.classList.toggle('has-note',!!val.trim());
+  saveStore();
+}
+
+// ── RAMADAN ──
+function toggleRamadan(){
+  const p=ap();if(!p)return;
+  p.plan.ramadanMode=!p.plan.ramadanMode;
+  if(p.plan.ramadanMode&&!p.plan.ramadanStart)p.plan.ramadanStart=today();
+  saveStore();renderSettings();renderToday();
+}
+function setRamadanStart(v){const p=ap();if(!p)return;p.plan.ramadanStart=v;saveStore();renderToday();}
+
+// ── CHILD PROFILE ──
+function toggleChildProfile(){
+  const p=ap();if(!p)return;
+  p.plan.isChildProfile=!p.plan.isChildProfile;
+  saveStore();renderSettings();renderToday();
+}
+function showParentModal(){document.getElementById('parent-modal').classList.remove('hidden');}
+function doParentApprove(){
+  const p=ap();const t=today();
+  if(!p.log[t])p.log[t]={};
+  p.log[t].parentApproved=true;saveStore();
+  closeModal('parent-modal');showToast('✓ Parent approved today\'s recitation 🌟');renderToday();
+}
+
+function buildTaskCard(info,type,isDone,isAdvance){
+  const isNew=type==='new',isSabqi=type==='sabqi';
+  let typeLabel,typeCls,rangeCls,cardExtra,btnCls;
+  if(isAdvance){
+    typeLabel=isNew?'⚡ Bonus Sabaq':isSabqi?'⚡ Bonus Sabqi':'⚡ Bonus Manzil';
+    typeCls='adv-type';rangeCls='adv-range';cardExtra=' advance-card';btnCls='adv-btn';
+  }else if(isNew){
+    typeLabel='✦ Sabaq · حِفْظ · New Memorization';typeCls='new-type';rangeCls='';cardExtra='';btnCls='new-btn';
+  }else if(isSabqi){
+    typeLabel='⟳ Sabqi · سَبْقِي · Recent Review';typeCls='sabqi-type';rangeCls='sabqi-range';cardExtra=' sabqi-card';btnCls='sabqi-btn';
+  }else{
+    typeLabel='↻ Manzil · مَنْزِل · Full Cycle';typeCls='rev-type';rangeCls='rev-range';cardExtra='';btnCls='rev-btn';
+  }
+
+  // Cycle progress bar for rev/sabqi
+  let cycleBar='';
+  if(!isNew&&!isAdvance&&info.cycleN!==undefined){
+    const barColor=isSabqi?'linear-gradient(90deg,var(--sabqi),var(--sabqi-light))':'linear-gradient(90deg,var(--green),var(--green-light))';
+    const cyclePct=(info.cyclePct||0).toFixed(1);
+    cycleBar=`<div class="cycle-bar-wrap">
+      <div class="cycle-bar-bg"><div class="cycle-bar-fill" style="width:${cyclePct}%;background:${barColor}"></div></div>
+      <div class="cycle-bar-lbl">Cycle ${info.cycleN} · ${cyclePct}% through · ${info.total} pages total</div>
     </div>`;
   }
 
-  let footer='';
-  if(isDone){
-    footer='<div class="done-badge">✓ '+(isNew?'Memorized — BaarakAllahu feek!':'Reviewed — MashaAllah!')+'</div>';
-  }else{
-    const btnCls=isNext?'adv-btn':(isNew?'new-btn':'rev-btn');
-    const btnTxt=isNext?'📅 Complete this session':'✓ Mark as Done';
-    const fnCall=`completeTask('${type}',${isNext})`;
-    footer=`<button class="btn-complete ${btnCls}" onclick="${fnCall}">${btnTxt}</button>`;
+  // Tajweed hint for new memorization
+  let tajweed='';
+  if(isNew&&!isAdvance){
+    const hint=getTajweedHint(Math.ceil(info.startPg));
+    if(hint)tajweed=`<div class="tajweed-hint">
+      <div class="tj-hdr" onclick="this.parentElement.classList.toggle('open')">📐 Tajweed Note <span class="tj-arrow">▾</span></div>
+      <div class="tj-body">${hint.rule}</div>
+    </div>`;
   }
 
-  return`<div class="${cardCls}">
-    <div class="task-type ${typeCls}">${typeLabel}</div>
-    <div class="task-header-row">
-      <div class="task-surah-en">${info.surahLine}</div>
-      <div class="task-surah-ar">${info.arabicLine}</div>
-    </div>
+  // Self-test + flag panels (rev/sabqi, not advance, not done)
+  let testPanel='',flagPanel='',extraBtns='';
+  if((type==='rev'||isSabqi)&&!isAdvance&&!isDone){
+    const sv=info.sv,ss=info.ss;
+    const svRef=ss?ss.en+' v.'+(sv?sv.verse:'?'):'this section';
+    testPanel=`<div class="test-panel">
+      <div class="test-prompt">🎯 Recite from <strong>${svRef}</strong> — from memory.<br><span style="font-size:11px;color:var(--text-dim)">(verse and Arabic blurred until you reveal)</span></div>
+      <span class="test-reveal" onclick="this.closest('.task-card').classList.remove('test-on')">👁 Reveal to check</span>
+      <div class="test-action-row">
+        <button class="btn-got-it" onclick="completeTask('${type}',false);showToast('MashaAllah! ✦')">✓ Got it!</button>
+        <button class="btn-stumbled" onclick="this.closest('.task-card').classList.remove('test-on');this.closest('.task-card').classList.add('flag-on')">⚑ Stumbled</button>
+      </div>
+    </div>`;
+    const surahN=sv?sv.surahN:1;
+    flagPanel=`<div class="flag-panel">
+      <div class="flag-row">
+        <span class="flag-lbl">⚑ Flag verse #</span>
+        <input class="flag-num" type="number" min="1" inputmode="numeric" placeholder="e.g. 47">
+        <button class="btn-flag-ok" onclick="doFlag(this.closest('.task-card'),${surahN})">Flag</button>
+      </div>
+    </div>`;
+    extraBtns=`<div class="task-extra-btns">
+      <button class="btn-mini blue" onclick="toggleTestMode(this.closest('.task-card'))">🎯 Self-Test</button>
+      <button class="btn-mini red" onclick="toggleFlagMode(this.closest('.task-card'))">⚑ Flag Verse</button>
+    </div>`;
+  }
+
+  const revTotalStr=(!isNew)&&!isAdvance?` · from ${info.total} pages`:'';
+  let footer;
+  if(isDone){
+    footer=`<div class="done-badge">✓ ${isNew?'Done — BaarakAllahu feek!':isSabqi?'Sabqi complete — MashaAllah!':'Reviewed — MashaAllah!'}</div>`;
+  }else{
+    footer=`${extraBtns}<button class="btn-complete ${btnCls}" style="width:100%" onclick="completeTask('${type}',${isAdvance})">${isAdvance?'⚡ Do it now':'✓ Mark as Done'}</button>`;
+  }
+
+  return`<div class="task-card fi${cardExtra}${isDone?' done':''}">
+    <div class="task-type ${typeCls}">${typeLabel}${(!isNew&&!isAdvance&&info.cycleN)?' · Cycle '+info.cycleN:''}</div>
+    ${cycleBar}
+    <div class="task-verse-main">${info.mainLine}</div>
     <div class="task-verse-range ${rangeCls}">${info.verseLine}</div>
-    <div class="task-sub">${info.pageHint} · ${info.verseCount}</div>
-    ${revCycleHTML}
+    <div class="task-sub">${info.pageHint}${revTotalStr}</div>
+    <div class="task-arabic">${info.arabic}</div>
+    ${tajweed}${testPanel}${flagPanel}
     <div class="task-footer">${footer}</div>
   </div>`;
 }
@@ -1191,53 +1497,113 @@ function renderToday(){
   document.getElementById('prog-pct-lbl').textContent=pct.toFixed(1)+'%';
   document.getElementById('streak-count').textContent=calcStreak();
 
-  // Goal marker on progress bar
   const gi=planGoalInfo();
   const gMark=document.getElementById('pb-goal-mark');
   if(gi){gMark.classList.remove('hidden');gMark.style.left=((gi.targetMem/604)*100).toFixed(1)+'%';}
   else gMark.classList.add('hidden');
 
-  const ni=newTaskInfo(0),ri=revTaskInfo(0);
-  const newApp=ni!==null,revApp=ri!==null;
-  const nd=!newApp||!!log.new;
-  const rd=!revApp||!!log.rev;
-  const allDone=nd&&rd;
+  // Ramadan card
+  const ramEl=document.getElementById('ramadan-today');
+  if(p.plan.ramadanMode&&p.plan.ramadanStart){
+    const dayN=daysBetween(p.plan.ramadanStart,t)+1;
+    if(dayN>=1&&dayN<=30){
+      const total=Math.floor(mem);
+      if(total>=1){
+        const ppn=total/30;
+        const s=Math.max(1,Math.floor((dayN-1)*ppn)+1),e=Math.min(total,Math.floor(dayN*ppn));
+        const ri=rangeInfo(s,e);
+        const isLaylat=dayN===27;
+        ramEl.innerHTML=`<div class="ramadan-card fi">
+          <div class="ramadan-badge">☪ Ramadan Intensive Mode</div>
+          <div class="ramadan-night">${isLaylat?'Night 27 — Laylat al-Qadr 🌙':'Ramadan Night '+dayN+' of 30'}</div>
+          <div class="ramadan-pg">${ri.mainLine}</div>
+          <div style="font-size:14px;font-weight:700;color:var(--text-soft)">${ri.verseLine}</div>
+          <div class="ramadan-sub">${ri.pageHint} · ${ppn.toFixed(1)} pages/night</div>
+        </div>`;
+      }else ramEl.innerHTML='';
+    }else ramEl.innerHTML='';
+  }else ramEl.innerHTML='';
 
-  // Today's tasks
+  // Rest day
+  if(!isActiveDay(t,p)){
+    const dow=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+    const dayName=dow[new Date(t+'T00:00:00').getDay()];
+    let nextActive='tomorrow';
+    for(let i=1;i<=7;i++){const nd=addDays(t,i);if(isActiveDay(nd,p)){nextActive=dow[new Date(nd+'T00:00:00').getDay()];break;}}
+    document.getElementById('today-tasks').innerHTML=`
+      <div class="rest-card fi">
+        <span class="rest-emoji">🌙</span>
+        <div class="rest-title">${dayName} — Rest Day</div>
+        <div class="rest-sub">No tasks today. Next session: <strong style="color:var(--gold-light)">${nextActive}</strong>.<br><br>
+          <span style="font-family:'Amiri',serif;font-size:18px;color:var(--gold-dim)">﴿ فَإِنَّ مَعَ الْعُسْرِ يُسْرًا ﴾</span></div>
+      </div>`;
+    document.getElementById('today-done-banner').classList.add('hidden');
+    document.getElementById('advance-tasks').innerHTML='';
+    document.getElementById('parent-approval-area').innerHTML='';
+    stopAndSaveSession();
+    renderWeekDots();
+    const streak=calcStreak(),juzDone=JUZ.filter(j=>Math.floor(mem)>=j.e).length;
+    document.getElementById('quick-stats').innerHTML=`
+      <div class="stat-box"><div class="stat-val">${streak}</div><div class="stat-label">Streak</div></div>
+      <div class="stat-box"><div class="stat-val">${Math.floor(mem)}</div><div class="stat-label">Pages</div></div>
+      <div class="stat-box"><div class="stat-val">${juzDone}</div><div class="stat-label">Juz Done</div></div>`;
+    return;
+  }
+
+  const ni=newTaskInfo(0),si=sabqiTaskInfo(0),ri=revTaskInfo(0);
+  const newApp=ni!==null;
+  const sabqiEnabled=(p.plan.dailySabqiPages||0)>0;
+  const sabqiApp=sabqiEnabled&&si!==null;
+  const revApp=ri!==null;
+  const nd=!newApp||!!log.new;
+  const sd=!sabqiApp||!!log.sabqi;
+  const rd=!revApp||!!log.rev;
+  const allDone=nd&&sd&&rd;
+
+  if(allDone){stopAndSaveSession();}else{startSessionTimer();}
+
   let todayHTML='';
   if(!allDone){
     todayHTML+='<div class="sec-hdr">Today\'s Tasks</div>';
     if(newApp) todayHTML+=buildTaskCard(ni,'new',nd,false);
-    if(revApp)  todayHTML+=buildTaskCard(ri,'rev',rd,false);
-    if(!newApp) todayHTML+=`<div class="task-card done fi"><div class="task-type new-type">✦ New Memorization</div><div class="task-surah-en">Entire Quran memorized! 🎉</div></div>`;
-    if(!revApp&&Math.floor(mem)<1) todayHTML+=`<div class="task-card fi" style="opacity:.5"><div class="task-type rev-type">↻ Revision</div><div class="task-surah-en" style="color:var(--text-dim)">Awaiting first memorization</div><div class="task-sub">Revision begins after first pages are memorized.</div></div>`;
+    if(sabqiApp) todayHTML+=buildTaskCard(si,'sabqi',sd,false);
+    if(revApp) todayHTML+=buildTaskCard(ri,'rev',rd,false);
+    if(!newApp) todayHTML+=`<div class="task-card done fi"><div class="task-type new-type">✦ Sabaq</div><div class="task-verse-main">Entire Quran memorized! 🎉</div></div>`;
+    if(!sabqiApp&&sabqiEnabled&&Math.floor(mem)<1) todayHTML+=`<div class="task-card fi" style="opacity:.5"><div class="task-type sabqi-type">⟳ Sabqi</div><div class="task-verse-main" style="color:var(--text-dim)">Awaiting first memorization</div></div>`;
+    if(!revApp&&Math.floor(mem)<1) todayHTML+=`<div class="task-card fi" style="opacity:.5"><div class="task-type rev-type">↻ Manzil</div><div class="task-verse-main" style="color:var(--text-dim)">Awaiting first memorization</div><div class="task-sub">Revision begins after first pages are memorized.</div></div>`;
   }
   document.getElementById('today-tasks').innerHTML=todayHTML;
   document.getElementById('today-done-banner').classList.toggle('hidden',!allDone);
 
-  // ── [CHANGE 4] NEXT SESSION — unlocked when today's tasks are complete ──
-  // Users can keep completing these to go ahead of schedule
+  // Parent approval area
+  const paEl=document.getElementById('parent-approval-area');
+  if(p.plan.isChildProfile&&allDone){
+    if(log.parentApproved){
+      paEl.innerHTML=`<div class="parent-wrap fi"><div class="parent-done">✓ Parent approved today's recitation 🌟</div></div>`;
+    }else{
+      paEl.innerHTML=`<div class="parent-wrap fi">
+        <div class="pw-title">👨‍👩‍👧 Waiting for parent approval</div>
+        <div class="pw-sub">Ask your parent or guardian to confirm today's recitation.</div>
+        <button class="btn-parent-approve" onclick="showParentModal()">✓ Parent — Tap to Approve</button>
+      </div>`;
+    }
+  }else paEl.innerHTML='';
+
+  // Advance section
   let advHTML='';
   if(allDone){
-    const nextNI=newTaskInfo(0);
-    const nextRI=revTaskInfo(0);
-    if(nextNI||nextRI){
-      const aheadDays=daysAheadCount();
-      const aheadLabel=aheadDays>0
-        ? `<span class="ahead-pill">⚡ ${aheadDays} day${aheadDays!==1?'s':''} ahead of schedule</span>`
-        : '';
-      advHTML+=`<div class="sec-hdr next-hdr">📅 Next Session — Unlocked</div>`;
-      if(aheadLabel) advHTML+=aheadLabel;
-      if(nextNI) advHTML+=buildTaskCard(nextNI,'new',false,true);
-      if(nextRI)  advHTML+=buildTaskCard(nextRI,'rev',false,true);
+    const nextNI=newTaskInfo(0),nextRI=revTaskInfo(0),nextSI=sabqiTaskInfo(0);
+    if(nextNI||nextRI||nextSI){
+      advHTML+='<div class="sec-hdr advance-hdr">⚡ Keep Going — Advance Ahead</div>';
+      if(nextNI)advHTML+=buildTaskCard(nextNI,'new',false,true);
+      if(nextSI)advHTML+=buildTaskCard(nextSI,'sabqi',false,true);
+      if(nextRI)advHTML+=buildTaskCard(nextRI,'rev',false,true);
     }
   }
   document.getElementById('advance-tasks').innerHTML=advHTML;
-
   renderWeekDots();
 
-  const streak=calcStreak();
-  const juzDone=JUZ.filter(j=>Math.floor(mem)>=j.e).length;
+  const streak=calcStreak(),juzDone=JUZ.filter(j=>Math.floor(mem)>=j.e).length;
   document.getElementById('quick-stats').innerHTML=`
     <div class="stat-box"><div class="stat-val">${streak}</div><div class="stat-label">Streak</div></div>
     <div class="stat-box"><div class="stat-val">${Math.floor(mem)}</div><div class="stat-label">Pages</div></div>
@@ -1251,26 +1617,33 @@ function renderWeekDots(){
     const d=addDays(t,-i);const log=p?(p.log[d]||{}):{};
     const di=new Date(d+'T00:00:00').getDay();
     const isT=d===t,isF=d>t;
+    const isOff=!isActiveDay(d,p);
     let cls='wd ',em='';
-    if(isF){cls+='wd-future';}
-    else if(log.new&&log.rev){cls+='wd-full';em='✓';}
-    else if(log.new||log.rev){cls+='wd-partial';em='·';}
+    if(isOff){cls+='wd-future';em='·';}
+    else if(isF){cls+='wd-future';}
+    else if(log.new&&log.rev&&log.sabqi){cls+='wd-full';em='✓';}
+    else if(log.new||log.rev||log.sabqi){cls+='wd-partial';em='·';}
     else cls+='wd-empty';
     if(isT)cls+=' wd-today';
-    h+=`<div class="week-dot-col"><div class="wdl">${dow[di]}</div><div class="${cls}">${em}</div></div>`;
+    const title=isOff?'Rest day':'';
+    h+=`<div class="week-dot-col"><div class="wdl">${dow[di]}</div><div class="${cls}" title="${title}">${em}</div></div>`;
   }
   document.getElementById('week-dots').innerHTML=h;
 }
 
 function completeTask(type,advance=false){
   const p=ap();const t=today();
+  const prevMem=curMem();
   if(!advance){
     if(!p.log[t])p.log[t]={};
     p.log[t][type]=true;
   }
-  if(type==='new'){p.progress.newDone++;showToast(advance?'📅 Next session memorized!':'✦ Memorization logged!');}
-  else{p.progress.revDone++;showToast(advance?'📅 Next revision done!':'↻ Revision logged!');}
-  saveStore();renderToday();
+  if(type==='new'){p.progress.newDone++;showToast(advance?'⚡ Advance memorization logged!':'✦ Memorization logged!');}
+  else if(type==='sabqi'){p.progress.sabqiDone=(p.progress.sabqiDone||0)+1;showToast(advance?'⚡ Advance Sabqi logged!':'⟳ Sabqi logged — MashaAllah!');}
+  else{p.progress.revDone++;showToast(advance?'⚡ Advance revision logged!':'↻ Manzil logged!');}
+  saveStore();
+  if(type==='new')checkMilestones(prevMem,curMem());
+  renderToday();
 }
 
 // ══════════════════════════════════════════════
@@ -1285,6 +1658,7 @@ function renderProgress(){
   document.getElementById('ring-pct').textContent=(pct*100).toFixed(1)+'%';
   document.getElementById('ring-sub').textContent=Math.floor(mem)+' of 604 pages';
 
+  // Plan goal arc
   const gi=planGoalInfo();
   const ringGoal=document.getElementById('ring-goal');
   if(gi){
@@ -1306,30 +1680,10 @@ function renderProgress(){
     <div class="sbox"><div class="sv">${p.plan.dailyNewPages}p</div><div class="sl">Daily New</div><div class="ss">pages/day</div></div>
     <div class="sbox"><div class="sv">${dl?dl+'d':'—'}</div><div class="sl">Days to Finish</div><div class="ss">${est?fmtShort(est):'—'}</div></div>`;
 
-  // ── [CHANGE 3] PLAN GOAL CARD with weekly milestones ──
+  // ── PLAN GOAL CARD ──
   const pgEl=document.getElementById('plan-goal-section');
   if(gi){
     const gv=gi.targetVerse,gs=gi.targetSurah;
-
-    // Build weekly milestone rows
-    let mRows='';
-    gi.milestones.forEach(m=>{
-      const isCurrent=m.week===gi.currentWeek;
-      const isPast=m.week<gi.currentWeek;
-      const pgMem=Math.min(604,p.plan.alreadyMemorized+m.week*7*p.plan.dailyNewPages);
-      const actualReached=Math.floor(mem)>=pgMem;
-      let rowCls='pgc-wml-item';
-      if(isCurrent)rowCls+=' current-week';
-      let statusIcon=isPast?(actualReached?'✓':'⚠'):(isCurrent?'▶':'·');
-      let wkLabel=`Week ${m.week}`;
-      if(m.date) wkLabel+=`<br><span style="font-size:9px;color:var(--text-dim)">${fmtShort(m.date)}</span>`;
-      mRows+=`<div class="${rowCls}">
-        <div class="pgc-wml-w">${statusIcon} ${wkLabel}</div>
-        <div class="pgc-wml-s">${m.surah.en}</div>
-        <div class="pgc-wml-v" style="color:${isPast&&actualReached?'var(--green-light)':isCurrent?'var(--gold)':'var(--text-dim)'}">v.${m.verse}</div>
-      </div>`;
-    });
-
     pgEl.innerHTML=`
     <div style="padding:20px 16px 10px;font-family:'Playfair Display',serif;font-size:18px;font-style:italic;color:var(--text)">Plan Goal</div>
     <div style="height:1px;background:var(--border);margin:4px 16px 14px"></div>
@@ -1360,15 +1714,6 @@ function renderProgress(){
         <div class="pgc-stat"><div class="pv">${gi.timePct.toFixed(0)}%</div><div class="pl">Time used</div></div>
         <div class="pgc-stat"><div class="pv">${gi.goalPct.toFixed(0)}%</div><div class="pl">Goal done</div></div>
       </div>
-      <div class="pgc-weeks">
-        <div class="pgc-weeks-toggle" id="pgc-weeks-toggle" onclick="togglePgcWeeks()">
-          <span>📅 Week-by-week targets (${gi.milestones.length} milestones)</span>
-          <span class="arr">▾</span>
-        </div>
-        <div class="pgc-weeks-body" id="pgc-weeks-body">
-          ${mRows}
-        </div>
-      </div>
     </div>`;
   }else{
     pgEl.innerHTML='';
@@ -1387,27 +1732,64 @@ function renderProgress(){
   document.getElementById('juz-grid').innerHTML=jh;
 
   // Surah list
+  renderSurahList();
+
+  // Hard verses
+  renderHardVerses();
+}
+
+function renderSurahList(){
+  const p=ap();if(!p)return;
+  const mem=Math.min(604,curMem());
   let sh='';
   SURAHS.forEach(s=>{
     const ep=surahEnd(s);let cls,st;
     if(mem>=ep){cls='ds';st='✓';}
     else if(mem>=s.p){const ps=Math.round(((mem-s.p)/(ep-s.p+1))*100);cls='ps';st=ps+'%';}
     else{cls='';st=s.n;}
+    const isMemorized=mem>=s.p;
+    const strength=isMemorized?(p.surahStrength[s.n]||'none'):'none';
+    const strMap={'none':'Rate','weak':'Weak','medium':'Mid','strong':'Strong'};
+    const strCls={'none':'str-none','weak':'str-weak','medium':'str-medium','strong':'str-strong'};
+    const note=p.surahNotes[s.n]||'';
+    const strengthBadge=isMemorized
+      ?`<span class="strength-badge ${strCls[strength]}" onclick="cycleStrength(${s.n})">${strMap[strength]}</span>`:'';
+    const noteBtnCls='btn-note-toggle'+(note?' has-note':'');
+    const noteBtn=isMemorized?`<button class="${noteBtnCls}" data-nb="${s.n}" onclick="toggleNote(${s.n})" title="Add note">📝</button>`:'';
     sh+=`<div class="surah-item">
-      <div class="snum ${cls}">${cls==='ds'?'✓':(cls==='ps'?st:s.n)}</div>
-      <div style="flex:1"><div class="sen">${s.en}</div><div class="spg">p.${s.p}${ep!==s.p?'–'+ep:''} · ${s.v} verses</div></div>
-      <div style="font-family:'Amiri',serif;font-size:17px;color:var(--text-soft)">${s.ar}</div>
+      <div class="surah-main-row">
+        <div class="snum ${cls}">${cls==='ds'?'✓':(cls==='ps'?st:s.n)}</div>
+        <div style="flex:1"><div class="sen">${s.en}</div><div class="spg">p.${s.p}${ep!==s.p?'–'+ep:''} · ${s.v} verses</div></div>
+        <div style="font-family:'Amiri',serif;font-size:17px;color:var(--text-soft);margin-right:8px">${s.ar}</div>
+        ${strengthBadge}${noteBtn}
+      </div>
+      <div class="note-area${note?' open':''}" id="na-${s.n}">
+        <textarea class="note-textarea" rows="2" placeholder="Personal notes, mnemonics, tricky verses…" oninput="saveNote(${s.n},this.value)">${note}</textarea>
+      </div>
     </div>`;
   });
   document.getElementById('surah-list').innerHTML=sh;
 }
 
-function togglePgcWeeks(){
-  const toggle=document.getElementById('pgc-weeks-toggle');
-  const body=document.getElementById('pgc-weeks-body');
-  if(!toggle||!body)return;
-  toggle.classList.toggle('open');
-  body.classList.toggle('open');
+function renderHardVerses(){
+  const p=ap();if(!p)return;
+  const hvEl=document.getElementById('hard-verses-section');if(!hvEl)return;
+  const hv=p.hardVerses||[];
+  if(!hv.length){hvEl.innerHTML='';return;}
+  let h=`<div class="sec-title" style="padding-top:10px">⚑ Hard Verses — Flagged for Focus</div>
+    <div style="height:1px;background:var(--border);margin:4px 16px 12px"></div>
+    <div style="padding:0 16px 20px">`;
+  hv.slice(0,20).forEach(v=>{
+    const s=SURAHS[v.surahN-1];
+    h+=`<div class="hv-item">
+      <div class="hv-dot"></div>
+      <div style="flex:1"><div class="hv-ref">${s?s.en:'?'} · verse ${v.verse}</div><div style="font-family:'Amiri',serif;font-size:14px;color:var(--text-soft)">${s?s.ar:''}</div></div>
+      <div class="hv-cnt">×${v.count}</div>
+      <button class="hv-rm" onclick="removeHardVerse(${v.surahN},${v.verse})" title="Remove">✕</button>
+    </div>`;
+  });
+  h+=`</div>`;
+  hvEl.innerHTML=h;
 }
 
 // ══════════════════════════════════════════════
@@ -1428,12 +1810,14 @@ function renderCalendar(){
     const ds=`${calYear}-${String(calMonth+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
     const log=p?(p.log[ds]||{}):{};
     const isT=ds===t,isF=ds>t;
+    const isOff=!isActiveDay(ds,p);
     const isP=ds<t&&p&&ds>=(p.plan.startDate||t);
     let cls='cal-day';
-    if(isT)cls+=' cdt';
+    if(isOff)cls+=' cdoff';
+    else if(isT)cls+=' cdt';
     else if(isF)cls+=' cdf';
-    else if(log.new&&log.rev)cls+=' cdfl';
-    else if(log.new||log.rev)cls+=' cdpa';
+    else if(log.new&&log.rev&&log.sabqi)cls+=' cdfl';
+    else if(log.new||log.rev||log.sabqi)cls+=' cdpa';
     else if(isP)cls+=' cdmi';
     h+=`<div class="${cls}">${d}</div>`;
   }
@@ -1456,62 +1840,102 @@ function renderSettings(){
   const sl=p.plan.startSurahN>0?`${SURAHS[p.plan.startSurahN-1].en}, verse ${p.plan.startVerse}`:'From the beginning';
   const tv=pageToVerse(Math.floor(curMem()));const ts=SURAHS[tv.surahN-1];
   const durStr=p.plan.weeks?`${p.plan.weeks} weeks (ends ${fmtShort(p.plan.planEndDate)})`:'No time limit';
+  const dayNamesShort=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+  const ad=p.plan.activeDays||[0,1,2,3,4,5,6];
+  const adStr=ad.map(i=>dayNamesShort[i]).join(', ')+` (${ad.length}/week)`;
   document.getElementById('plan-summary-settings').innerHTML=`
     <div class="settings-row"><div><div class="srl">Profile</div></div><div class="srv">${p.emoji} ${p.name}</div></div>
     <div class="settings-row"><div><div class="srl">Memorized up to</div></div><div class="srv">${sl}</div></div>
     <div class="settings-row"><div><div class="srl">Currently at</div></div><div class="srv">${ts.en} v.${tv.verse}</div></div>
+    <div class="settings-row"><div><div class="srl">Active days</div></div><div class="srv" style="font-size:11px">${adStr}</div></div>
     <div class="settings-row"><div><div class="srl">Plan duration</div></div><div class="srv">${durStr}</div></div>
-    <div class="settings-row"><div><div class="srl">Active days</div></div><div class="srv">${totalActive()}</div></div>`;
+    <div class="settings-row"><div><div class="srl">Sessions done</div></div><div class="srv">${totalActive()}</div></div>`;
 
   document.getElementById('edit-plan-section').innerHTML=`
     <div style="margin-bottom:16px">
-      <div style="font-size:11px;text-transform:uppercase;letter-spacing:2px;color:var(--gold);font-weight:700;margin-bottom:10px">Daily New Pages</div>
+      <div style="font-size:11px;text-transform:uppercase;letter-spacing:2px;color:var(--gold);font-weight:700;margin-bottom:10px">Active Days</div>
+      <div style="font-size:12px;color:var(--text-soft);margin-bottom:10px">Tap to toggle rest days. Off-days won't show tasks or count as missed.</div>
+      <div style="display:flex;gap:6px" id="settings-day-picker"></div>
+    </div>
+    <div style="margin-bottom:16px">
+      <div style="font-size:11px;text-transform:uppercase;letter-spacing:2px;color:var(--gold);font-weight:700;margin-bottom:10px">Daily New Pages (Sabaq)</div>
       <div class="opts3" id="en-opts">
         ${[0.25,0.5,1,2,3,5].map(v=>`<div class="opt-btn${p.plan.dailyNewPages===v?' selected':''}" data-v="${v}" onclick="editPace('dailyNewPages',${v},this,'en-opts')"><span class="ov">${v===0.25?'¼':v===0.5?'½':v}</span>${v===0.25?'¼pg':v===0.5?'½pg':v+'pg'}</div>`).join('')}
       </div>
     </div>
     <div style="margin-bottom:16px">
-      <div style="font-size:11px;text-transform:uppercase;letter-spacing:2px;color:var(--gold);font-weight:700;margin-bottom:10px">Daily Revision Pages</div>
-      <div class="opts2" id="er-opts">
-        ${[2,5,10,20].map(v=>`<div class="opt-btn${p.plan.dailyRevisionPages===v?' selected':''}" data-v="${v}" onclick="editPace('dailyRevisionPages',${v},this,'er-opts')"><span class="ov">${v}</span>${v} pages</div>`).join('')}
+      <div style="font-size:11px;text-transform:uppercase;letter-spacing:2px;color:var(--sabqi-light);font-weight:700;margin-bottom:10px">Daily Sabqi Pages (Recent Review)</div>
+      <div class="opts3" id="esq-opts">
+        ${[0,1,2,3,5,8].map(v=>`<div class="opt-btn${(p.plan.dailySabqiPages||0)===v?' selected':''}" data-v="${v}" onclick="editPace('dailySabqiPages',${v},this,'esq-opts')"><span class="ov">${v||'Off'}</span>${v?v+'pg':'skip'}</div>`).join('')}
       </div>
     </div>
     <div>
-      <div style="font-size:11px;text-transform:uppercase;letter-spacing:2px;color:var(--gold);font-weight:700;margin-bottom:10px">Plan Duration (weeks)</div>
-      <div class="custom-weeks-row">
-        <input type="number" class="weeks-input" id="settings-weeks" min="0" max="260"
-          value="${p.plan.weeks||''}" placeholder="0 = no limit"
-          oninput="editWeeks(this)">
-        <span class="custom-weeks-label">0 or blank = no time limit</span>
+      <div style="font-size:11px;text-transform:uppercase;letter-spacing:2px;color:var(--gold);font-weight:700;margin-bottom:10px">Daily Manzil Pages (Full Cycle)</div>
+      <div class="opts2" id="er-opts">
+        ${[2,5,10,20].map(v=>`<div class="opt-btn${p.plan.dailyRevisionPages===v?' selected':''}" data-v="${v}" onclick="editPace('dailyRevisionPages',${v},this,'er-opts')"><span class="ov">${v}</span>${v} pages</div>`).join('')}
       </div>
-      <div id="settings-weeks-preview" style="margin-top:8px;font-size:12px;color:var(--text-soft)"></div>
     </div>`;
-  updateSettingsWeeksPreview();
+
+  // Day picker
+  const dayNamesObj=[{n:'Sun',ar:'أحد'},{n:'Mon',ar:'إثن'},{n:'Tue',ar:'ثلا'},{n:'Wed',ar:'أرب'},{n:'Thu',ar:'خمس'},{n:'Fri',ar:'جمع'},{n:'Sat',ar:'سبت'}];
+  document.getElementById('settings-day-picker').innerHTML=dayNamesObj.map((d,i)=>`
+    <div class="day-btn${ad.includes(i)?' on':''}" data-di="${i}" onclick="toggleSettingsDay(this)">
+      <span class="db-name">${d.n}</span>
+      <span class="db-ar">${d.ar}</span>
+    </div>`).join('');
+
+  // Ramadan settings
+  const ramEl=document.getElementById('ramadan-settings-section');
+  if(ramEl){
+    const isRam=p.plan.ramadanMode;
+    ramEl.innerHTML=`<div class="tog-row">
+      <div class="tog-info"><div class="srl">Ramadan Intensive Mode</div><div class="srld">Generates a nightly Khatmah schedule splitting all memorized pages across 30 nights</div></div>
+      <div class="toggle${isRam?' on':''}" onclick="toggleRamadan()"><div class="toggle-knob"></div></div>
+    </div>
+    ${isRam?`<div style="padding:14px 16px;border-top:1px solid var(--border)">
+      <div style="font-size:11px;text-transform:uppercase;letter-spacing:2px;color:var(--gold);font-weight:700;margin-bottom:8px">Ramadan Start Date</div>
+      <input type="date" class="date-input" value="${p.plan.ramadanStart||today()}" onchange="setRamadanStart(this.value)" style="margin-top:0">
+    </div>`:''}`;
+  }
+
+  // Family settings
+  const famEl=document.getElementById('family-settings-section');
+  if(famEl){
+    const isChild=p.plan.isChildProfile;
+    const avgTime=p.sessionTimes&&p.sessionTimes.length
+      ?Math.round(p.sessionTimes.reduce((a,b)=>a+b.seconds,0)/p.sessionTimes.length):null;
+    const avgStr=avgTime?`${Math.floor(avgTime/60)}m ${avgTime%60}s`:'—';
+    famEl.innerHTML=`<div class="tog-row">
+      <div class="tog-info"><div class="srl">Child Profile</div><div class="srld">Shows a parent approval button after all tasks are complete</div></div>
+      <div class="toggle${isChild?' on':''}" onclick="toggleChildProfile()"><div class="toggle-knob"></div></div>
+    </div>
+    <div class="settings-row">
+      <div><div class="srl">Avg. Session Time</div></div>
+      <div class="srv">${avgStr}</div>
+    </div>
+    <div class="settings-row">
+      <div><div class="srl">Sessions Logged</div></div>
+      <div class="srv">${p.sessionTimes?p.sessionTimes.length:0}</div>
+    </div>`;
+  }
 }
 
 function editPace(key,val,el,gid){
   document.querySelectorAll('#'+gid+' .opt-btn').forEach(b=>b.classList.remove('selected'));
   el.classList.add('selected');ap().plan[key]=val;saveStore();showToast('Plan updated ✓');renderToday();
 }
-
-function editWeeks(inp){
+function toggleSettingsDay(el){
   const p=ap();if(!p)return;
-  const w=parseInt(inp.value)||0;
-  p.plan.weeks=w;
-  p.plan.planEndDate=w>0?addDays(p.plan.startDate,w*7):null;
-  saveStore();showToast('Duration updated ✓');
-  updateSettingsWeeksPreview();
-}
-
-function updateSettingsWeeksPreview(){
-  const p=ap();if(!p)return;
-  const el=document.getElementById('settings-weeks-preview');
-  if(!el)return;
-  if(!p.plan.weeks||p.plan.weeks===0){el.textContent='No time limit set.';return}
-  const targetPg=Math.min(604,p.plan.alreadyMemorized+p.plan.weeks*7*p.plan.dailyNewPages);
-  const tv=pageToVerse(targetPg);
-  const ts=SURAHS[tv.surahN-1];
-  el.innerHTML=`Target in ${p.plan.weeks} weeks: <strong style="color:var(--gold-light)">${ts.en}, verse ${tv.verse}</strong> · ends ${fmtShort(p.plan.planEndDate)}`;
+  if(!p.plan.activeDays)p.plan.activeDays=[0,1,2,3,4,5,6];
+  const i=parseInt(el.dataset.di);
+  const idx=p.plan.activeDays.indexOf(i);
+  if(idx>=0){
+    if(p.plan.activeDays.length<=1){showToast('⚠ Keep at least one active day');return}
+    p.plan.activeDays.splice(idx,1);el.classList.remove('on');
+  }else{
+    p.plan.activeDays.push(i);p.plan.activeDays.sort();el.classList.add('on');
+  }
+  saveStore();showToast('Schedule updated ✓');renderToday();
 }
 
 // ══════════════════════════════════════════════
@@ -1536,24 +1960,87 @@ function closeModal(id){document.getElementById(id).classList.add('hidden')}
 // ══════════════════════════════════════════════
 // EXPORT / IMPORT
 // ══════════════════════════════════════════════
-function exportData(fmt){
-  fmt=fmt||'json';
-  const content=JSON.stringify(store,null,2);
-  const mime=fmt==='txt'?'text/plain':'application/json';
-  const ext=fmt==='txt'?'.txt':'.json';
-  const blob=new Blob([content],{type:mime});
+function exportJSON(){
+  const blob=new Blob([JSON.stringify(store,null,2)],{type:'application/json'});
   const url=URL.createObjectURL(blob);
   const a=document.createElement('a');
-  a.href=url;a.download='mofassal_'+today().replace(/-/g,'')+ext;a.click();
-  URL.revokeObjectURL(url);
-  showToast('Exported as '+ext+' \u2713');
+  a.href=url;a.download=`mofassal_${today().replace(/-/g,'')}.json`;a.click();
+  URL.revokeObjectURL(url);showToast('JSON exported ✓');
+}
+function exportTXT(){
+  const lines=[];
+  const d=today();
+  lines.push('══════════════════════════════════════');
+  lines.push('         مفصّل · MOFASSAL BACKUP');
+  lines.push('══════════════════════════════════════');
+  lines.push('Exported: '+fmtDate(d));
+  lines.push('');
+  store.profiles.forEach((p,pi)=>{
+    const mem=Math.min(604,p.plan.alreadyMemorized+p.progress.newDone*p.plan.dailyNewPages);
+    const tv=pageToVerse(Math.floor(mem));const ts=SURAHS[tv.surahN-1];
+    const pct=((mem/604)*100).toFixed(1);
+    const sl=p.plan.startSurahN>0?`${SURAHS[p.plan.startSurahN-1].en}, verse ${p.plan.startVerse}`:'From the beginning';
+    lines.push(`PROFILE ${pi+1}: ${p.emoji} ${p.name}`);
+    lines.push('──────────────────────────────────────');
+    lines.push(`Started memorizing at: ${sl}`);
+    lines.push(`Currently at:  ${ts.en} (${ts.ar}), verse ${tv.verse}`);
+    lines.push(`Progress:      ${Math.floor(mem)} / 604 pages  (${pct}% of the Quran)`);
+    lines.push(`Daily new:     ${p.plan.dailyNewPages} page(s)/day (Sabaq)`);
+    lines.push(`Daily sabqi:   ${p.plan.dailySabqiPages||0} page(s)/day (Sabqi)`);
+    lines.push(`Daily revision:${p.plan.dailyRevisionPages} page(s)/day (Manzil)`);
+    const dayNms=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+    const adx=p.plan.activeDays||[0,1,2,3,4,5,6];
+    lines.push(`Active days:   ${adx.map(i=>dayNms[i]).join(', ')} (${adx.length}/week)`);
+    lines.push(`Plan start:    ${p.plan.startDate}`);
+    if(p.plan.weeks) lines.push(`Plan duration: ${p.plan.weeks} weeks (ends ${p.plan.planEndDate})`);
+    lines.push(`Active days:   ${Object.keys(p.log).filter(k=>{const l=p.log[k];return l.new||l.rev}).length}`);
+    lines.push('');
+    lines.push('Activity Log (most recent 30 days):');
+    const logDays=Object.keys(p.log).sort().slice(-30);
+    if(logDays.length===0){lines.push('  (no activity yet)');}
+    else logDays.forEach(dk=>{
+      const l=p.log[dk];
+      const status=(l.new&&l.rev)?'✓ Both done':(l.new?'· New only':(l.rev?'· Rev only':''));
+      lines.push(`  ${dk}  ${status}`);
+    });
+    lines.push('');
+    // Raw JSON for re-import embedded at end
+    lines.push('[RAW_JSON_FOR_IMPORT_START]');
+    lines.push(JSON.stringify({profiles:[p]},null,2));
+    lines.push('[RAW_JSON_FOR_IMPORT_END]');
+    lines.push('');
+  });
+  lines.push('══════════════════════════════════════');
+  lines.push('To re-import: Settings → Import data → pick this .txt file');
+  lines.push('══════════════════════════════════════');
+  const blob=new Blob([lines.join('\n')],{type:'text/plain;charset=utf-8'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  a.href=url;a.download=`mofassal_${today().replace(/-/g,'')}.txt`;a.click();
+  URL.revokeObjectURL(url);showToast('TXT exported ✓');
 }
 function importData(e){
   const file=e.target.files[0];if(!file)return;
   const reader=new FileReader();
   reader.onload=ev=>{
     try{
-      const imp=JSON.parse(ev.target.result);
+      let raw=ev.target.result.trim();
+      // Support .txt files that embed JSON between markers
+      if(raw.includes('[RAW_JSON_FOR_IMPORT_START]')){
+        const chunks=[];
+        const rx=/\[RAW_JSON_FOR_IMPORT_START\]([\s\S]*?)\[RAW_JSON_FOR_IMPORT_END\]/g;
+        let m;while((m=rx.exec(raw))!==null){
+          try{const obj=JSON.parse(m[1].trim());if(obj.profiles)chunks.push(...obj.profiles);}catch(ex){}
+        }
+        if(chunks.length===0){showToast('⚠ No profiles found in TXT');return}
+        let added=0;
+        chunks.forEach(ip=>{if(!store.profiles.find(p=>p.id===ip.id)){store.profiles.push(ip);added++}});
+        if(added===0)showToast('All profiles already exist.');
+        else{if(!store.activeId)store.activeId=store.profiles[0].id;saveStore();showToast(`✓ Imported ${added} profile${added!==1?'s':''}!`);renderSettings()}
+        return;
+      }
+      // Standard JSON import
+      const imp=JSON.parse(raw);
       if(!imp.profiles||!Array.isArray(imp.profiles)){showToast('⚠ Invalid file');return}
       let added=0;
       imp.profiles.forEach(ip=>{if(!store.profiles.find(p=>p.id===ip.id)){store.profiles.push(ip);added++}});
@@ -1574,12 +2061,31 @@ function showToast(msg){
 }
 
 // ══════════════════════════════════════════════
+// MIDNIGHT AUTO-REFRESH
+// Schedules a re-render exactly at 00:00 local time so the day
+// flips correctly without needing a manual reload.
+// ══════════════════════════════════════════════
+function scheduleMidnightRefresh(){
+  const now=new Date();
+  const msUntilMidnight=
+    new Date(now.getFullYear(),now.getMonth(),now.getDate()+1,0,0,0).getTime()-now.getTime();
+  setTimeout(()=>{
+    // Re-render whichever tab is active
+    if(document.getElementById('tab-today').classList.contains('active')) renderToday();
+    else if(document.getElementById('tab-progress').classList.contains('active')) renderProgress();
+    else if(document.getElementById('tab-calendar').classList.contains('active')) renderCalendar();
+    scheduleMidnightRefresh(); // reschedule for the next midnight
+  }, msUntilMidnight+500); // +500ms buffer past midnight
+}
+
+// ══════════════════════════════════════════════
 // INIT
 // ══════════════════════════════════════════════
 loadStore();
 if(store.profiles.length===0)startSetup();
 else if(store.activeId)showMainApp();
 else{renderProfilesScreen();document.getElementById('profiles-screen').classList.remove('hidden')}
+scheduleMidnightRefresh();
 </script>
 </body>
 </html>
